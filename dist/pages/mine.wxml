@@ -1,0 +1,58 @@
+
+    <view class="container">
+        
+    <form report-submit="true" bindsubmit="$moreFormId$getFormId">
+        <button form-type="submit">
+            
+        <view class="topUserMessBox">
+            <view class="userAvatarUrlBox"><open-data type="userAvatarUrl" class="userAvatarUrl"/></view>
+            <open-data type="userNickName" class="userNickName"/>
+            <view class="noticeBox">欢迎您的到来</view>
+        </view>
+        
+        </button>
+    </form>
+
+        <!-- 订单模块 -->
+        
+    <form report-submit="true" bindsubmit="$moreFormId$getFormId">
+        <button form-type="submit">
+            
+        <view class="orderModularBox">
+            <view class="orderModularItem" bindtap="relatedOrders" data-wpyrelatedorders-a="0">
+                <image src="http://www.qumatou.com.cn/zheng/xcximage/maidan.png"/>
+                <view>买单记录</view>
+            </view>
+            <view class="orderModularItem" bindtap="relatedOrders" data-wpyrelatedorders-a="3">
+                <image src="http://www.qumatou.com.cn/zheng/xcximage/waimais.png"/>
+                <view>外卖订单</view>
+            </view>
+            <view class="orderModularItem" bindtap="relatedOrders" data-wpyrelatedorders-a="1">
+                <image src="http://www.qumatou.com.cn/zheng/xcximage/dianshangs.png"/>
+                <view>电商/门店订单</view>
+            </view>
+            <view class="orderModularItem" bindtap="relatedOrders" data-wpyrelatedorders-a="2">
+                <image src="http://www.qumatou.com.cn/zheng/xcximage/techan.png"/>
+                <view>本地特产</view>
+            </view>
+        </view>
+        
+        </button>
+    </form>
+
+        <!-- line -->
+        <view class="lineBg"/>
+        <!-- 其他模块 -->
+        <view class="otherModularBox">
+            <view class="otherModularItem"  wx:for="{{otherModular}}" wx:key="" bindtap="otherModularItem" data-wpyothermodularitem-a="{{index}}">
+                
+    <form report-submit="true" bindsubmit="$moreFormId$getFormId">
+        <button form-type="submit">
+            <image src="{{item.icon}}"/>
+        </button>
+    </form>
+
+                <view>{{item.title}}</view>
+            </view>
+        </view>
+    </view>

@@ -1,0 +1,66 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../../../api/requestUrl';
+import { requestData } from '../../../api/requestData'
+export default class payMentDetails extends wepy.page {
+    config = {
+        navigationBarTitleText: '订单详情',
+    };
+    components = {};
+
+    data = {
+        allData:null
+    };
+    methods = {};
+
+    events = {};
+    onLoad(options) {
+        // 获取订单详情数据
+        this.orderData(options.orderNumber)
+    };
+    // 获取订单详情数据
+    orderData(orderNumber){
+        let url = requestUrl.orderDetails;
+        let data = {
+            outTraceNo : orderNumber
+        }
+        requestData(url,'POST',data).then(res=>{
+            console.log(res.data.data)
+            this.allData = res.data.data
+            this.$apply()
+        })
+    }
+}
+</script>
+
+<template lang="wxml">
+    <view class="topIconPriceBox">
+        <image src="{{allData.m_logo}}" />
+        <view>{{allData.m_name}}</view>
+        <view>- {{allData.product[0].total}}</view>
+    </view>
+</template>
+
+<style lang="less">
+    .topIconPriceBox{
+        height: 444rpx;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1rpx solid #f1f1f1;
+        image{
+            width: 130rpx;
+            height: 130rpx;
+            border-radius: 50%;
+        }
+        view:first-of-type{
+            color: #000;
+        }
+        view:last-of-type{
+            font-size: 60rpx;
+            color: #000;
+        }
+    }
+</style>

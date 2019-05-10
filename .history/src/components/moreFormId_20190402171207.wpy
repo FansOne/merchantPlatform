@@ -1,0 +1,20 @@
+<template lang="wxml">
+    <view>  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class moreFormId extends wepy.component {
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    // Other properties
+}
+</script>
+
+<style lang="less">
+/** less **/
+</style>

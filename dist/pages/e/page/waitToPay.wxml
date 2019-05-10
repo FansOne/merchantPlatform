@@ -1,0 +1,101 @@
+
+  <view class="container">
+	<view class="confirmOrder-top">
+		<view class="messages">
+			<view class="nameTel">
+				<view>{{orderInfo.truename}}</view>
+				<view>{{userAddress.mobile}}</view>
+			</view>
+			<view class="userAddress">{{orderInfo.province+orderInfo.address}}</view>
+		</view>
+		<view class="jiantou">
+			<image src="../../../images/箭头.png"/>
+		</view>
+	</view>
+	<!-- <view wx:else class='confirmOrder-top noAddress' bindtap='goAddress'>
+		<view class='addressIcon'>
+			<image src='http://applet.qumatou.com.cn/static/shop/位置.png'/>
+			<view>请选择收货地址</view>
+		</view>
+		<view>
+			<image src = '../../../images/箭头.png'/>
+		</view>
+	</view> -->
+	<view class="orderContent">
+		<!-- 下单商品 -->
+		<view  wx:for="{{selectGoods}}" wx:key="idx" class="packageBox">
+  		<view class="packageIdx">包裹 {{index+1}}</view>
+  		<view class="packageSpec">
+  			<view class="storeSpec">
+  				<view class="packageBanner"><image src="{{item.cover}}"/></view>
+	  			<view class="speces">
+	  				<view>{{item.title}}</view>
+	  				<view>{{item.spec}}</view>
+	  				<view class="package-price">
+	  					<view>¥{{item.price/100}}</view>
+	  					<view>×{{item.nums}}</view>
+	  				</view>
+	  			</view>
+  			</view>
+  		</view>
+  		<view class="smallPrice">
+  			<view bindtap="sss">共{{item.nums}}件</view>
+  			<view>小计 <text>¥{{item.nums*item.price/100}}</text></view>
+  		</view>
+  	</view>
+	</view>
+	<!-- 开票 -->
+	<view class="ticketOpening-box">
+		<view class="ticketOpening-left"><view class="colBg"/><image src="../../../images/提供发票.png"/><text>发票</text></view>
+        <view style="font-size:25rpx;color:#969696;"  wx:if="{{orderInfo.isvoice == 1}}">无发票信息</view>
+	</view>
+	<view wx:if="{{orderInfo.isvoice != 1}}" class="show-faPiao">
+		<view wx:if="{{orderInfo.intype ==2}}">
+			<view>类型：个人</view>
+			<view>名称：{{orderInfo.invoice_title}}</view>
+		</view>
+		<view wx:else>
+			<view>类型：公司</view>
+			<view>名称：{{orderInfo.invoice_title}}</view>
+			<view>税号：{{orderInfo.invoice_number}}</view>
+		</view>
+	</view>
+	<!-- 优惠券 -->
+	<view class="ticketOpening-box" style="padding-right:10rpx;" data-id="2">
+		<view class="ticketOpening-left"><view class="colBg"/><text style="padding-left:30rpx;">优惠券</text></view>
+		<view style="font-size:25rpx;color:#969696;">
+			<block wx:if="{{orderInfo.coupon_id == 0}}"><text style="color:#ff915e"/>未使用优惠券</block>
+			<block wx:else><text style="color:#ff915e">{{orderInfo.coupon_money}}</text></block>
+		</view>
+	</view>
+	<!-- 支付方式 -->
+	<view class="ticketOpening-box">
+		<view class="ticketOpening-left"><view class="colBg" style="margin-right:30rpx;"/><text>支付方式</text></view>
+	</view>
+	<view class="paymentMethod">
+		<view class="paymentMethod_title" style="flex:.4">会员卡支付</view>
+		<view class="paymentMethod_select" bindtap="selectPayMent" data-id="0" style="flex:.6">
+			<view style="margin-right:28rpx">余额：￥{{amount}}<text wx:if="{{amount == 0}}" style="color:#ff915e;padding-left:15rpx;" bindtap="cardRecharge">(点击充值优惠)</text></view>
+			<icon type="success" size="17" color="{{selectSonCard.share_nickname?'#969696':'#ffd270'}}" style="transform: translateX(6rpx)"/>
+		</view>
+	</view>
+	<!-- 子卡支付 -->
+	<!-- <view class='paymentMethod'>
+		<view class='paymentMethod_title' style='flex:.2'>子卡支付</view>
+		<view class='paymentMethod_select' catchtap="selectPayMent" data-id='1' style='flex:.8;'>
+			<view wx:if='{{!selectSonCard.share_nickname}}'>选择支付子卡</view>
+			<view wx:else>{{selectSonCard.share_nickname}}分享的<text style='color:#f40'>￥{{selectSonCard.amount}}</text>会员卡</view>
+			<view>></view>
+		</view>
+	</view> -->
+	<!-- 联系卖家 -->
+	<image class="merchantTel" src="http://www.qumatou.com.cn/zheng/xcximage/群蜂电话.png" bindtap="merchantTel" style="bottom:{{ballBottom}}px;right:{{ballRight}}px;" bindtouchmove="ballMoveEvent"/>
+	<view class="confirmOrder-bottom">
+		<view class="confirmComputed">
+			<view>合计</view>
+			<view>¥{{orderInfo.total/100}}</view>
+			<view class="sendprice">￥{{orderInfo.sendprice/100}}起送,另需配送费￥{{orderInfo.normalsend/100}}</view>
+		</view>
+		<view class="confirmBuy" bindtap="confirmPayment">确认支付</view>
+	</view>
+  </view>

@@ -1,0 +1,40 @@
+<script>
+import wepy from 'wepy';
+import moreFormId from '../components/moreFormId'
+
+export default class integralMall extends wepy.page {
+    config = {
+        navigationBarTitleText: '积分商城',
+    };
+    components = {};
+
+    data = {
+        imgUrls:[
+            cover:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1556269572887&di=4b164a218ac3cef24686565e067a51eb&imgtype=0&src=http%3A%2F%2Fpic55.nipic.com%2Ffile%2F20141211%2F12020363_202741153945_2.jpg'
+        ],
+    };
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <!-- 轮播图 -->
+    <view class="page-swiper-wrap">
+        <swiper autoplay interval="4000" circular>
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                    <moreFormId>
+                        <image src="{{item.cover}}" class="slide-image" mode='widthFix'/>
+                    </moreFormId>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

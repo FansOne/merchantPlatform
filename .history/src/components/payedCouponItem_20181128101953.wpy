@@ -1,0 +1,307 @@
+<template lang="wxml">
+    <view class='item_box'  wx:for='{{syncTitle}}' wx:key='' @tap.stop='receiveCoupon({{item.id}},{{index}})'>
+        <view wx:if='{{item.type == 1}}' class="item_box_wrap {{specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view wx:if='{{item.type == 1}}' class='couponItem' style="background-image: url('http://applet.qumatou.com.cn/static/shop/youhuiquan.png');">
+                <view class='couponItem_left'>
+                    <view class='logo'>
+                        <view>{{item.title}}</view>
+                        <image src='{{item.cover_url}}'/>
+                    </view>
+                    <view class='pricess'>
+                        <view class='pricess_'>
+                            <text>￥</text>
+                            <text class='bags'>{{item.amount/100}}</text>
+                        </view>
+                        <view class='prompt_'>满{{item.min_money/100}}元使用</view>
+                    </view>
+                </view>
+                <view class='couponItem_right'>
+                    <progress wx:if="{{!item.checked}}" class="process" percent="{{item.percent}}" font-size="8"  stroke-width="10" active/>
+                    
+                    <view wx:if="{{!item.checked}}" style="margin-top:6rpx;font-size:24rpx;color:#fff;text-align:right;">已领取{{item.percent}}%</view>
+                    <view class="get_coupons" @tap.stop="getCoupon({{item}},{{index}})">{{!item.checked ? '立即领取':'去使用'}}</view>
+
+                    <image class="already_get" wx:if="{{item.checked}}" src="../images/already_get.png"/>
+                </view>
+            </view>
+            <view class='time'>
+                <image class="long_btn {{specialId == item.id ? 'long_btn_transform':''}}" src="../images/arrow_btn.png" @tap.stop="showInfo({{item.id}})"/>
+                <view class='term' wx:if='{{item.begin_time == 0 && item.end_time == 0}}'>使用期限：永久有效</view>
+                <view class='term' wx:if='{{item.begin_time != 0}}'>使用期限：{{item.begin_time}}- {{item.end_time ? item.end_time : '无限期'}}</view>                
+                <view style="margin-top:24rpx;" class='term'>说明:{{item.content}}</view>
+            </view>
+        </view>
+        <view wx:if='{{item.type == 2}}' class="item_box_wrap {{specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view  class='couponItem' style="background-image: url('http://applet.qumatou.com.cn/static/shop/zhekouquan.png');">
+                <view class='couponItem_left'>
+                    <view class='logo'>
+                        <view>{{item.title}}</view>
+                        <image src='{{item.cover_url}}'/>
+                    </view>
+                    <view class='pricess'>
+                        <view class='pricess_' style='padding-top:25rpx;'>
+                            <text class='bags'>{{item.amount}}</text>
+                            <text>折</text>
+                        </view>
+                    </view>
+                </view>
+                <view class='couponItem_right'>
+                    <progress wx:if="{{!item.checked}}" class="process" percent="{{item.percent}}" font-size="8"  stroke-width="10" active/>
+                    
+                    <view wx:if="{{!item.checked}}" style="margin-top:6rpx;font-size:24rpx;color:#fff;text-align:right;">已领取{{item.percent}}%</view>
+                    <view class="get_coupons" @tap.stop="getCoupon({{item}},{{index}})">{{!item.checked ? '立即领取':'去使用'}}</view>
+
+                    <image class="already_get" wx:if="{{item.checked}}" src="../images/already_get.png"/>
+                </view>
+            </view>
+            <view class='time'>
+                <image class="long_btn {{specialId == item.id ? 'long_btn_transform':''}}" src="../images/arrow_btn.png" @tap.stop="showInfo({{item.id}})"/>
+                <view class='term' wx:if='{{item.begin_time == 0 && item.end_time == 0}}'>使用期限：永久有效</view>
+                <view class='term' wx:if='{{item.begin_time != 0}}'>使用期限：{{item.begin_time}}- {{item.end_time ? item.end_time : '无限期'}}</view>                
+                <view style="margin-top:24rpx;" class='term'>说明:{{item.content}}</view>
+            </view>
+        </view>
+        <view wx:if='{{item.type == 3}}' class="item_box_wrap {{specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view  class='couponItem' style="background-image: url('http://applet.qumatou.com.cn/static/shop/daijinquan.png');">
+                <view class='couponItem_left'>
+                    <view class='logo'>
+                        <view>{{item.title}}</view>
+                        <image src='{{item.cover_url}}'/>
+                    </view>
+                    <view class='pricess'>
+                        <view class='pricess_' style='padding-top:30rpx;'>
+                            <text>￥</text>
+                            <text class='bags'>{{item.amount/100}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class='couponItem_right'>
+                    <progress wx:if="{{!item.checked}}" class="process" percent="{{item.percent}}" font-size="8"  stroke-width="10" active/>   
+                    <view wx:if="{{!item.checked}}" style="margin-top:6rpx;font-size:24rpx;color:#fff;text-align:right;">已领取{{item.percent}}%</view>
+                    <view class="get_coupons" @tap.stop="getCoupon({{item}},{{index}})">{{!item.checked ? '立即领取':'去使用'}}</view>
+                    <image class="already_get" wx:if="{{item.checked}}" src="../images/already_get.png"/>
+                </view>
+            </view>
+            <view class='time'>
+                <image class="long_btn {{specialId == item.id ? 'long_btn_transform':''}}" src="../images/arrow_btn.png" @tap.stop="showInfo({{item.id}})"/>
+                <view class='term' wx:if='{{item.begin_time == 0 && item.end_time == 0}}'>使用期限：永久有效</view>
+                <view class='term' wx:if='{{item.begin_time != 0}}'>使用期限：{{item.begin_time}}- {{item.end_time ? item.end_time : '无限期'}}</view>                
+                <view style="margin-top:24rpx;" class='term'>说明:{{item.content}}</view>
+            </view>
+        </view>
+    </view>
+
+</template>
+<script>
+import wepy from 'wepy';
+export default class couponItem extends wepy.component {
+    components = {};
+
+    data = {
+        infoHeight:"0",
+        infoHeightStatus:0,
+        isGetCoupon:1,
+        goGetWords:"立即领取",
+        specialId:0,
+    };
+    methods = {
+        receiveCoupon(id,index){
+            // this.$emit('userSelect',id,index)
+        },
+        //显示商家说明
+        showInfo(id){
+            if(this.specialId == id){
+                this.specialId = 0;
+            }else{
+                this.specialId = id;
+            }
+        },
+        //领取卡券
+        getCoupon(item,index){
+            if(item.checked == undefined){
+                //立即领取
+                this.$emit('userSelect',item,index)
+            }else{
+                //去使用，跳转
+                if(item.shop_type == 1 || item.shop_type == 2){
+                    //电商的店铺
+                    wx.redirectTo({
+                        url: '../../e/page/index/index?id=' + item.merchant_id
+                    });
+                }else if(item.shop_type == 3 || item.shop_type == 4){
+                    wx.redirectTo({
+                        url: './f/page/index/index?id=' + item.merchant_id
+                    });
+                }
+            }
+        }
+    };
+    events = {};
+    props = {
+        syncTitle: {
+            type: Array,
+            default: 'null'
+        }
+    }
+}
+</script>
+
+<style lang="less">
+    .item_box_wrap{
+        width:100%;
+        height:239rpx;
+        background-color:#fff;
+        box-shadow: 0rpx 2rpx 16rpx 0rpx 
+		rgba(0, 0, 0, 0.14);
+        border-radius: 10rpx;
+        padding-bottom:16rpx;
+        overflow: hidden;
+        position:relative;
+    }
+    .item_box_wrap_checked{
+        height:auto;
+    }
+    .process{
+        border-radius:40rpx;
+        margin-top:14rpx;
+        overflow:hidden;
+    }
+    .get_coupons{
+        width: 112rpx;
+        height: 36rpx;
+        background-color: #ffffff;
+        border-radius: 18rpx;
+        color: #1481ed;
+        font-size:20rpx;
+        line-height:36rpx;
+        text-align:center;
+        position:absolute;
+        bottom:20rpx;
+        left:0;
+        right:0;
+        margin:auto;
+    }
+    .item_box{
+        box-sizing: border-box;
+        padding: 20rpx 40rpx;
+        // height: 285rpx;
+        border-bottom: 1px solid #f1f1f1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .couponItem{
+            height: 195rpx;
+            width: 100%;
+            border-radius: 7rpx;
+            background-size: 100%;
+            display: flex;
+            .couponItem_left{
+                display: flex;
+                flex-direction: row;
+                width: 500rpx;
+                .logo{
+                    width: 50%;
+                    box-sizing: border-box;
+                    padding-top: 25rpx;
+                    padding-left: 90rpx;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    view{
+                        margin-bottom: 15rpx;
+                        font-size: 24rpx;
+                        color: #fff;
+                        width: 100%;
+                        text-align: center;
+                        letter-spacing: 3rpx;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 1;
+                        overflow: hidden;
+
+                    }
+                    image{
+                        width: 100rpx;
+                        height: 100rpx;
+                        border-radius: 8rpx;
+                    }
+                }
+                .pricess{
+                    box-sizing: border-box;
+                    padding-right: 6rpx;
+                    width: 50%;
+                    display: inline-block;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .pricess_{
+                        font-size: 35rpx;
+                        color: #fff;
+                        padding-top: 10rpx;
+                        box-sizing: border-box;
+                        .bags{
+                            font-size: 100rpx;
+                        }
+                    }
+                    .prompt_{
+                        font-size: 20rpx;
+                        letter-spacing: 2rpx;
+                        color: #fff;
+                        transform: translateX(6rpx) translateY(-6rpx);
+                    }
+                }
+            }
+            .couponItem_right{
+                box-sizing: border-box;
+                padding: 35rpx 10rpx 0rpx 5rpx;
+                flex: 1;
+                font-size: 22rpx;
+                color: #fff;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 4;
+                overflow: hidden;
+                position:relative;
+                .already_get{
+                    display:block;
+                    width:115rpx;
+                    height:115rpx;
+                    position:absolute;
+                    right:0rpx;
+                    top:4rpx;
+                }
+            }
+        }
+        .time{
+            display: flex;
+            width: 100%;
+            padding:15rpx 16rpx 0;
+            box-sizing: border-box;
+            flex-direction: column;
+            .term{
+                font-size: 22rpx;
+            }
+            .time_right{
+                display: flex;
+                justify-content: flex-end;
+                view{
+                    font-size: 22rpx;
+                }
+            }
+            .long_btn{
+                display:block;
+                width:38rpx;
+                height:38rpx;
+                position:absolute;
+                right:24rpx;
+                top:208rpx;
+            }
+            .long_btn_transform{
+                transform:rotate(180deg);
+                transition: all .5s;
+            }
+        }
+    }
+</style>

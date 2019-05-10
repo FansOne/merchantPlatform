@@ -1,0 +1,63 @@
+<script>
+import wepy from 'wepy';
+
+export default class cardRecharge extends wepy.page {
+    config = {
+        navigationBarTitleText: '会员卡充值'
+    };
+    components = {};
+
+    data = {
+        
+    };
+    methods = {
+    };
+    events = {};
+    onLoad(options) {};
+    // wx.requestPayment({
+    //     'appId':this.jssdk.appId,
+    //     'timeStamp': this.jssdk.timeStamp,
+    //     'nonceStr':this.jssdk.nonceStr,
+    //     'package': this.jssdk.package,
+    //     'signType': this.jssdk.signType,
+    //     'paySign': this.jssdk.paySign,
+    //     success:(res)=>{
+    //         wx.showToast({
+    //             title: '充值成功',
+    //             icon: 'success',
+    //             success:()=>{
+    //                 setTimeout(() => {
+    //                     wx.navigateBack({
+    //                         delta: 1
+    //                     });
+    //                 }, 1000);
+    //             }
+    //         });
+    //         this.userMoney()
+    //     },
+    // })
+}
+</script>
+
+<template lang="wxml">
+    <view class="cardBalance">
+        卡内余额：<text>10</text>元
+    </view>
+</template>
+
+<style lang="less">
+    page{
+        background-color: #f4f5f7;
+    }
+    view{
+        box-sizing: border-box;
+    }
+    .cardBalance{
+        width: 100%;
+        background-color: #fff;
+        padding: 50rpx 40rpx;
+        text{
+            color: #f40;
+        }
+    }
+</style>

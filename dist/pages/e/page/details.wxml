@@ -1,0 +1,114 @@
+
+	<view class="container">
+		<!-- 回到首页 -->
+		<view class="backindex_box" style="width:80rpx;height:80rpx;padding-top:16rpx;box-sizing:border-box;" catchtap="backFirst">
+				<image style="height:34rpx;width:30rpx;" src="http://www.qumatou.com.cn/zheng/xcximage/backindex.png"/>
+				<view style="font-size:14rpx">首页</view>
+		</view>
+		<!-- banner -->
+		<swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" bindchange="currentImg">
+			<block  wx:for="{{clickGoods.pbanner}}" wx:key="key">
+				<swiper-item>
+					<image src="{{item.pimage}}" class="slide-image" bindtap="goToAdvert" mode="widthFix"/>
+				</swiper-item>
+			</block>
+		</swiper>
+		<view class="zhishi"><text>{{bannerImg[0]}}</text><text> / {{clickGoods.pbanner.length}}</text></view>
+		<view class="detail">
+			<text class="title">{{clickGoods.pname}}</text>
+			</view>
+			<view class="prices">
+				<view class="biaoJia">现价</view>
+				<block>
+					<text class="xianJia">¥ {{clickGoods.price}}</text>
+				</block>
+			</view>
+		</view>
+		<!-- 规格属性 -->
+		<view class="guige-box">
+			<view class="guige-choose" bindtap="goAddress" style="border-bottom:1px solid #efeff4;">送至 <text class="xuanze-guize">{{address}}</text><text class="icon-jiantou"> > </text></view>
+			<view class="guige-choose" bindtap="showSpec">请选择规格属性 <text class="xuanze-guize"> </text><text class="icon-jiantou"> > </text></view>
+		</view>
+		
+		<!-- 商品参数 -->
+		<view class="parameter-box"  wx:if="{{parameter.length}}">
+			<view class="tuijian-titlebox">——— 商品参数 ———</view>
+			<view class="parameter">
+				<view class="juti-canshu">
+					<view class="juti-guige parameter-style" wx:for="{{parameter}}" wx:key="index">
+						<text>{{ item.propname }}</text>
+						<text>{{ item.pspvalue }}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 商品特色 -->
+		<view class="commodityTrait-box">
+			<view class="tuijian-titlebox">——— 图文详情 ———</view>
+			<block  wx:for="{{characteristicBanner}}" wx:key="">
+					<image src="{{item}}" mode="widthFix" style="width:100%;display:block" lazy-load="lazy-load"/>
+			</block>
+		</view>
+		<!-- 底部固定栏 -->
+		<view class="detail-nav">
+			<view bindtap="backIndex" class="backPage">
+				<image src="http://www.qumatou.com.cn/zheng/xcximage/indexIcon.png"/>
+				<text>商城</text>
+			</view>
+			<button class="shareBuy liji-buy" bindtap="showSpec">立即购买</button>
+		</view>
+		<!-- 规格属性底部浮出 -->
+		<view class="bottomShow-box {{bottomShow?'bottomShow':''}}" catchtouchmove="ture">
+			<view class="bottomShow-top">
+				<view class="bottom-banners">
+					<view class="bottom-banner-box">
+						<image src="{{clickGoods.logopath}}" class="bottom-banner"/>	
+					</view>
+				</view>
+				<view class="bottomShow-top-right">
+					<view class="qianshu">
+						<view><block  wx:if="{{!integralGoods}}">¥ </block>{{choosePrice}}</view>
+						<image src="http://www.qumatou.com.cn/zheng/xcximage/closeIcon.png" class="guanbi-img" bindtap="closeSpec"/>
+					</view>
+					<text>剩余库存：{{Stock}}</text>
+				</view>
+			</view>
+			<scroll-view scroll-y style="height:300px">
+					<view class="bottomShow-middle"  wx:for="{{goodsSkus}}" wx:key="" wx:for-index="index" wx:for-item="item">
+						<view class="hezhuang">{{item.spec}}</view>
+						<view class="hezhuang-x">
+							<block wx:for="{{item.specValue}}" wx:key="" wx:for-index="idx" wx:for-item="itemName">
+								<view bindtap="hezhuang" class="hezhuang {{itemName.checked ?'hezhuangBg':''}}" data-wpyhezhuang-a="{{itemName}}" data-wpyhezhuang-b="{{item}}" data-wpyhezhuang-c="{{index}}">{{itemName.value}}</view>
+							</block>
+						</view>
+					</view>
+					<view class="bottomShow-bottom">
+						<view class="shuliang">数量</view>
+						<view class="shuliang-x">
+							<view class="jiajian" catchtap="numMinus">-</view>
+							<view>{{num}}</view>
+							<view class="jiajian jia" catchtap="numPlus">+</view>
+						</view>
+				</view>
+			</scroll-view>
+			<view class="bottom-btn">
+				<button class="startBuy startBuys" catchtap="immediatelyBuy">立即购买</button>
+			</view>
+		</view>
+		<!-- 遮罩 -->
+		<view class="mask" hidden="{{maskFlag}}"/>
+		<!-- 分享朋友圈 -->
+		<view class="shareFriends {{shareShow?'shareShow':''}}">
+			<view class="shareFriendsBtn">
+				<button style="border-right:1rpx solid #f1f1f1" open-type="share"><icon class="iconfont icon-icon-"/><view>分享给好友</view></button>
+				<button bindtap="sharequan"><icon class="iconfont icon-pengyouquan"/><view>发朋友圈</view></button>
+			</view>
+			<view class="shareFriendsCancel" bindtap="shareFriends">取消</view>
+		</view>
+		<!-- 海报 -->
+		<view hidden="{{haobaoShow}}" class="haiBao {{haobaoShow?'':'haobaoShow'}}">
+			<image src="{{haiBaoImg}}"/>
+			<button bindtap="saveImg" data-wpysaveimg-a="{{haiBaoImg}}">保存至相册</button>
+			<view>分享朋友圈时可在相册选取图片</view>
+			<view class="close" bindtap="closeHaiBao">×</view>
+		</view>

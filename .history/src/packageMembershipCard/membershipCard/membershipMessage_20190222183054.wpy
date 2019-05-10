@@ -1,0 +1,86 @@
+<script>
+import wepy from 'wepy';
+
+export default class membershipMessage extends wepy.page {
+    config = {
+        navigationBarTitleText: '完善会员信息',
+    };
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <view class="membershipMessageTitle">姓名</view>
+    <view class="inputBox"><input placeholder='请输入您的真实姓名'/></view>
+    <view class="membershipMessageTitle">手机号</view>
+    <view class="telNumberBox">
+        <input placeholder='请输入您的手机号'/>
+        <button>使用微信绑定的手机号</button>
+    </view>
+    <view class="confirmBtn"><button>完成</button></view>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+    }
+    .membershipMessageTitle{
+        width: 100%;
+        color: #000;
+        font-size: 32rpx;
+        padding: 30rpx;
+    }
+    .inputBox{
+        width: 100%;
+        padding: 0 30rpx;
+        input{
+            border-radius: 8rpx;
+        }
+    }
+    .telNumberBox{
+        width: 100%;
+        padding: 0 30rpx;
+        display: flex;
+        align-items: center;
+        button{
+            font-size: 28rpx;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+            height: 80rpx;
+            line-height: 80rpx;
+            width: 307rpx;
+            background-color: #e41828;
+            color: #fff;
+        }
+        input{
+            flex: 1;
+            border-radius: 8rpx 0 0 8rpx;
+        }
+    }
+    input{
+        background-color: #f3f3f3;
+        height: 80rpx;
+        padding: 0 30rpx;
+    }
+    .confirmBtn{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: 70rpx;
+        button{
+            background-color: #e41828;
+            color: #fff;
+            height: 80rpx;
+            font-size: 30rpx;
+            width: 250rpx;
+            letter-spacing: 15rpx;
+        }
+    }
+</style>

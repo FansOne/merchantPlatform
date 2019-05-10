@@ -1,0 +1,118 @@
+@import "./../../../../components/couponItem.wxss";
+page {
+  background-color: #f3f3f3;
+  height: 100%;
+}
+.rgba_background {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.paymentTop {
+  height: 130rpx;
+  background-color: #ffd270;
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: bold;
+  letter-spacing: 3rpx;
+  justify-content: center;
+}
+.paymentTop image {
+  width: 65rpx;
+  height: 65rpx;
+}
+.paymentTop view {
+  display: flex;
+  justify-content: center;
+}
+.paymentTop text {
+  display: block;
+  text-align: center;
+  margin-top: 15rpx;
+}
+.paymentmiddle {
+  margin: 0 60rpx;
+  border-bottom: 1px solid #efeff4;
+}
+.paymentmiddle view:nth-child(1) {
+  text-align: center;
+  margin-top: 70rpx;
+  font-size: 28rpx;
+  letter-spacing: 4rpx;
+  color: #969696;
+}
+.paymentmiddle view:nth-child(2) {
+  text-align: center;
+  margin-top: 30rpx;
+  font-size: 46rpx;
+  font-weight: bold;
+  color: #fd2323;
+  margin-bottom: 50rpx;
+}
+.paymentBottom {
+  margin: 0 60rpx;
+  border-bottom: 1px solid #f1f1f1;
+  padding-top: 20rpx;
+}
+.userInfo {
+  color: #333333;
+  font-size: 32rpx;
+  margin-bottom: 24rpx;
+}
+.paymentBottom-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+.paymentBottom-btn view {
+  width: 250rpx;
+  height: 84rpx;
+  text-align: center;
+  line-height: 84rpx;
+}
+.paymentBottom-btn view:nth-child(1) {
+  background-color: #efeff4;
+  color: #333333;
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+}
+.paymentBottom-btn view:nth-child(2) {
+  background-color: #ffd270;
+  color: #ffffff;
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+}
+.readPrompt {
+  margin: 0 60rpx;
+  font-size: 22rpx;
+  color: #969696;
+  letter-spacing: 3rpx;
+  margin-top: 24rpx;
+}
+.coupons_tab {
+  display: inline-block;
+  width: auto;
+  font-size: 34rpx;
+  line-height: 110rpx;
+  margin-left: 30rpx;
+  position: relative;
+}
+.coupons_selected::after {
+  content: '';
+  width: 40rpx;
+  height: 6rpx;
+  background-color: #ff5038;
+  border-radius: 3rpx;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 16rpx;
+}

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="020dfbec-9534-4c11-b082-4519dad4cc9e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/dist/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/app.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/f1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/f2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/f3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/f4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/f5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/f6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/f7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/f8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/food-deliver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/grops-buying.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/groups-buying.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/img1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/images/img2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/around.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/around.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/around.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/around.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/around.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/around.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/collections.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/collections.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/collections.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/collections.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/deliciousFood.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/deliciousFood.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/deliciousFood.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/deliciousFood.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/chooseNum.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/chooseNum.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/chooseNum.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/chooseNum.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/deliver.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/deliver.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/deliver.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/deliver.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/myMenu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/myMenu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/myMenu.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/deliver/myMenu.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/details.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/details.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/details.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/details.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/index.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/index.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/index/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/index/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/index/index.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/index/index.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/takeout/deliver.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/takeout/deliver.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/takeout/deliver.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/takeout/deliver.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/takeout/order.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/takeout/order.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/takeout/order.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/foodPackages/page/takeout/order.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/groups-buying.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/groups-buying.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/index.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/index.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/mine.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/mine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/mine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/mine.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/moreUseRenctly.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/moreUseRenctly.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/moreUseRenctly.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/moreUseRenctly.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/confirmOrder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/confirmOrder.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/confirmOrder.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/confirmOrder.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/datails.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/datails.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/datails.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/datails.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/index.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/Collage/index.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/details.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/details.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/details.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/details.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/homePage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/homePage.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/homePage.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/homePage.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/index.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/index.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/index/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/index/index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/index/index.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/index/index.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/userComment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/userComment.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/userComment.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/onlinePackages/page/userComment.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/order.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/dist/pages/order.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/project.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/styles/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/utils/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/utils/util.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/10.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/dialogBox.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/dialogBox.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/dingdan_hide.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/dingdan_hide.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/dingdan_show.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/dingdan_show.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/f1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/f2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/f3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/f4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/f5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/f6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/f7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/f8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/food-deliver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/fujin_hide.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/fujin_hide.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/fujin_show.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/fujin_show.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/goindex.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/goindex.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/gouwuche_hide.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/gouwuche_hide.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/gouwuche_show.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/gouwuche_show.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/groups-buying.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/icon_07.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/icon_07.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/icon_12.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/icon_12.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/img1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/img2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/mine_hide.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/mine_hide.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/mine_show.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/mine_show.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/promptCart.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/promptCart.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/shouye_hide.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/shouye_hide.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/shouye_show.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/shouye_show.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/star.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/star.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/starWhole.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/starWhole.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/全球购-全球直采.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/全球购-全球直采.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/地址.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/地址.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/对号.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/对号.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/质检.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/质检.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/退款.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/退款.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/around.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/around.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/collections.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/collections.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/deliciousFood.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/deliciousFood.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/foodPackages/page/deliver/chooseNum.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/f/page/deliver/chooseNum.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/foodPackages/page/deliver/deliver.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/f/page/deliver/deliver.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/foodPackages/page/deliver/myMenu.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/f/page/deliver/myMenu.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/foodPackages/page/index/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/f/page/index/index.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/foodPackages/page/takeout/deliver.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/f/page/takeout/deliver.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/foodPackages/page/takeout/order.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/f/page/takeout/order.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/groups-buying.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/groups-buying.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/mine.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mine.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/moreUseRenctly.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/moreUseRenctly.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/onlinePackages/page/Collage/confirmOrder.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/e/page/Collage/confirmOrder.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/onlinePackages/page/Collage/datails.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/e/page/Collage/datails.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/onlinePackages/page/Collage/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/e/page/Collage/index.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/onlinePackages/page/details.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/e/page/details.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/onlinePackages/page/homePage.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/e/page/homePage.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/onlinePackages/page/index/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/e/page/index/index.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/onlinePackages/page/userComment.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/e/page/userComment.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/order.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/order.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/base.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/base.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/util.js" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="app.wpy" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app.wpy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="67" column="40" lean-forward="true" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>onlinePackages</find>
+      <find>foodPackages</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>e</replace>
+      <replace>f</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src/pages/onlinePackages</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/app.wpy" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="344" />
+    <option name="y" value="23" />
+    <option name="width" value="1519" />
+    <option name="height" value="979" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="云上澄城" type="b2602c69:ProjectViewProjectNode" />
+              <item name="云上澄城" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="云上澄城" type="b2602c69:ProjectViewProjectNode" />
+              <item name="云上澄城" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.prettier" value="true" />
+    <property name="node.js.path.for.package.prettier" value="project" />
+    <property name="node.js.selected.package.prettier" value="" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="020dfbec-9534-4c11-b082-4519dad4cc9e" name="Default" comment="" />
+      <created>1540282204743</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1540282204743</updated>
+      <workItem from="1540282207776" duration="1228000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1228000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="360" y="23" width="1519" height="979" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23128343" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3290993" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info id="npm" side_tool="true" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.13972287" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/dist/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1531" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="67" column="40" lean-forward="true" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

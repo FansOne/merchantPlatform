@@ -1,0 +1,38 @@
+ 
+  <view calss="container" style="height:100%;display:flex;flex-direction: column;">
+    <view style="height:auto;width:100%;background-color:#fff;">
+      <view class="paymentTop">
+        <view><image src="../../../../images/paymentSuccess.png"/></view>
+        <!-- <text style='font-size:26rpx;color:#000;'>恭喜获得领券资格</text> -->
+      </view>
+      <view class="paymentBottom">
+        <view style="display:flex">
+          <view style="flex:.5" class="userInfo">{{userInfo.userName}}</view>
+          <view style="flex:.5;text-align:right;" class="userInfo">{{userInfo.telNumber}}</view>
+        </view>
+        <view class="userInfo">{{userInfo.provinceName+userInfo.cityName+userInfo.countyName+userInfo.detailInfo}}</view>
+        <view class="paymentBottom-btn">
+          <view bindtap="seeOrder">查看订单</view>
+          <view bindtap="goIndex">继续购物</view>
+        </view>
+      </view>
+      <!-- 优惠券 -->
+      <!-- <scroll-view scroll-y wx:if="{{userCoupon.length != 0}}" style='height:794rpx;padding-top:14rpx;box-sizing: border-box;background-color:red;'>
+          <view style="width:100%;text-align:center;margin-bottom:16rpx;">点击领取下面卡券</view>
+          <couponItem v-bind:syncTitle.sync="userCoupon"/>
+      </scroll-view> -->
+      <!-- <view class = 'readPrompt'>{{readPrompt}}</view> -->
+      <!-- update 优惠券 -->
+      <!-- <scroll-view scroll-x style="height:110rpx;background-color:white;white-space:nowrap;overflow:hidden;">
+        <view class="coupons_tab {{couponTab == index ? 'coupons_selected' : ''}}" catchtap="changeCouponTab({{index}},{{item.id}})" style="color:{{couponTab == index ? 'red' : ''}}" wx:for="{{couponTabs}}" wx:key="index">{{item.title}}</view>
+      </scroll-view> -->
+    </view>
+    <!-- <view style="flex:1;" id="top">
+      <scroll-view scroll-y wx:if="{{userCoupon.length != 0}}" style='height:{{scrollHeight}}rpx;'>
+        <couponItem v-bind:syncTitle.sync="userCoupon"/>
+      </scroll-view>
+      <view style="text-align:center;margin-top:30rpx;" wx:if="{{userCoupon.length == 0}}">暂无卡券</view>
+    </view> -->
+    
+    <view  wx:if="{{is_limite}}" class="rgba_background"/>
+  </view>

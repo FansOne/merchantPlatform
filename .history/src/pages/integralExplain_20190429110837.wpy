@@ -1,0 +1,129 @@
+<script>
+import wepy from 'wepy';
+
+export default class integralExplain extends wepy.page {
+    config = {
+        navigationBarTitleText: '赚取积分',
+    };
+    components = {};
+
+    data = {
+        imgUrls:[
+            {
+                imagePath:'http://www.qumatou.com.cn/zheng/20190417/FF9D2670E6D09188FFE219AF0D33C705.jpg'
+            }
+        ]
+    };
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <!-- 轮播图 -->
+    <view class="page-swiper-wrap">
+        <swiper autoplay interval="4000" circular>
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                    <image src="{{item.imagePath}}" class="slide-image"/>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class='explainTitle'>
+        <view class="explainTitleItem">·如何赚取更多积分</view>
+        <view class="explainTitleItem2">获取积分</view>
+    </view>
+    <view class="explainInputBox">
+        <image class="leftIcon" style="width:70rpx;height:70rpx;" src="http://www.qumatou.com.cn/zheng/xcximage/clickIcon.png" />
+        <view class="rightIcon">
+            <view>点击上方按钮获取积分<text>(支付宝/信用卡支付得积分)</text></view>
+        </view>
+    </view>
+    <view class="explainInputBox">
+        <image class="leftIcon" src="http://www.qumatou.com.cn/zheng/xcximage/fillInIcon.png" />
+        <view class="rightIcon">
+            <view>填写个人资料</view>
+            <view class="integralBox">
+                <image src="http://www.qumatou.com.cn/zheng/xcximage/integralIcon.png" />
+                <view>+10积分奖励</view>
+            </view>
+        </view>
+    </view>
+    <view class="explainInputBox">
+        <image class="leftIcon" style="width:50rpx;height:50rpx;" src="http://www.qumatou.com.cn/zheng/xcximage/shareIcon.png" />
+        <view class="rightIcon" style="border-bottom:0;">
+            <view>分享朋友圈</view>
+            <view class="integralBox">
+                <image src="http://www.qumatou.com.cn/zheng/xcximage/integralIcon.png" />
+                <view>+10积分奖励</view>
+            </view>
+        </view>
+    </view>
+    <view class="grayLine"></view>
+    <view class='explainTitle'>
+        <view class="explainTitleItem">·如何赚取更多积分</view>
+    </view>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+    }
+    .explainTitle{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40rpx 30rpx;
+        .explainTitleItem{
+            color: #000;
+            font-weight: bold;
+        }
+        .explainTitleItem2{
+            background-color: #ec4451;
+            color: #fff;
+            border-radius: 50rpx;
+            padding: 4rpx 25rpx;
+        }
+    }
+    .explainInputBox{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0 30rpx;
+        .leftIcon{
+            width: 60rpx;
+            height: 60rpx;
+        }
+        .rightIcon{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            border-bottom: 1rpx solid #eee;
+            padding: 20rpx 0;
+            justify-content: space-between;
+            margin-left: 25rpx;
+            view:first-of-type{
+                font-size: 28rpx;
+            }
+            .integralBox{
+                display: flex;
+                align-items: center;
+                image{
+                    width: 25rpx;
+                    height: 30rpx;
+                }
+                view{
+                    font-size: 22rpx;
+                }
+            }
+        }
+    }
+    .grayLine{
+        width: 100%;
+        height: 30rpx;
+        background-color: #eee;
+    }
+</style>

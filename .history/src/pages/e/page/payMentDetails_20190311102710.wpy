@@ -1,0 +1,25 @@
+<script>
+import wepy from 'wepy';
+
+export default class payMentDetails extends wepy.page {
+    config = {
+        navigationBarTitleText: '订单详情',
+    };
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <view>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

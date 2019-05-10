@@ -1,0 +1,77 @@
+page {
+  background-color: #fff;
+}
+.cardRecharge_top {
+  height: 320rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('http://www.qumatou.com.cn/zheng/xcximage/cardRechargeBg.png');
+  background-size: 100%;
+}
+.cardRecharge_top .cardRecharge_title {
+  padding-left: 5rpx;
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color: #666;
+}
+.cardRecharge_top .cardRecharge_money {
+  margin-top: 15rpx;
+  font-size: 50rpx;
+  color: #000;
+}
+.cardRecharge_top .cardRecharge_money text {
+  font-size: 40rpx;
+}
+input {
+  position: absolute;
+  padding-left: 20rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  margin-top: 20rpx;
+  width: 671rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: #f2f2f2;
+  font-size: 40rpx;
+  color: #000;
+}
+button {
+  font-size: 34rpx;
+  color: #000;
+  height: 98rpx;
+  width: 100%;
+  line-height: 98rpx;
+  border-radius: 0;
+  position: fixed;
+  bottom: 0;
+  background-color: #ffd270;
+}
+.youhui {
+  transform: translateY(-95rpx);
+  box-sizing: border-box;
+  padding: 10rpx 30rpx;
+  display: flex;
+  align-items: center;
+}
+.youhui .youhui_title {
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 40rpx;
+  width: 200rpx;
+  color: #f40;
+  text-align: center;
+}
+.swiper_container {
+  flex: 1;
+  height: 50rpx;
+}
+.swiper_item {
+  line-height: 50rpx;
+  color: #333;
+  font-size: 40rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,241 @@
+<style lang="less">
+    view{
+        box-sizing: border-box;
+        font-size: 26rpx;
+        color: #000;
+    }
+    .topUserMessBox{
+        position: relative;
+        width: 100%;
+        height: 388rpx;
+        background-image: url('http://www.qumatou.com.cn/zheng/xcximage/aboutMinBg.png');
+        background-size: 100%;
+        background-repeat:no-repeat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 50rpx;
+        .userAvatarUrlBox{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 146rpx;
+            height: 146rpx;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, .6);
+            margin-bottom: 15rpx;
+            .userAvatarUrl{
+                width: 134rpx;
+                height: 134rpx;
+                overflow: hidden;
+                border-radius: 50%;
+            }
+        }
+        .userNickName{
+            font-size: 30rpx;
+            color: #fff;
+        }
+        .noticeBox{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80rpx;
+            background-color: rgba(0, 0, 0, .3);
+            color: #fff;
+            line-height: 80rpx;
+            font-size: 26rpx;
+            padding: 0 30rpx;
+            letter-spacing: 3rpx;
+        }
+    }
+    .orderModularBox{
+        display: flex;
+        justify-content: space-around;
+        .orderModularItem{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 35rpx 0;
+            image{
+                width: 47rpx;
+                height: 47rpx;
+                margin-bottom: 15rpx;
+            }
+        }
+    }
+    .lineBg{
+        background-color: #efeff4;
+        width: 100%;
+        height: 18rpx;
+    }
+    .otherModularBox{
+        display: flex;
+        flex-wrap: wrap;
+        .otherModularItem{
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30rpx 0;
+            border-right: 1rpx solid #efeff4;
+            border-bottom: 1rpx solid #efeff4;
+            image{
+                width: 60rpx;
+                height: 60rpx;
+                margin-bottom: 10rpx;
+            }
+        }
+    }
+</style>
+
+<template>
+    <view class="container">
+        <moreFormId>
+        <view class="topUserMessBox">
+            <view class='userAvatarUrlBox'><open-data type='userAvatarUrl' class='userAvatarUrl'/></view>
+            <open-data type='userNickName' class='userNickName'/>
+            <view class='noticeBox'>欢迎您的到来</view>
+        </view>
+        </moreFormId>
+        <!-- 订单模块 -->
+        <moreFormId>
+        <view class="orderModularBox">
+            <view class='orderModularItem' @tap='relatedOrders(0)'>
+                <image src='http://www.qumatou.com.cn/zheng/xcximage/maidan.png'/>
+                <view>买单记录</view>
+            </view>
+            <view class='orderModularItem' @tap='relatedOrders(3)'>
+                <image src='http://www.qumatou.com.cn/zheng/xcximage/waimais.png'/>
+                <view>外卖订单</view>
+            </view>
+            <view class='orderModularItem' @tap='relatedOrders(1)'>
+                <image src='http://www.qumatou.com.cn/zheng/xcximage/dianshangs.png'/>
+                <view>电商/门店订单</view>
+            </view>
+            <view class='orderModularItem' @tap='relatedOrders(2)'>
+                <image src='http://www.qumatou.com.cn/zheng/xcximage/techan.png'/>
+                <view>本地特产</view>
+            </view>
+        </view>
+        </moreFormId>
+        <!-- line -->
+        <view class='lineBg'></view>
+        <!-- 其他模块 -->
+        <view class='otherModularBox'>
+            <view class='otherModularItem' wx:for='{{otherModular}}' wx:key='' @tap='otherModularItem({{index}})'>
+                <moreFormId><image src='{{item.icon}}'/></moreFormId>
+                <view>{{item.title}}</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import wepy from'wepy'
+    import requestUrl from '../api/requestUrl'
+    import { requestData } from '../api/requestData'
+    import orderGoods from '../components/orderGoods'
+    import moreFormId from '../components/moreFormId'
+    export default class Mine extends wepy.page{
+        config = {
+            navigationBarTitleText: '个人中心'
+        }
+        components = {
+            orderGoods,
+            moreFormId
+        };
+        data = {
+            token:'',
+            otherModular:[
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/wodehuiyuan.png', title:'我的会员'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/jifenshangcheng.png', title:'积分商城'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/jifenchoujiang.png', title:'积分抽奖'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/wodeshoucang.png', title:'我的收藏'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/jifen.png', title:'我的积分'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/kaquan.png', title:'我的卡券'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/wodexiaodian.png', title:'我的小店'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/daiyanxiaodian.png', title:'我的代言小店'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/gerenrenzheng.png', title:'个人认证'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/shanghurenzheng.png', title:'商户中心'},
+                { icon:'http://www.qumatou.com.cn/zheng/xcximage/lianxikefu.png', title:'联系客服'}
+            ]
+        }
+        onLoad(){
+            this.token = wx.getStorageSync("token");
+        } 
+        methods = {
+            //会员卡页
+            otherModularItem(index){
+                if(index == 0){
+                    wx.navigateTo({
+                        url: '../packageMembershipCard/membershipCard/memberList'
+                    });
+                }else if(index == 10){
+                    wx.makePhoneCall({
+                        phoneNumber:'17392058525'
+                    })
+                }else if(index == 8){
+                    wx.navigateTo({
+                        url: './personalAuthentication'
+                    });
+                }else if(index == 9){
+                    let url = requestUrl.MerchantAuth;
+                    let data = {
+                        p_id: wepy.$instance.globalData.p_id,
+                        role: 0,
+                        type: 0,
+                        token: wx.getStorageSync("token")
+                    }
+                    requestData(url,'POST',data).then(res=>{
+                        if(res.data.data.status != 0 && res.data.data.status != -1){
+                            wx.navigateTo({
+                                url: './merchantCA'
+                            });
+                        }else if(res.data.data.status == 0){
+                            wx.showModal({
+                                title:'商户认证',
+                                content: `您已在${res.data.data.mname}商户认证成功,进入商户预充值`,
+                                showCancel: false,
+                                cancelColor: '#000000',
+                                confirmText: '确定',
+                                confirmColor: '#3CC51F',
+                                success: res => {
+                                    if(res.confirm){
+                                        wx.navigateTo({
+                                            url: `./merchatPrecharge`
+                                        });
+                                    }
+                                }
+                            });
+                        }else if(res.data.data.status == -1){
+                            wx.showToast({
+                                title: '审核中..',
+                                icon: 'none',
+                                duration: 1500,
+                                mask: false,
+                            });
+                        }
+                    })
+                }else{
+                    wx.showToast({
+                        title: '待完善中...',
+                        icon: 'none',
+                        duration: 1500,
+                        mask: false,
+                    });
+                }
+            },
+            // 订单跳转
+            relatedOrders(index){
+                wepy.$instance.globalData.mineOrderStatus = index
+                // console.log(index)
+                wx.reLaunch({
+                    url: './order'
+                });
+            }
+        }
+        onShow(){}
+    }
+</script>

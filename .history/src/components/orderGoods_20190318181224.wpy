@@ -1,0 +1,83 @@
+<template lang="wxml">
+    <view class="orderListsBox" wx:if='{{!noOrderList}}'>
+        <!-- 遍历店铺 -->
+        <view class="shoppingsBox" wx:for='{{orderList}}' wx:if='{{orderList.length}}' wx:key='' wx:for-index="index" wx:for-item="item" @tap='orderDetails({{item.outTraceNo}},{{item.tradetype}})'>
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{item.m_logo}}"/>
+                    <view>{{item.m_name}}</view>
+                </view>
+                <view class="shopTitleRight">{{item.statusStr}}</view>
+            </view>
+            <view class="goodsItem" wx:for='{{item.product}}' wx:key='' wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}" />
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view wx:if='{{itemName.num}}'>× {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="orderTime">下单时间：{{item.orderTime}}</view>
+            <view class="btnBox" wx:if='{{item.tradetype != 0}}'>
+                <view>{{item.statusStr=='未支付'?'去付款':'再来一单'}}</view>
+            </view>
+        </view>
+    </view>
+    <view wx:else class="noOrderList">
+        <image src='http://www.qumatou.com.cn/zheng/xcximage/noOrderList.png' />
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+export default class orderGoods extends wepy.component {
+    components = {};
+
+    data = {};
+    methods = {
+        orderDetails(orderNumber,tradetype){
+            // console.log(orderNumber,tradetype)
+            if(tradetype == 1 || tradetype == 2 || tradetype == 3){   // tradetype: 0(到店买单),1(自营商品),2(本地特产),3(外卖订单)
+                wx.navigateTo({
+                    url: `./e/page/orderDetailesOT?orderNumber=${orderNumber}`
+                });
+            }else if( tradetype == 0 ){
+                wx.navigateTo({
+                    url: `./e/page/payMentDetails?orderNumber=${orderNumber}`
+                });
+            }
+        }
+    };
+
+    events = {
+        
+    };
+    props = {
+        orderList: {
+            type: Array,
+            default: 'null'
+        },
+        noOrderList: {
+            type: Boolean
+        }
+    };
+}
+</script>
+
+<style lang="less">
+    .noOrderList{
+        width: 100%;
+        box-sizing: border-box;
+        padding-top: 200rpx;
+        display: flex;
+        justify-content: center;
+        image{
+            width: 330rpx;
+            height: 283rpx;
+        }
+    }
+</style>

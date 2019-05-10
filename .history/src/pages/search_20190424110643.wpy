@@ -1,0 +1,328 @@
+<style lang="less">
+    page{
+        width:100%;
+        height:100%;
+        background-color: #fff;
+    }
+    .wrap{
+        width:710rpx;
+        height:70rpx;
+        margin:0 auto 30rpx;
+        position:relative;
+        //搜索框
+        .search-wrap{
+            display:inline-block;
+            width: 587rpx;
+            height: 70rpx;
+            background-color: #f0f0f0;
+            border-radius: 35rpx;
+            margin:0rpx 0 20rpx;
+            color: #969696;
+            font-size:26rpx;
+            line-height:70rpx;
+            padding-left:60rpx;
+            box-sizing:border-box;   
+        }
+        .image{
+            display:block;
+            width:26rpx;
+            height:26rpx;
+            position:absolute;
+            top:0;
+            bottom:0;
+            margin:auto;
+            left:20rpx;
+        }
+        .cancle{
+            float:right;
+            display:inline-block;
+            height:100%;
+            line-height:70rpx;
+            color: #fd2323;
+            font-size:30rpx;
+        }
+    }
+    .search-history-wrap{
+        width:710rpx;
+        height:auto;
+        margin:0 auto;
+        .find{
+            color: #999999;
+            font-size:26rpx;
+        }
+        .search-history{
+            height:auto;
+            padding:20rpx 20rpx;
+            box-sizing: border-box;
+            .item{
+                margin-right:20rpx;
+                margin-bottom:20rpx;
+                display:inline-block;
+                font-size:24rpx;
+                color:#999999; 
+                padding:8rpx 14rpx;
+                box-sizing:border-box;
+                background-color: #f3f3f3;
+                border-radius: 6rpx;
+            }
+        }
+    }
+    // 店铺列表
+    .shop-list-wrap{
+        width:100%;
+        height:196rpx;
+        margin-top:20rpx;
+        display:flex;
+        .shop-img{
+            width:180rpx;
+            height:180rpx;
+            border-radius:6rpx;
+            margin-top:8rpx;
+        }
+        .shop-info-wrap{
+            flex:1;
+            height:100%;
+            padding-left:16rpx;
+            box-sizing:border-box;
+            .title-wrap{
+                width:100%;
+                height:72rpx;
+                padding-top:24rpx;
+                box-sizing:border-box;
+                font-size:28rpx;
+                color: #333333;
+                display:flex;
+                justify-content: space-between;
+                .title{
+                    width:auto;
+                }
+                .position{
+                    height:100%;
+                    flex:1;
+                    // background-color:red;
+                    text-align:right;
+                    image{
+                        display:inline-block;
+                        width:20rpx;
+                        height:25rpx;
+                    }
+                }
+            }
+            .star-wrap{
+                width:100%;
+                height:26rpx;
+                margin-top:55rpx;
+                .star{
+                    float:left;
+                    width:165rpx;
+                    height:24rpx;
+                    position:relative;
+                }
+                .average{
+                    float:left;
+                    font-size:24rpx;
+                    color: #c55159;
+                    margin-left:16rpx;
+                }
+            }
+            .price{
+                font-size: 28rpx;
+                color: #fd2323;
+                margin-top:30rpx;
+                text-align:left;
+            }
+        }
+    }
+    //星星
+    .star-image{
+        position: absolute;
+        top: 0rpx;
+        width: 28rpx;
+        height: 28rpx;
+        src: "../images/star.png";
+    }
+    .item1{
+        position: absolute;
+        top: 0rpx;
+        width: 28rpx;
+        height: 28rpx;
+    }
+    .no-history{
+        text-align:center;
+        height:40rpx;
+        font-size:28rpx;
+        position:absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        margin:auto;
+    }
+</style>
+
+<template>
+    <view id="search" style="width:100%;height:100%;position:relative;">
+        <view class="wrap">
+            <!-- 搜索框 -->
+            <input class="search-wrap" auto-focus="true" type='text' confirm-type='search' @input="inputName" value="{{shop_name}}" @placeholder="{{placeWords}}" @confirm='toSearch'/>
+            <image class="image" mode="scaleToFill" src="../images/search.png"/>
+            <text class="cancle" @tap="toSearch">搜索</text>
+        </view>
+        <!-- 搜索记录 -->
+        <view class="search-history-wrap" wx:if="{{searchHistory.length!=0}}">
+            <view class="find">
+                <text>历史纪录</text>
+                <text style="float:right;" @tap.stop="deleteHistory">删除</text>
+            </view>
+            <view class="search-history">
+                <view class="item" wx:for="{{searchHistory}}" @tap="useHistorySearch({{item}})" wx:key="index">{{item}}</view>
+            </view>
+        </view>
+        <!-- 搜索到的店铺 -->
+        <view style="width:710rpx;margin:0 auto;">
+            <view class="shop-list-wrap" wx:for="{{shopList}}" wx:key="index" wx:for-item="item1" data-id="{{item1.mId}}" data-type="{{item1.shop_type}}" @tap.stop="toShop">
+                <image class="shop-img" src="{{item1.mLogo}}"/>
+                <view class="shop-info-wrap">
+                <view class="title-wrap">
+                    <view class="title">{{item1.mName}}</view>
+                    <view class="position">
+                    <image src="../images/location.png" />
+                    <text style="margin-left:10rpx;">{{item1.distanceStr}}</text>
+                    </view>
+                </view>
+                <view class="star-wrap">
+                    <view class="star">
+                    <view class = 'startBox'>
+                        <block wx:for="{{stars}}" wx:key='idx'>
+                            <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?selectedSrc : normalSrc}}">
+                            <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                            <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                            </image>
+                        </block>
+                    </view>
+                    </view>
+                    <!-- <view class="average">人均￥{{item1.averagePrice/100}}</view> -->
+                </view>
+                <!-- <view class="price">￥{{item1.sendprice/100}}起</view> -->
+                </view>
+            </view>
+        </view>
+        <view class="no-history" wx:if="{{searchHistory.length== 0}}">暂无搜索记录</view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+export default class Search extends wepy.page {
+    config = {
+        navigationBarTitleText: '搜索'
+    }
+    components = {
+    }
+    data = {
+        stars: [0, 1, 2, 3, 4],
+        normalSrc: 'http://www.qumatou.com.cn/zheng/xcximage/star.png',
+        selectedSrc: 'http://www.qumatou.com.cn/zheng/xcximage/starWhole.png',
+        latAndLng:null,
+        shop_name:'',
+        searchHistory:[],
+        shopList:[],
+        placeWords:'请输入商家、品类或商圈'
+    }
+    methods = {
+        //跳转店铺
+        toShop(e){
+            let dataset = e.currentTarget.dataset;
+            if(dataset.type == 1 || dataset.type == 2){
+            //电商和门店流程
+            wx.navigateTo({
+                url:'./e/page/index/index?id=' + dataset.id + '&shopType=' + dataset.type
+            })
+            }else{
+            //外卖和超市
+            wx.navigateTo({
+                url:'./f/page/index/index?id=' + dataset.id + '&shopType=' + dataset.type
+            })
+            }
+        },
+        //删除历史纪录
+        deleteHistory(){
+            wx.showModal({
+                title: '提示',
+                content:'确认删除搜索记录吗？' ,
+                success: res => {
+                    if(res.confirm){
+                        wx.redirectTo({
+                            url:'./search'
+                        })
+                        wx.removeStorage({key: 'searchHistory'});
+                    }
+                }
+            });
+        },
+        //获取输入名称
+        inputName(e){
+            this.shop_name = e.detail.value;
+            this.$apply();
+        },
+        //搜索
+        toSearch(){
+            if(this.shop_name != ''){
+                this.searchShop();
+            }
+        },
+        //使用历史纪录进行搜索
+        useHistorySearch(shopName){
+            this.shop_name = shopName;
+            this.$apply();
+            this.searchShop(shopName)
+        }
+    }
+    async searchShop(shopName){
+        let url_ = requestUrl.goodLists;
+        let data_ = {
+            p_id: wepy.$instance.globalData.p_id,
+            Indust_id:-1,
+            longitude:this.latAndLng.lng,
+            latitude:this.latAndLng.lat,
+            page_Num:0,
+            title:this.shop_name?this.shop_name:shopName,
+        }
+        requestData(url_,'POST',data_).then((res)=>{
+           if(!res.data.data.list) wx.showToast({ title: '未找到该店铺',icon: 'none' })
+            this.shopList = res.data.data.list;
+            this.searchHistory.push(this.shop_name)
+            this.$apply();
+            wx.setStorage({
+                key:'searchHistory',
+                data:this.searchHistory,
+                success:res=>{
+                    wx.getStorage({
+                        key:'searchHistory',
+                        success:res=>{
+                            this.searchHistory = [...new Set(res.data)];
+                            this.$apply();
+                            wx.setStorage({
+                                key: 'searchHistory',
+                                data: this.searchHistory
+                            });
+                        }
+                    })
+                }
+            })
+        })
+    }
+    onLoad(){
+        //获取经纬度
+        this.latAndLng = wx.getStorageSync('latAndLng');
+        this.searchHistory = wx.getStorageSync("searchHistory");
+        if(this.searchHistory == ''){
+            this.searchHistory = []
+        }
+        this.$apply();
+    }
+
+}
+</script>

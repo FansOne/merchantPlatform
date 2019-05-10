@@ -1,0 +1,312 @@
+<script>
+import wepy from 'wepy';
+import api from '../api/requestUrl';
+import { requestData } from '../api/requestData'
+
+export default class payMentRecharge extends wepy.page {
+    config = {
+        // navigationBarTitleText: '',
+    };
+    components = {};
+
+    data = {
+        inputValue:null,
+        getRechargeRule:{},
+        activeRulesItem:[
+            { id:0,active:true },
+            { id:1,active:false },
+            { id:2,active:false }
+        ],
+        surplusMoney:0,
+        ruleId:1,
+        memberMess:null,
+        memberPayMode:'',
+        m_id:''
+    };
+    methods = {
+        // 用户选择规则
+        selectRules(e){
+            let id = e.currentTarget.dataset.id;
+            let money = e.currentTarget.dataset.money;
+            this.ruleId = Number(e.currentTarget.dataset.id) + 1;
+            this.activeRulesItem.forEach((element) => {
+                if(id == element.id){
+                    element.active = true
+                    this.surplusMoney = (money-this.inputValue).toFixed(2)
+                }else{
+                    element.active = false
+                }
+            });
+        },
+        // 折扣买单/原价买单
+        payment(payMode){
+            let data = {
+                p_id: wepy.$instance.globalData.p_id,  //平台ID
+                m_id: this.m_id,  //商户ID
+                m_TranType: "0",    //交易类型0-买单
+                Bury_Type: payMode, //买单类型：0-原价买单 1-办理会员卡充值并支付 2-会员卡支付
+                Bury_Money: this.inputValue,    //消费金额
+                elasticMoney: this.getRechargeRule[`elasticBigDec${this.ruleId}`],    //充值金额
+                givenMoney: this.getRechargeRule[`givenMoenyBigDec${this.ruleId}`],   //赠送金额
+                token: wx.getStorageSync('token')
+            }
+            if(payMode == 2){
+                wx.showModal({
+                    title: '余额支付',
+                    content: `账户余额${this.memberMess.MemInfo.balance}元，支付消费额${this.inputValue}元`,
+                    confirmText: '支付',
+                    confirmColor: '#3CC51F',
+                    success: res => {
+                        if(res.confirm){
+                            wx.showLoading({title: '发起支付中...'});
+                            requestData(api.payMent,'POST',data).then(res=>{
+                                wx.hideLoading();
+                                wx.showToast({
+                                    title: '支付成功',
+                                    icon: 'success',
+                                    duration: 1500,
+                                    success: ()=>{
+                                        setTimeout(() => {
+                                            wx.navigateTo({
+                                                url: `./payMentSuccess?money=${this.inputValue}&m_id=${this.m_id}`
+                                            });
+                                        }, 1500);
+                                    }
+                                });
+                            })
+                        }
+                    }
+                });
+            }else{
+                wx.showLoading({title: '发起支付中...'});
+                requestData(api.payMent,'POST',data).then(res=>{
+                    wx.hideLoading();
+                    let payData = res.data.data[0];
+                    wepy.requestPayment({
+                        timeStamp: payData.timeStamp.toString(),
+                        nonceStr: payData.nonceStr,
+                        package: payData.package,
+                        signType: 'MD5',
+                        paySign: payData.sign,
+                    }).then(res=>{
+                        wx.navigateTo({
+                            url: `./payMentSuccess?money=${this.inputValue}&m_id=${this.m_id}`
+                        });
+                    }).catch(res=>{
+                        wx.showToast({
+                            title: '支付失败',
+                            icon: 'none',
+                            duration: 1500,
+                            mask: false,
+                        });
+                    });
+                })
+            }
+        }
+    };
+
+    events = {};
+    onLoad(options) {
+        wx.showLoading({title: '加载中...'});
+        // 买单金额
+        this.inputValue = options.inputValue
+        this.m_id = options.m_id
+        //会员卡充值规则Data
+        let rule = {
+            p_id: wepy.$instance.globalData.p_id,
+            m_id: options.m_id,
+            TranType : 0,
+            Bury_Type : 0,  //0-原价买单 1-充值 2-充值并支付
+            Bury_Money : options.inputValue
+        };
+        // 会员Data
+        let cardMessage = {
+            p_id: wepy.$instance.globalData.p_id,
+            m_id: options.m_id,
+            type:"0",
+            token: wx.getStorageSync('token')
+        };
+        // 获取充值优惠规则和会员信息
+        Promise.all([requestData(api.getRechargeRule,'POST',rule),requestData(api.cardMessage,'POST',cardMessage)]).then(res=>{
+            wx.hideLoading();
+            // 获取充值优惠规则
+            this.surplusMoney = ((res[0].data.data[0].elasticBigDec1 + res[0].data.data[0].givenMoenyBigDec1) - options.inputValue).toFixed(2)
+            this.getRechargeRule = res[0].data.data[0]
+            // 会员数据
+            this.memberMess = res[1].data.data[0]
+            // 判断余额买单‘2’还是原价买单‘0’
+            this.memberPayMode = ((res[1].data.data[0].isMem == 0 || res[1].data.data[0].isMem == 2) && Number(res[1].data.data[0].MemInfo.balance) >= Number(this.inputValue))? 2 : 0
+            this.$apply()
+        })
+    };
+}
+</script>
+
+<template lang="wxml">
+    <view class='container'>
+        <view class='moneyBox'>
+            <view class='inputMoney'>
+                <view class='symbol'>￥</view>
+                <view class='money'>{{inputValue}}</view>
+            </view>
+            <view class='prompt'>该笔订单金额</view>
+        </view>
+        <view class='preferentialRules'>
+            <view class='preferentialRulesTop'>
+                <view  data-id='0' data-money='{{getRechargeRule.elasticBigDec1 + getRechargeRule.givenMoenyBigDec1}}' class="preferentialRulesItemBox {{activeRulesItem[0].active?'activeRulesItem':''}}" @tap='selectRules'>
+                    <view class="preferentialRulesItem">
+                        <view class='topPrompt' style='background-color:#328cb3'>最划算</view>
+                        <view class='recharge'>充{{getRechargeRule.elasticBigDec1}}元</view>
+                        <view class='preferential'>送{{getRechargeRule.givenMoenyBigDec1}}元</view>
+                    </view>
+                </view>
+                <view data-id='1' data-money='{{getRechargeRule.elasticBigDec2 + getRechargeRule.givenMoenyBigDec2}}' class="preferentialRulesItemBox {{activeRulesItem[1].active?'activeRulesItem':''}}" @tap='selectRules'>
+                    <view class='preferentialRulesItem'>
+                        <view class='topPrompt' style='background-color:#5845b3'>大赠送</view>
+                        <view class='recharge'>充{{getRechargeRule.elasticBigDec2}}元</view>
+                        <view class='preferential'>送{{getRechargeRule.givenMoenyBigDec2}}元</view>
+                    </view>
+                </view>
+                <view data-id='2' data-money='{{getRechargeRule.elasticBigDec3 + getRechargeRule.givenMoenyBigDec3}}' class="preferentialRulesItemBox {{activeRulesItem[2].active?'activeRulesItem':''}}" @tap='selectRules'>
+                    <view class='preferentialRulesItem'>
+                        <view class='topPrompt' style='background-color:#ec5350'>本次免单</view>
+                        <view class='recharge'>充{{getRechargeRule.elasticBigDec3}}元</view>
+                        <view class='preferential'>送{{getRechargeRule.givenMoenyBigDec3}}元</view>
+                    </view>
+                </view>
+            </view>
+            <view class='preferentialRulesBottom'>充值享受更多优惠，订单实扣<text>{{inputValue}}元</text>，剩余<text>{{surplusMoney}}元</text></view>
+        </view>
+        <!-- btn -->
+        <view class='payBtnBox_'>
+            <button class='discountBtn' @tap='payment(1)'>{{memberMess.isMem != 1 ?'充值并支付':'优惠办卡并支付'}}</button>
+            <button class='originalPriceBtn' @tap="payment({{memberPayMode}})">{{ memberPayMode == 2 ?'卡内余额支付':'原价买单'}}</button>
+            <view class="currentBalance" wx:if="{{memberMess.isMem == 0 || memberMess.isMem == 2}}">当前余额 <text>{{memberMess.MemInfo.balance}}元</text></view>
+        </view>
+        <!-- 底部说明提示 -->
+        <view class="bottomPrompt">商品及服务均由商户提供，与平台无关</view>
+    </view>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+    }
+    .moneyBox{
+        width: 100%;
+        height: 300rpx;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 54rpx;
+        .inputMoney{
+            display: flex;
+            .symbol{
+                padding-top: 40rpx;
+                font-size: 48rpx;
+                line-height: 106rpx;
+            }
+            .money{
+                font-size: 106rpx;
+            }
+        }
+        .prompt{
+            padding-left: 15rpx;
+            font-size: 28rpx;
+            color: #999;
+        }
+    }
+    .preferentialRules{
+        width: 100%;
+        padding: 40rpx;
+        display: flex;
+        flex-direction: column;
+        .preferentialRulesTop{
+            display: flex;
+            justify-content: space-between;
+            .preferentialRulesItem{
+                position: relative;
+                width: 195rpx;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                border: 1rpx solid #ffd05c;
+                border-radius: 8rpx;
+                background-color: #fafafa;
+                .topPrompt{
+                    width: 130rpx;
+                    height: 48rpx;
+                    line-height: 48rpx;
+                    text-align: center;
+                    position: absolute;
+                    top: -33rpx;
+                    left: -7rpx;
+                    font-size: 28rpx;
+                    color: #fff;
+                    border-radius: 10rpx;
+                    box-shadow: 0 0 10rpx #bdb9b9;
+                }
+                .recharge{
+                    padding-top: 25rpx;
+                }
+                .recharge{
+                    font-size: 24rpx;
+                }
+                .preferential{
+                    padding: 10rpx 0;
+                    font-size: 34rpx;
+                }
+            }
+        }
+        .preferentialRulesBottom{
+            width: 100%;
+            text-align: center;
+            color: #666;
+            padding-top: 35rpx;
+            font-size: 28rpx;
+            text{
+                color:#ffd05c;
+            }
+        }
+    }
+    .payBtnBox_{
+        width: 100%;
+        padding: 10rpx 40rpx;
+        button{
+            font-size: 32rpx;
+        }
+        .discountBtn{
+            background-color: #fedb3a;
+        }
+        .originalPriceBtn{
+            margin-top: 25rpx;
+            background-color: #4ecd9f;
+        }
+    }
+    .activeRulesItem{
+        .preferentialRulesItem{
+            background-color: #fffdea !important;
+            .preferential{
+                color: #ffd05c;
+            }
+        }
+    }
+    .currentBalance{
+        width: 100%;
+        text-align: center;
+        margin-top: 13rpx;
+        font-size: 27rpx;
+        color: #666;
+        text{
+            color: #000;
+        }
+    }
+    .bottomPrompt{
+        width: 100%;
+        text-align: center;
+        font-size: 24rpx;
+        position: fixed;
+        bottom: 20rpx;
+        color: rgb(116, 115, 115);
+    }
+</style>

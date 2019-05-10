@@ -1,0 +1,180 @@
+<style lang="less">
+    @import '../styles/index.less';
+    page{
+        width:100%;
+        height:100%;
+        background-color:#fff;
+    }
+    #deliciousFood{
+        width:710rpx;
+        height:100%;
+        margin:auto;
+        padding-bottom:20rpx;
+        padding-top: 20rpx;
+        box-sizing:border-box;
+    }
+    .cover-mask{
+        width:100%;
+        height:100%;
+        background-color:#fff;
+        position:absolute;
+        top:0;
+        bottom:0;
+    }
+    .matchData{
+        width:100%;
+        text-align:center;
+        height:30rpx;
+        position:absolute;
+        top:0;
+        bottom:0;
+        margin:auto;
+    }
+</style>
+
+<template>
+    <view id="deliciousFood" style="position:relative;">
+        <view class="shop-list-wrapBox" wx:if='{{shopInfo}}'>
+        <!-- 店铺列表 -->
+        <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1" @tap.stop="toShop({{item1.sendprice}},{{item1.mId}},{{item1.shop_type}},{{item1.takeout}})">
+          <moreFormId><image lazy-load="true" class="shop-img" src="{{item1.mLogo}}" style="height:313rpx;"/></moreFormId>
+          <view class="shop-info-wrap">
+            <view class="title-wrap">
+              <view class="title">{{item1.mName}}</view>
+            </view>
+            <view class="star-wrap">
+              <view class="star">
+                <view class = 'startBox'>
+                  <block wx:for="{{stars}}" wx:key='idx'>
+                    <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?selectedSrc : normalSrc}}">
+                      <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                      <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                    </image>
+                  </block>
+                </view>
+              </view>
+              <view class="position">
+                <image src="../images/location.png" />
+                <text style="margin-left:10rpx;">{{item1.distanceStr}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+        <!-- 数据未加载出来的白色遮罩 -->
+        <view class="cover-mask" style="display:{{showOrHide}}"></view>
+        <view style="width:100%;height:30rpx;text-align:center;line-height:30rpx;" wx:if="{{shopInfo.length >= 5}}">{{dataMessage}}</view>
+        <view class="matchData" wx:if="{{shopInfo.length == 0}}">暂无该分类数据</view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import api from '../api/api'
+
+    import requsetData from '../api/requestUrl'
+    export default class deliciousFood extends wepy.page{
+        config = {
+            navigationBarTitleText: ''
+        }
+        data = {
+            stars: [0, 1, 2, 3, 4],
+            normalSrc: 'http://www.qumatou.com.cn/zheng/xcximage/star.png',
+            selectedSrc: 'http://www.qumatou.com.cn/zheng/xcximage/starWhole.png',
+            key: 0,
+            shopInfo:[],
+            cateInfo:{},
+            latAndLng:null,
+            page:0,
+            showOrHide:'none',
+            dataMessage:'上拉加载数据',
+            takeOutM_id:'',
+        }
+        methods = {
+            //跳转店铺  (配送费、店铺ID、店铺类型,外卖)
+            toShop(sendprice,id,type,takeout){
+                if((type == 1 || type == 2 || type == 5 || type == 6 || type == 7) && !takeout){
+                    //电商和门店流程
+                    wx.navigateTo({
+                        url:'./e/page/index/index?id=' + id + '&shopType=' + type
+                    })
+                }else if((type == 3 || type == 4) && !takeout){
+                    //外卖和超市
+                    wx.navigateTo({
+                        url:'./f/page/index/index?id=' + id + '&shopType=' + type
+                    })
+                }else if(takeout){
+                    //外卖直接跳产品
+                    wepy.$instance.globalData.takeOutStatus = 2
+                    wx.navigateTo({
+                        url:`./f/page/d/d?m_id=${id}&sendPrice=${sendprice}`
+                    })
+                }
+            },
+        }
+        onReachBottom(){
+            wx.showLoading({ title: '加载中...' })
+            this.page = this.page + 1;
+            const url = requsetData.goodLists
+            const data = {
+                longitude:this.cateInfo.longitude?this.cateInfo.longitude:this.latAndLng.lng,
+                latitude:this.cateInfo.latitude?this.cateInfo.latitude:this.latAndLng.lat,
+                page_Num:this.page,
+                Indust_id:this.cateInfo.Indust_id,
+                p_id:wepy.$instance.globalData.p_id                                                                                                                                                              
+            }
+            wepy.request({
+                url: url,
+                method: 'POST',
+                data: data,
+            }).then(res=>{
+                if(!res.data.data.list){
+                    this.dataMessage = '暂无更多数据';
+                }else{
+                    res.data.data.list.forEach((item,index)=>{
+                        this.shopInfo.push(item);
+                    })
+                }
+                wx.hideLoading();
+                this.$apply();
+            })
+        }
+        //请求数据
+        async getShopList(){
+            const url = requsetData.goodLists
+            const data = {
+                longitude:this.cateInfo.longitude?this.cateInfo.longitude:this.latAndLng.lng,
+                latitude:this.cateInfo.latitude?this.cateInfo.latitude:this.latAndLng.lat,
+                page_Num:this.page,
+                Indust_id:this.cateInfo.Indust_id,
+                p_id:wepy.$instance.globalData.p_id                                                                                                                                                              
+            }
+            if(takeOutM_id) data.m_id = takeOutM_id
+            await wepy.request({
+                url: url,
+                method: 'POST',
+                data: data,
+            }).then(res=>{
+                this.shopInfo = res.data.data.list;
+                if(this.shopInfo.length == 0){
+                    this.showOrHide= 'block';
+                }else{
+                    this.showOrHide = 'none';
+                }
+                this.$apply();
+            })
+        }
+        onLoad(options){
+            console.log(options)
+            if(options.m_id)this.takeOutM_id = options.m_id
+            this.latAndLng = wx.getStorageSync("latAndLng");
+            this.cateInfo = JSON.parse(options.info);
+            wx.setNavigationBarTitle({ title: options.title });
+            if(this.cateInfo){
+                this.getShopList();
+            }
+            this.$apply()
+        }
+    }
+</script>

@@ -1,0 +1,53 @@
+page {
+  background-color: #efeff4;
+}
+.container {
+  padding: 20rpx;
+}
+.container .inputBox {
+  height: 533rpx;
+  background-color: #fff;
+  border-radius: 7rpx;
+}
+.container .inputBox .title {
+  height: 113rpx;
+  line-height: 113rpx;
+  padding: 0 40rpx;
+  font-size: 26rpx;
+  color: #999;
+  background-color: #f9f9f9;
+  letter-spacing: 3rpx;
+}
+.container .inputBox .inputItemBox {
+  height: 195rpx;
+  padding: 0 40rpx;
+}
+.container .inputBox .inputItemBox .prompt {
+  letter-spacing: 3rpx;
+  font-size: 28rpx;
+  color: #666;
+  margin: 40rpx 0;
+}
+.container .inputBox .inputItemBox .inputItem {
+  height: 94rpx;
+  display: flex;
+  border-bottom: 1rpx solid #f1f1f1;
+  padding-bottom: 30rpx;
+  align-items: center;
+}
+.container .inputBox .inputItemBox .inputItem view {
+  width: 45rpx;
+  height: 64rpx;
+  text-align: left;
+  line-height: 77rpx;
+  font-weight: bold;
+}
+.container .inputBox .inputItemBox .inputItem input {
+  flex: 1;
+  font-size: 64rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+}
+.container .inputBox .payBtn {
+  padding: 33rpx 40rpx 0 40rpx;
+}

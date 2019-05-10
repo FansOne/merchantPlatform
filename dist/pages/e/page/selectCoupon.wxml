@@ -1,0 +1,96 @@
+
+    <view class="container">
+        
+    <view class="item_box"  wx:for="{{$userSelectUseCoupon$syncTitle}}" wx:key="index">
+        <view wx:if="{{item.type == 1}}" class="item_box_wrap {{$userSelectUseCoupon$specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view wx:if="{{item.type == 1}}" class="couponItem" style="background-image: url('http://www.qumatou.com.cn/zheng/xcximage/youhuiquan.png');">
+                <view class="couponItem_left">
+                    <view class="logo">
+                        <view>{{item.title}}</view>
+                        <image src="{{item.cover_url}}"/>
+                    </view>
+                    <view class="pricess">
+                        <view class="pricess_">
+                            <text>￥</text>
+                            <text class="bags">{{item.amount/100}}</text>
+                        </view>
+                        <view class="prompt_">满{{item.min_money/100}}元使用</view>
+                    </view>
+                </view>
+                <view class="couponItem_right">
+                    <view class="get_coupons" catchtap="$userSelectUseCoupon$setCoupon" data-wpysetcoupon-a="{{item}}">去使用</view>
+                </view>
+            </view>
+            <view class="time">
+                <image class="long_btn {{$userSelectUseCoupon$specialId == item.id ? 'long_btn_transform':''}}" src="../../../images/arrow_btn.png" catchtap="$userSelectUseCoupon$showInfo" data-wpyshowinfo-a="{{item.id}}"/>
+                <view class="term" wx:if="{{item.begin_time == 0 && item.end_time == 0}}">使用期限：永久有效</view>
+                <view class="term" wx:if="{{item.begin_time != 0}}">使用期限：{{item.begin_time}}-{{item.end_time ? item.end_time : '无限期'}}</view>                
+                <!-- <view class="share_wrap" catchtap="tapStop({{index}},{{item.id}})">
+                    <image src="../images/share_coupons.png"/>
+                    <text>分享</text>
+                </view> -->
+                <view style="margin-top:10rpx;" class="term">说明:{{item.content}}</view>
+            </view>
+        </view>
+        <view wx:if="{{item.type == 2}}" class="item_box_wrap {{$userSelectUseCoupon$specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view class="couponItem" style="background-image: url('http://www.qumatou.com.cn/zheng/xcximage/zhekouquan.png');">
+                <view class="couponItem_left">
+                    <view class="logo">
+                        <view>{{item.title}}</view>
+                        <image src="{{item.cover_url}}"/>
+                    </view>
+                    <view class="pricess">
+                        <view class="pricess_" style="padding-top:25rpx;">
+                            <text class="bags">{{item.amount}}</text>
+                            <text>折</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="couponItem_right">
+                    <view class="get_coupons" catchtap="$userSelectUseCoupon$setCoupon" data-wpysetcoupon-a="{{item}}">去使用</view>
+                </view>
+            </view>
+            <view class="time">
+                <image class="long_btn {{$userSelectUseCoupon$specialId == item.id ? 'long_btn_transform':''}}" src="../../../images/arrow_btn.png" catchtap="$userSelectUseCoupon$showInfo" data-wpyshowinfo-a="{{item.id}}"/>
+                <view class="term" wx:if="{{item.begin_time == 0 && item.end_time == 0}}">使用期限：永久有效</view>
+                <view class="term" wx:if="{{item.begin_time != 0}}">使用期限：{{item.begin_time}}-{{item.end_time ? item.end_time : '无限期'}}</view>                
+                <!-- <view class="share_wrap" catchtap="tapStop({{index}},{{item.id}})">
+                    <image src="../images/share_coupons.png"/>
+                    <text>分享</text>
+                </view> -->
+                <view style="margin-top:10rpx;" class="term">说明:{{item.content}}</view>
+            </view>
+        </view>
+        <view wx:if="{{item.type == 3}}" class="item_box_wrap {{$userSelectUseCoupon$specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view class="couponItem" style="background-image: url('http://www.qumatou.com.cn/zheng/xcximage/daijinquan.png');">
+                <view class="couponItem_left">
+                    <view class="logo">
+                        <view>{{item.title}}</view>
+                        <image src="{{item.cover_url}}"/>
+                    </view>
+                    <view class="pricess">
+                        <view class="pricess_" style="padding-top:30rpx;">
+                            <text>￥</text>
+                            <text class="bags">{{item.amount/100}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="couponItem_right">
+                    <view class="get_coupons" catchtap="$userSelectUseCoupon$setCoupon" data-wpysetcoupon-a="{{item}}">去使用</view>
+                </view>
+            </view>
+            <view class="time">
+                <image class="long_btn {{$userSelectUseCoupon$specialId == item.id ? 'long_btn_transform':''}}" src="../../../images/arrow_btn.png" catchtap="$userSelectUseCoupon$showInfo" data-wpyshowinfo-a="{{item.id}}"/>
+                <view class="term" wx:if="{{item.begin_time == 0 && item.end_time == 0}}">使用期限：永久有效</view>
+                <view class="term" wx:if="{{item.begin_time != 0}}">使用期限：{{item.begin_time}}-{{item.end_time ? item.end_time : '无限期'}}</view>                
+                <!-- <view class="share_wrap" catchtap="tapStop({{index}},{{item.id}})">
+                    <image src="../images/share_coupons.png"/>
+                    <text>分享</text>
+                </view> -->
+                <view style="margin-top:10rpx;" class="term">说明:{{item.content}}</view>
+            </view>
+        </view>
+    </view>
+
+        <view hidden="{{nodata}}" class="nodata">暂无卡券</view>
+    </view>

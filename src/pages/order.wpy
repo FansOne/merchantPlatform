@@ -1,0 +1,137 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+
+import orderGoods from '../components/orderGoods'
+export default class order extends wepy.page {
+    config = {
+        navigationBarTitleText: '我的订单'
+    };
+    components = {
+        orderGoods:orderGoods
+    };
+
+    data = {
+        navbar: ['到店买单', '门店/电商', '本地产品', '外卖'],
+        currentTab: 0,
+        scrollHeight:'',
+        page_Num:0,
+        orderList:{},
+        noOrderList:false,
+        toview:'',
+    };
+    watch = {
+        currentTab (newValue, oldValue) {
+          this.page_Num = 0
+          this.orderList = []
+          this.noOrderList = false
+          this.orderListsData(newValue)
+        }
+    };
+    methods = {
+        navbarTap(status){
+          this.page_Num = 0
+          this.orderList = []
+          this.noOrderList = false
+          this.currentTab = status;
+          this.orderListsData(status)
+          if(status == 2) this.toview = 'data2'
+        },
+    };
+
+    events = {
+    };
+    onReady(){
+        let mineOrderStatus = wepy.$instance.globalData.mineOrderStatus;
+        if(mineOrderStatus != undefined) {
+            this.currentTab = mineOrderStatus
+        }else{
+            this.orderListsData()
+        }
+    }
+    onLoad() {
+        wx.getSystemInfo({
+          success:(res)=> {
+              //创建节点选择器
+              let height = 0;
+              let query = wx.createSelectorQuery();
+              query.select('.orderTabs').boundingClientRect()
+              query.exec((result) => {
+                  this.scrollHeight = res.windowHeight - result[0].height
+                  this.$apply()
+              })
+          }
+        })
+    };
+    // 获取订单列表
+    orderListsData(status){
+        wx.showLoading({title: '加载中...'});
+        let url = requestUrl.orderList;
+        let data = {
+            p_id: wepy.$instance.globalData.p_id,
+            object:0,//0-消费者 1-商户
+            // userid:"15309291231", //objec 为1的时候 填此字段
+            type: status?status:0,//-1-全部订单 0 到店买单 1 门店/电商 2-本地产品 3-外卖
+            page_Num: this.page_Num,
+            token:wx.getStorageSync('token')
+        }
+        requestData(url,'POST',data).then(res=>{
+            wx.hideLoading();
+            if(this.page_Num==0){
+                this.orderList = res.data.data
+                if(!res.data.data.length) this.noOrderList = true
+                this.$apply()
+            }else{
+                if(res.data.data.length){
+                    res.data.data.forEach(element => {
+                        this.orderList.push(element)
+                    });
+                }else{
+                    wx.showToast({title: '已加载全部数据',icon:'none'});
+                }
+            }
+        })
+    }
+    // 触底加载
+    paging(){
+        this.page_Num++
+        this.orderListsData(this.currentTab)
+    }
+}
+</script>
+
+<template lang="wxml">
+    <!-- tabMenu -->
+    <view class="orderTabs">
+        <scroll-view scroll-x style="width: 100%" class="loopBox" scroll-with-animation scroll-into-view="{{toview}}" scroll-left='100rpx'>
+            <!--循环-->
+            <view wx:for="{{navbar}}" wx:key="" class="item {{currentTab==index ? 'active' : ''}}" @tap="navbarTap({{index}})" id="data{{index}}">
+                {{item}}
+            </view>
+        </scroll-view>
+    </view>
+    <!-- 订单列表 -->
+    <scroll-view wx:if="{{currentTab == 0}}" scroll-y style='height:{{scrollHeight}}px' bindscrolltolower='paging'>
+        <orderGoods :orderList.sync="orderList" :noOrderList.sync="noOrderList"/>
+    </scroll-view>
+    
+    <scroll-view wx:if="{{currentTab == 1}}" scroll-y style='height:{{scrollHeight}}px' bindscrolltolower='paging'>
+        <orderGoods :orderList.sync="orderList" :noOrderList.sync="noOrderList"/>
+    </scroll-view>
+    
+    <scroll-view wx:if="{{currentTab == 2}}" scroll-y style='height:{{scrollHeight}}px' bindscrolltolower='paging'>
+        <orderGoods :orderList.sync="orderList" :noOrderList.sync="noOrderList"/>
+    </scroll-view>
+    
+    <scroll-view wx:if="{{currentTab == 3}}" scroll-y style='height:{{scrollHeight}}px' bindscrolltolower='paging'>
+        <orderGoods :orderList.sync="orderList" :noOrderList.sync="noOrderList"/>
+    </scroll-view>
+    
+    <scroll-view hidden="{{currentTab !== 4}}" scroll-y style='height:{{scrollHeight}}px' bindscrolltolower='paging'>
+        <orderGoods :orderList.sync="orderList" :noOrderList.sync="noOrderList"/>
+    </scroll-view>
+</template>
+
+<style lang="less">
+</style>

@@ -1,0 +1,78 @@
+.collageIndex_box {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx;
+}
+.collageIndex_box .collageIndex {
+  width: 100%;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-shadow: 0 0 10rpx #dcdcdc;
+  margin-bottom: 20rpx;
+}
+.collageIndex_box .collageIndex image {
+  display: block;
+  width: 400rpx;
+  height: 400rpx;
+  border-radius: 10rpx 10rpx 0 0;
+  margin: 0 auto;
+}
+.collageIndex_box .collageIndex_bottom {
+  padding: 0 20rpx 15rpx 20rpx;
+  background-color: #fff;
+}
+.collageIndex_box .collageIndex_bottom .collageIndex_title {
+  width: 670rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #333;
+  font-size: 30rpx;
+  letter-spacing: 3rpx;
+}
+.collageIndex_box .collageIndex_bottom .collageIndex_skus {
+  padding-top: 5rpx;
+  font-size: 25rpx;
+  color: #666;
+  letter-spacing: 3rpx;
+}
+.collageIndex_box .collageIndex_bottom .groupPrice {
+  display: flex;
+  align-items: center;
+  margin-top: 15rpx;
+  justify-content: space-between;
+}
+.collageIndex_box .collageIndex_bottom .groupPrice .groupPrice_left {
+  display: flex;
+  align-items: center;
+}
+.collageIndex_box .collageIndex_bottom .groupPrice .groupPrice_left .groupPrice_price {
+  color: #ff262f;
+  font-size: 30rpx;
+}
+.collageIndex_box .collageIndex_bottom .groupPrice .groupPrice_left .groupPrice_price text:nth-child(2) {
+  font-size: 42rpx;
+}
+.collageIndex_box .collageIndex_bottom .groupPrice .groupPrice_left .groupPrice_discount {
+  color: #333;
+  font-size: 25rpx;
+  text-decoration: line-through;
+  transform: translateY(5rpx);
+  margin-left: 22rpx;
+}
+.collageIndex_box .collageIndex_bottom .groupPrice .groupPrice_left .groupPrice_groupNum {
+  color: #666;
+  font-size: 24rpx;
+  transform: translateY(5rpx);
+  margin-left: 22rpx;
+  letter-spacing: 3rpx;
+}
+.collageIndex_box .collageIndex_bottom .groupPrice .groupPrice_btn {
+  background: linear-gradient(to right, #FFA500, #FF8C00);
+  color: white;
+  padding: 10rpx 20rpx;
+  border-radius: 50rpx;
+  box-shadow: 0 0 10rpx #FFA500;
+  font-size: 25rpx;
+  letter-spacing: 3rpx;
+}

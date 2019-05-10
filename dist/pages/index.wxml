@@ -1,0 +1,98 @@
+
+  <view id="first" style="position:relative;background-color:#fff;">
+    <view  wx:if="{{notButton}}" style="width:100%;height:auto;margin:auto;padding-bottom:20rpx;box-sizing:border-box;">
+      <!-- 搜索框 -->
+      <view class="search-wrap" catchtap="toSearch" style="{{share==0?'width:622rpx':'width:706rpx'}}">
+        <image class="search_btn" mode="scaleToFill" src="../images/search.png"/>
+        请输入商家、品类或商圈
+        <image wx:if="{{share==0}}" class="share_btn" catchtap="shareMoments" src="../images/index_share.png"/>
+      </view>
+      <!-- 轮播图 -->
+      <view class="banner">
+        <swiper indicator-dots="{{indicatorDots}}" circular="circular" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+          <block wx:for="{{imgUrls}}" wx:key="index">
+            <swiper-item data-url="{{item.URL}}" catchtap="goUrl">
+              
+    <form report-submit="true" bindsubmit="$moreFormId$getFormId">
+        <button form-type="submit">
+            <image mode="aspectFill" src="{{item.imagePath}}" class="slide-image" width="355" height="150"/>
+        </button>
+    </form>
+
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+      <view class="btn-things-wrapBox">
+        <!-- 模块 -->     
+        <view class="btn-things-wrap">
+          <view class="item" wx:for="{{imagesBtn}}" wx:key="index" data-index="{{index}}" bindtap="toModelDetail" data-wpytomodeldetail-a="{{item.c_id}}" data-wpytomodeldetail-b="{{item.c_name}}">
+            
+    <form report-submit="true" bindsubmit="$moreFormId$getFormId">
+        <button form-type="submit">
+            <image class="image-btn" src="{{item.c_image}}"/>
+        </button>
+    </form>
+
+            <view class="btn-desc">{{item.c_name}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="shop-wrap">
+        <image class="title-img" mode="aspectFit" src="http://www.qumatou.com.cn/zheng/xcximage/nearbyShop.png"/>
+      </view>
+      <!-- 周边好店 -->
+      <view class="shop-list-wrapBox" wx:if="{{shopInfo}}">
+        <!-- 店铺列表 -->
+        <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1" data-id="{{item1.mId}}" data-type="{{item1.shop_type}}" catchtap="toShop">
+          
+    <form report-submit="true" bindsubmit="$moreFormId$getFormId">
+        <button form-type="submit">
+            <image lazy-load="true" class="shop-img" src="{{item1.mLogo}}"/>
+        </button>
+    </form>
+
+          <view class="shop-info-wrap">
+            <view class="title-wrap">
+              <view class="title">{{item1.mName}}</view>
+            </view>
+            <view class="star-wrap">
+              <view class="star">
+                <view class="startBox">
+                  <block wx:for="{{stars}}" wx:key="idx">
+                    <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?selectedSrc : normalSrc}}">
+                      <view class="item" style="left:0rpx" data-key="{{item+0.5}}"/>
+                      <view class="item" style="left:25rpx" data-key="{{item+1}}"/>
+                    </image>
+                  </block>
+                </view>
+              </view>
+              <view class="position">
+                <image src="../images/location.png"/>
+                <text style="margin-left:10rpx;">{{item1.distanceStr}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style="width:100%;height:30rpx;text-align:center;font-size:26rpx;line-height:30rpx;" wx:if="{{shopInfo.length>2}}">{{dataMessage}}</view>
+    </view>
+    <button class="button"  wx:if="{{button}}" bindtap="getSetting">请授权</button>
+    <!-- 遮罩 -->
+		<view class="mask" hidden="{{maskFlag}}"/>
+    <!-- 分享朋友圈 -->
+    <view wx:if="{{shareShow}}" class="shareFriends shareShow">
+      <view class="shareFriendsBtn">
+        <button style="border-right:1rpx solid #f1f1f1" open-type="share"><icon class="iconfont icon-icon-"/><view>分享给好友</view></button>
+        <button bindtap="sharequan"><icon class="iconfont icon-pengyouquan"/><view>发朋友圈</view></button>
+      </view>
+      <view class="shareFriendsCancel" bindtap="shareFriends">取消</view>
+    </view>
+		<!-- 海报 -->
+		<view class="haiBao {{haobaoShow?'':'haobaoShow'}}" hidden="{{haobaoShow}}">
+			<image src="{{haiBaoImg}}" bindtap="previewImage" data-wpypreviewimage-a="{{haiBaoImg}}"/>
+			<button bindtap="saveImg" data-wpysaveimg-a="{{haiBaoImg}}">保存至相册</button>
+			<view>分享朋友圈时可在相册选取图片</view>
+			<view class="close" bindtap="closeHaiBao">×</view>
+		</view>
+  </view>

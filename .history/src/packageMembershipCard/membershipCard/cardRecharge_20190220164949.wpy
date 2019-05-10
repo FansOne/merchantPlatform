@@ -1,0 +1,206 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../../api/requestUrl'
+import { requestData } from '../../api/requestData'
+
+export default class cardRecharge extends wepy.page {
+    config = {
+        navigationBarTitleText: '会员卡充值'
+    };
+    components = {};
+
+    data = {
+        selectPay:[],
+        selectElement:{},
+        inputStatus:false
+    };
+    methods = {
+        selectPay(item){
+            this.selectPay.forEach(element => {
+                if(item.id == element.id){
+                    element.borderColor = '#ff9e6e'
+                    element.sanJiaoColor = '#ff9e6e'
+                    element.moneyColor = '#ff9e6e'
+                    element.beanColor = '#666'
+                }else{
+                    element.borderColor = '#ccc'
+                    element.sanJiaoColor = '#ccc'
+                    element.moneyColor = '#666'
+                    element.beanColor = '#ccc'
+                }
+            });
+            // this.inputStatus = false
+            this.selectElement = item
+            this.$apply()
+        },
+        userInput(){
+            this.inputStatus = !this.inputStatus
+        }
+    };
+    events = {};
+    onLoad(options) {
+        let data = {
+            p_id : wepy.$instance.globalData.p_id,
+            m_id : 8,
+            TranType : 0,
+            Bury_Type : 1,
+            Bury_Money : 0
+        }
+        requestData(requestUrl.getRechargeRule,"POST",data).then((res)=>{
+            res.data.data.forEach(element => {
+                if(element.id == res.data.data[0].id){
+                    element.borderColor = '#ff9e6e'
+                    element.sanJiaoColor = '#ff9e6e'
+                    element.moneyColor  = '#ff9e6e'
+                    element.beanColor = '#666'
+                }else{
+                    element.borderColor = '#ccc'
+                    element.sanJiaoColor = '#ccc'
+                    element.moneyColor  = '#666'
+                    element.beanColor = '#ccc'
+                }
+            });
+            res.data.data.push({id:'其他金额',borderColor:'#ccc',sanJiaoColor:'#ccc',moneyColor:'#666',beanColor:'#ccc'})
+            this.selectElement = res.data.data[0]
+            this.selectPay = res.data.data
+            this.$apply()
+        })
+    };
+    // wx.requestPayment({
+    //     'appId':this.jssdk.appId,
+    //     'timeStamp': this.jssdk.timeStamp,
+    //     'nonceStr':this.jssdk.nonceStr,
+    //     'package': this.jssdk.package,
+    //     'signType': this.jssdk.signType,
+    //     'paySign': this.jssdk.paySign,
+    //     success:(res)=>{
+    //         wx.showToast({
+    //             title: '充值成功',
+    //             icon: 'success',
+    //             success:()=>{
+    //                 setTimeout(() => {
+    //                     wx.navigateBack({
+    //                         delta: 1
+    //                     });
+    //                 }, 1000);
+    //             }
+    //         });
+    //         this.userMoney()
+    //     },
+    // })
+}
+</script>
+
+<template lang="wxml">
+    <!-- 用户自定义输入充值金额 -->
+    <view class="inputBox {{inputStatus?'inputBoxShow':''}}"><input placeholder='输入要充值的金额' type='number'/></view>
+    <view class="cardBalance">
+        卡内余额：<text>10</text>元
+    </view>
+    <view class="bannerBox"><image src='../../images/cardRechargeBanner.png' /></view>
+    <view class='rechargeTitle'>选择充值金额</view>
+    <view class='selectBox'>
+        <view wx:for='{{selectPay}}' wx:key='' class='selectBox_item' @tap="selectPay({{item}})">
+            <view class='selectBox_item_' style="border:1px solid {{item.borderColor}}">
+                <block wx:if="{{item.id != '其他金额'}}">
+                    <view style="color:{{item.moneyColor}}">{{item.elasticBigDec}}元</view>
+                    <view style="color:{{item.beanColor}}">赠送￥{{item.givenMoenyBigDec}}</view>
+                </block>
+                <block wx:else>
+                    <view style="color:{{item.moneyColor}}" @tap="userInput">{{item.id}}</view>
+                    <view style="color:{{item.beanColor}}"></view>
+                </block>
+                <view class='sanjiao' style="border-color: transparent transparent {{item.sanJiaoColor}} transparent;"></view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+    page{
+        background-color: #f4f5f7;
+    }
+    view{
+        box-sizing: border-box;
+    }
+    .cardBalance{
+        width: 100%;
+        background-color: #fff;
+        padding: 50rpx 40rpx;
+        text{
+            color: #f40;
+        }
+    }
+    .bannerBox{
+        width: 100%;
+        padding: 30rpx;
+        image{
+            width: 100%;
+            height: 180rpx;
+        }
+    }
+    .rechargeTitle{
+        padding: 0 30rpx;
+    }
+    .selectBox{
+        box-sizing: border-box;
+        padding: 20rpx 30rpx 0 30rpx;
+        display: flex;
+        flex-wrap: wrap;
+        .selectBox_item{
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            .selectBox_item_{
+                background-color: #fafafa;
+                display: flex;
+                justify-content: center;
+                width: 300rpx;
+                height: 88rpx;
+                line-height: 88rpx;
+                margin-bottom: 40rpx;
+                overflow: hidden;
+                position: relative;
+                view:nth-child(1){
+                    font-size: 30rpx;
+                    margin-right: 15rpx;
+                }
+                view:nth-child(2){
+                    font-size: 24rpx;
+                }
+                .sanjiao{
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    border-style: solid;
+                    border-width: 0 0 40rpx 40rpx;
+                    width: 0px;
+                    height: 0px;
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+    }
+    .inputBox{
+        transform: translateY(-100%);
+        transition: transform .4s;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 1;
+        padding: 40rpx 50rpx;
+        background-color: #fff;
+        input{
+            box-sizing: border-box;
+            height: 77rpx;
+            width: 100%;
+            line-height: 77rpx;
+            border: 1rpx solid #ccc;
+            padding: 0 30rpx;
+            color: #000;
+        }
+    }
+    .inputBoxShow{
+        transform: translateY(0);
+    }
+</style>

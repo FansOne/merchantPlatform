@@ -1,0 +1,32 @@
+
+    <view id="collection" style="width:100%;height:100%;position:relative;">
+        <view class="collection-wrap">
+            <view class="shop-list-wrap" data-id="{{item1.shop_id}}" data-type="{{item1.shop_type}}"  wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1" catchtap="toShop">
+                <image class="shop-img" src="{{item1.cover_url}}"/>
+                <view class="shop-info-wrap">
+                    <view class="title-wrap">
+                        <view class="title">{{item1.title}}</view>
+                        <view class="position">
+                            <image src="../../images/collection-active.png"/>
+                            <text style="margin-left:10rpx;" data-id="{{item1.id}}" data-shopId="{{item1.shop_id}}" catchtap="cancleCollection">取消收藏</text>
+                        </view>
+                    </view>
+                    <view class="star-wrap">
+                        <view class="star">
+                            <view class="startBox">
+                                <block wx:for="{{stars}}" wx:key="idx">
+                                    <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                                        <view class="item" style="left:0rpx" data-key="{{item+0.5}}"/>
+                                        <view class="item" style="left:25rpx" data-key="{{item+1}}"/>
+                                    </image>
+                                </block>
+                            </view>
+                        </view>
+                        <!-- <view class="average">人均￥{{item1.averagePrice/100}}</view> -->
+                    </view>
+                    <!-- <view class="price">￥{{item1.sendprice/100}}起</view> -->
+                </view>
+            </view>
+        </view>
+        <view  wx:if="{{shopInfo.length==0}}" class="shop">暂无已收藏商家</view>
+    </view>

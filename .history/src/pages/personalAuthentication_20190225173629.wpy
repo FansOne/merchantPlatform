@@ -1,0 +1,85 @@
+<script>
+import wepy from 'wepy';
+
+export default class personalAuthentication extends wepy.page {
+    config = {
+        navigationBarTitleText: '个人认证'
+    };
+    components = {};
+
+    data = {
+        identityChoose:[
+            {
+                id:0,
+                title:'村民',
+                bgColor:'#f41928',
+                color:'#ffffff'
+            },
+            {
+                id:1,
+                title:'贫困户',
+                bgColor:'#f3f3f3',
+                color:'#999999'
+            },
+            {
+                id:2,
+                title:'扶贫干部',
+                bgColor:'#f3f3f3',
+                color:'#999999'
+            },
+        ],
+    };
+    methods = {
+        uerChooseIdentity(id){
+            this.identityChoose.forEach((element,index) => {
+                if(id == index){
+                    element.bgColor = '#f41928'
+                    element.color = '#ffffff'
+                }else{
+                    element.bgColor = '#f3f3f3'
+                    element.color = '#999999'
+                }
+            });
+            console.log(`----------`,this.identityChoose[id].title)
+        },
+        formSubmit(){
+            wx.showToast({
+                title: '系统升级中...',
+                icon: 'none',
+                duration: 1500,
+                mask: false,
+            });
+        }
+    };
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <form @submit="formSubmit">
+        <view class="authenticationTitle">姓名</view>
+        <view class="input_Box"><input placeholder="请输入您的姓名" placeholder-style="font-size:28rpx;"  name='userName'/></view>
+        <view class="authenticationTitle">手机号</view>
+        <view class="input_Box"><input placeholder="请输入您的手机号" name='userTel' type='number'/></view>
+        <view class="authenticationTitle">身份证号</view>
+        <view class="input_Box"><input placeholder="请输入您的身份证号" name='userID' type='idcard'/></view>
+        <view class="authenticationTitle">身份证照片(正、反面)</view>
+        <view class="idcardChooseBox">
+            <view class="idcardChoose">+</view>
+            <view class="idcardChoose">+</view>
+        </view>
+        <view class="authenticationTitle">请选择您的身份</view>
+        <view class="identityChooseBox">
+            <view class="identityChoose" wx:for='{{identityChoose}}' wx:key='key' style="background-color:{{item.bgColor}};color:{{item.color}}" @tap="uerChooseIdentity({{item.id}})">{{item.title}}</view>
+        </view>
+        <button form-type="submit" class="submitBtn_">提交</button>
+    </form>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+    }
+</style>

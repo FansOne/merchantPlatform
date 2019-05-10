@@ -1,0 +1,41 @@
+<script>
+import wepy from 'wepy';
+
+export default class personalAuthentication extends wepy.page {
+    config = {
+        navigationBarTitleText: '个人认证'
+    };
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <form @submit="formSubmit">
+        <view class="authenticationTitle">姓名</view>
+        <view class="inputBox"><input placeholder="请输入您的"  name='userName'/></view>
+        <view class="authenticationTitle">手机号</view>
+        <view class="inputBox"><input placeholder="请输入您的" name='userTel'/></view>
+        <view class="authenticationTitle">身份证号</view>
+        <view class="inputBox"><input placeholder="请输入您的" name='userID'/></view>
+        <view class="authenticationTitle">身份证照片(正、反面)</view>
+        <view class="authenticationTitle">请选择您的身份</view>
+    </form>
+</template>
+
+<style lang="less">
+    .authenticationTitle{
+        font-size: 32rpx;
+        color: #000;
+        padding: 0 40rpx;
+    }
+    .inputBox{
+        width: 100%;
+        padding: 30rpx 40rpx;
+    }
+</style>

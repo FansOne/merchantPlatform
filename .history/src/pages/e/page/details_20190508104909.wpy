@@ -1,0 +1,962 @@
+<style lang="less">
+	page {
+	  position: relative;
+	  display: flex;
+	  flex-direction: column;
+	  height: 100%;
+	  background-color: #fff;
+	}
+	
+	swiper {
+	  position:relative; 
+	  height: 680rpx !important;
+	}
+	.zhishi{
+		position: absolute;
+		z-index: 99;
+		top: 25rpx;
+		right: 40rpx;
+		color: #333333;
+		text:nth-child(1){
+			display: inline-block;
+			width: 40rpx;
+			height: 40rpx;
+			text-align: center;
+			line-height: 40rpx;
+			border-radius: 50%;
+			font-size: 28rpx;
+			color: #ffffff;
+			background-color: rgb(220,85,53);
+		}
+		text:nth-child(2){
+			line-height: 40rpx;
+		}
+	}
+	swiper-item image {
+	  width: 100%;	
+	}
+	.details-box{
+		position: relative;
+		// margin-bottom: 77rpx;
+		.details-images-box {
+			display: flex;
+			justify-content:space-around;
+			height: 165rpx;
+			width: 100%;
+			position: absolute;
+			top: -63rpx;
+			.details{
+				position: relative;
+				border-radius:20rpx;
+				box-shadow: 1px 1px 10px #f1f1f1;
+				z-index: 2;
+				height: 100%;
+				width: 200rpx;
+				background-color:rgba(255, 255, 255, .9);
+				overflow: hidden;
+				image {
+					border-radius:20rpx;
+					overflow: hidden;
+					position: absolute;
+					left: 0;
+					right: 0;
+					top: 0;
+					bottom: 0;
+					margin: auto;
+					// margin-top: 18rpx;
+					width: 150rpx;
+					height: 150rpx;
+					border-radius: 50%;
+				};
+			}
+		}
+	}
+
+	.detail {
+	  position:relative; 
+	  padding: 0rpx 25rpx;  
+	  margin-bottom: 0rpx;
+	  margin-top:20rpx;
+	  box-sizing:border-box;
+	  .icons {
+	  	position: absolute;
+	  	padding-right: 5rpx;
+	  	top: 6rpx;
+	  	right: 2rpx;
+	  	display: inline-block;
+		image{
+			margin: 0 20rpx;
+	  		width: 35rpx;
+	  		height: 35rpx;
+	  	}
+	  }
+	}
+
+	.prices {
+		padding: 30rpx 5rpx;
+		display: flex;
+		flex-direction: row;
+		/*border: 1px solid red;*/
+	  	border-bottom: 1px solid #efeff4;
+
+	}
+
+	.biaoJia {
+		color: #fd2323;
+		font-size: 22rpx;	
+		border: 1px solid #fd2323;
+		height: 36rpx;
+		width: 60rpx;
+		text-align: center;
+		line-height: 36rpx;
+		margin-right: 20rpx;
+	}
+	.xianJia,.numbers,.yuanJia{
+		color: #fd2323;
+		font-size: 30rpx;
+		text-align: center;
+		line-height: 45rpx;
+	}
+	.numbers,.yuanJia{
+		line-height: 57rpx;
+	}
+	.yuanJia {
+		color: #000;
+		margin-left: 25rpx;
+		text-decoration:line-through;
+	}
+	.xianJia {
+		font-size: 45rpx;
+		margin-right: 10rpx;
+	}
+
+	.guige-box{
+		margin: 0 25rpx;
+		.guige-choose{
+			position: relative;
+			padding: 40rpx 0rpx;
+			color: gray;
+			font-size: 28rpx;
+			.xuanze-guize{
+				position: absolute;
+				left: 30%;
+				color: black;
+			}
+		}
+	}
+	.icon-jiantou {
+		position: absolute;
+		right: 0rpx;
+	}
+	.comment navigator{
+		position: relative;
+		padding: 20rpx 0;
+		border-bottom: 1px solid #efeff4;
+		margin: 0 25rpx;
+	}
+	.comment-title{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: black;
+		font-size: 34rpx;
+		.comment-num{
+			font-size: 25rpx;
+			margin-left: 20rpx;
+		}
+		.good-comment{
+			font-size: 25rpx;
+		}
+	}
+	.comment-write{
+		letter-spacing:8rpx;
+	}
+	.detail .title {
+	  display: inline-block;
+	  padding-right: 55rpx;
+	  letter-spacing:5rpx;
+	  font-size: 34rpx;
+	  color: black;
+	  text-align: justify;
+	  margin-top: -10rpx;
+	}
+	.recommend-box{
+		overflow: hidden;
+		margin: 0 25rpx;
+    	box-sizing: border-box;
+    	padding-bottom: 30rpx;
+    	overflow: hidden;
+    	white-space: nowrap;
+		.tuijian_img {
+			margin-right: 25rpx;
+			width: 250rpx;
+			display: inline-block;
+			.upload_Item_img{
+				width: 250rpx;
+				height: 250rpx;
+				border-radius: 15rpx;
+			}
+			.tuijian-xinxi{
+				margin-top:15rpx; 
+				font-size: 26rpx;
+				width: 250rpx;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			.tuijian-jiage{
+				margin-top: 15rpx;
+				font-size: 30rpx;
+				color: #f40;
+			}
+		}
+	}
+
+	.parameter-box{
+		display: flex;
+		flex-direction: column;
+		border-top: 1px solid #efeff4;
+		border-bottom: 1px solid #efeff4;
+		padding-bottom: 25rpx;
+	}
+	.juti-canshu{
+		border: 1rpx solid #e8e8e8;
+		border-bottom: none;
+		view{
+			padding-right: 24rpx;
+			color: #000;
+			font-size: 26rpx;
+			height: 90rpx;
+			line-height: 90rpx;
+			text:nth-child(1){
+				display: inline-block;
+				width: 35%;
+				height: 90rpx;
+				line-height: 90rpx;
+				text-align: center;
+				background-color: #f2f6f9;
+			}
+			text:nth-child(2){
+				display: inline-block;
+				width: 65%;
+				height: 90rpx;
+				line-height: 90rpx;
+				text-align: center;
+			}
+		}
+	}
+	.parameter-style{
+		background-color:#fff;
+		border-bottom: 1rpx solid #e9e9eb;
+	}
+	.detail-nav {
+	  display: flex;
+	  align-items: center;
+	  float: left;
+	  background-color: rgb(52,52,52);
+	  position: fixed;
+	  bottom: 0;
+	  right: 0;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0 50rpx;
+		height: 115rpx;
+		justify-content: space-between;
+	}
+	.button-green {
+	  position: relative;
+	  background-color: rgb(52,52,52);
+	  border: 1px solid #ffffff;
+	  width: 240rpx;
+	  height: 75rpx;
+	  border-radius: 15rpx;
+	  text-align: center;
+	  display: flex;
+	  flex-direction: column;
+	  color: #ffffff;
+	  text{
+	  	letter-spacing: 4rpx;
+	  	font-size: 30rpx;
+	  	height: 30rpx;
+	  	width: 100%;
+	  	display: block;
+	  	line-height: 75rpx;
+	  }
+	  .smallTitle{
+	  	letter-spacing: 4rpx;
+	  	position: absolute;
+	  	top:40rpx;
+	  	left: 0;
+	  	display: block;
+	  	font-size: 20rpx !important;
+	  	/*height: 14rpx;*/
+	  	line-height: 30rpx;
+	  	width: 100%;
+	  } 
+	}
+	.shareBuy {
+	  color: #ffffff;
+	  display: flex;
+	  flex-direction: column;	
+	  width: 240rpx;
+	  height: 77rpx;
+	  background-color: rgb(238,108,75); /* 红色 */
+	  border: 1px solid rgb(238,108,75);
+	  margin: 0 !important;
+	}
+	.btn-price{
+		font-size: 35rpx;
+		height: 35rpx;
+		line-height: 45rpx;	
+		width: 100%;
+	}
+	.btn-share{
+		font-size: 20rpx;
+		line-height: 40rpx;
+	}
+	button::after{
+		border: none;
+	}
+	.image_detail {
+	  width: 100%;
+	}
+	.detail-nav image {
+	  width: 50rpx;
+	  height: 50rpx;
+	  margin: 20rpx 30rpx;
+	}
+
+	.backPage{
+		position: relative;
+		height: 115rpx;
+		text{
+			display: block;
+			position: absolute;
+			bottom: 7rpx;
+			text-align: center;
+			font-size: 24rpx;
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+		view{
+			position: absolute;
+			top: -5rpx;
+			right: 8rpx;
+			width: 40rpx;
+			height: 40rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #ffffff;
+			border-radius: 50%;
+			font-size: 27rpx;
+			background-color: red;
+		}
+	}
+	.swiper{
+    	height: 400rpx;
+    .slide-image{
+      width: 100%;
+    }
+  }
+
+  .bottomShow-box{
+  	transition: transform .5s;
+  	position: fixed;
+  	bottom: 0;
+  	width: 100%;
+  	transform: translateY(120%);
+  	z-index: 99;
+  	background-color: #ffffff;
+  	display: flex;
+  	flex-direction: column;
+  	box-shadow: 10px -5px 80px gray;
+  	border-radius: 25px 25px 0 0;
+  	.bottomShow-top{
+  		position: relative;
+		display: flex;
+		flex-direction: row;
+		padding-left: 60rpx;
+		padding-right: 60rpx; 
+  	}
+  }
+  .bottom-banners{
+  	position: relative;
+  	width: 220rpx;
+  	height: 148rpx;
+  	.bottom-banner{
+  		width: 220rpx;
+  		height: 220rpx;
+  	}
+  }
+  .bottom-banner-box{
+  	position: absolute;
+  	top: -60%;
+  	overflow: hidden;
+  	width: 220rpx;
+  	height: 220rpx;
+  	border-radius: 20rpx;
+  }
+  .bottomShow-top-right{
+  	flex: 1;
+  	box-sizing:border-box;
+  	height: 150rpx;
+  	padding: 35rpx 0rpx 0rpx 40rpx;
+  	text{
+  		color: #969696;
+  		font-size: 25rpx;
+  		display: block;
+  		margin-top: 15rpx;
+  	}
+  }
+  .qianshu{
+  	position: relative;
+  	display: flex;
+  	width: 100%;
+  	flex-direction: row;
+  	view{
+  		color:#333333;
+  		font-size: 40rpx;
+  	} 
+  }
+  .guanbi-img{
+  	position: absolute;
+  	right: 0;
+  	height: 55rpx;
+  	width: 55rpx;
+  }
+	.backindex_box{
+		position: fixed;
+		top: 494rpx;
+		right: 10rpx;
+	}
+</style>
+<template>
+	<view class='container'>
+		<!-- 回到首页 -->
+		<view class='backindex_box' style='width:80rpx;height:80rpx;padding-top:16rpx;box-sizing:border-box;' @tap.stop="backFirst">
+				<image style='height:34rpx;width:30rpx;' src="http://www.qumatou.com.cn/zheng/xcximage/backindex.png"/>
+				<view style='font-size:14rpx'>首页</view>
+		</view>
+		<!-- banner -->
+		<swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true"  @change='currentImg'>
+			<block wx:for="{{clickGoods.pbanner}}" wx:key="key">
+				<swiper-item>
+					<image src="{{item.pimage}}" class="slide-image" @tap="goToAdvert" mode='widthFix'/>
+				</swiper-item>
+			</block>
+		</swiper>
+		<view class='zhishi'><text>{{bannerImg[0]}}</text><text> / {{clickGoods.pbanner.length}}</text></view>
+		<view class="detail">
+			<text class="title">{{clickGoods.pname}}</text>
+			</view>
+			<view class="prices">
+				<view class='biaoJia'>现价</view>
+				<block>
+					<text class='xianJia'>¥ {{clickGoods.price}}</text>
+				</block>
+			</view>
+		</view>
+		<!-- 规格属性 -->
+		<view class = 'guige-box'>
+			<view class = 'guige-choose' @tap='goAddress' style="border-bottom:1px solid #efeff4;">送至 <text class = 'xuanze-guize'>{{address}}</text><text class='icon-jiantou'> > </text></view>
+			<view class = 'guige-choose' @tap='showSpec'>请选择规格属性 <text class = 'xuanze-guize'> </text><text class='icon-jiantou'> > </text></view>
+		</view>
+		
+		<!-- 商品参数 -->
+		<view class = 'parameter-box'>
+			<view class = 'tuijian-titlebox'>——— 商品参数 ———</view>
+			<view class = 'parameter'>
+				<view class='juti-canshu'>
+					<view class = 'juti-guige parameter-style' wx:for="{{parameter}}" wx:key="index">
+						<text>{{ item.propname }}</text>
+						<text>{{ item.pspvalue }}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 商品特色 -->
+		<view class='commodityTrait-box'>
+			<view class = 'tuijian-titlebox'>——— 图文详情 ———</view>
+			<block wx:for='{{characteristicBanner}}' wx:key=''>
+					<image src="{{item}}" mode='widthFix' style="width:100%;display:block" lazy-load/>
+			</block>
+		</view>
+		<!-- 底部固定栏 -->
+		<view class="detail-nav">
+			<view @tap = 'backIndex' class='backPage'>
+				<image src="http://www.qumatou.com.cn/zheng/xcximage/indexIcon.png" />
+				<text>商城</text>
+			</view>
+			<button class="shareBuy liji-buy" @tap='showSpec'>立即购买</button>
+		</view>
+		<!-- 规格属性底部浮出 -->
+		<view class="bottomShow-box {{bottomShow?'bottomShow':''}}" catchtouchmove="ture">
+			<view class = 'bottomShow-top'>
+				<view class = 'bottom-banners'>
+					<view class='bottom-banner-box'>
+						<image src = "{{clickGoods.logopath}}" class='bottom-banner'/>	
+					</view>
+				</view>
+				<view class = 'bottomShow-top-right'>
+					<view class = 'qianshu'>
+						<view><block wx:if='{{!integralGoods}}'>¥ </block>{{choosePrice}}</view>
+						<image src = 'http://www.qumatou.com.cn/zheng/xcximage/closeIcon.png' class = 'guanbi-img' @tap='closeSpec'/>
+					</view>
+					<text>剩余库存：{{Stock}}</text>
+				</view>
+			</view>
+			<scroll-view scroll-y style="height:300px">
+					<view class = 'bottomShow-middle' wx:for ='{{goodsSkus}}' wx:key='' wx:for-index="index" wx:for-item="item">
+						<view class='hezhuang'>{{item.spec}}</view>
+						<view class ='hezhuang-x'>
+							<block wx:for="{{item.specValue}}" wx:key='' wx:for-index="idx" wx:for-item="itemName">
+								<view @tap='hezhuang({{itemName}},{{item}},{{index}})' class="hezhuang {{itemName.checked ?'hezhuangBg':''}}">{{itemName.value}}</view>
+							</block>
+						</view>
+					</view>
+					<view class = 'bottomShow-bottom'>
+						<view class ='shuliang'>数量</view>
+						<view class ='shuliang-x'>
+							<view class='jiajian' @tap.stop='numMinus'>-</view>
+							<view>{{num}}</view>
+							<view class='jiajian jia' @tap.stop='numPlus'>+</view>
+						</view>
+				</view>
+			</scroll-view>
+			<view class ='bottom-btn'>
+				<button class='startBuy startBuys' @tap.stop = 'immediatelyBuy'>立即购买</button>
+			</view>
+		</view>
+		<!-- 遮罩 -->
+		<view class='mask' hidden='{{maskFlag}}'></view>
+		<!-- 分享朋友圈 -->
+		<view class="shareFriends {{shareShow?'shareShow':''}}">
+			<view class='shareFriendsBtn'>
+				<button style='border-right:1rpx solid #f1f1f1' open-type='share'><icon class='iconfont icon-icon-'/><view>分享给好友</view></button>
+				<button @tap = 'sharequan'><icon class='iconfont icon-pengyouquan'/><view>发朋友圈</view></button>
+			</view>
+			<view class='shareFriendsCancel' @tap='shareFriends'>取消</view>
+		</view>
+		<!-- 海报 -->
+		<view hidden='{{haobaoShow}}' class="haiBao {{haobaoShow?'':'haobaoShow'}}">
+			<image src='{{haiBaoImg}}'/>
+			<button @tap='saveImg({{haiBaoImg}})'>保存至相册</button>
+			<view>分享朋友圈时可在相册选取图片</view>
+			<view class='close' @tap='closeHaiBao'>×</view>
+		</view>
+	</view>
+</template>
+<script>
+	import wepy from 'wepy'
+	import requestUrl from '../../../api/requestUrl'
+	import { requestData } from '../../../api/requestData'
+  export default class Details extends wepy.page {
+  	config = {
+      navigationBarTitleText: '加载中...',
+    }
+    data = {
+			shopId:0,
+			wxTimerList:{},
+			topCover:false,
+    	btnShare:true,
+			isLike: true,
+	    // banner
+	    adList: [
+	    	'../images/banner_02.jpg',
+      	'../images/lsde.jpg',
+      	'../images/ss_02.jpg'
+      ],
+	    indicatorDots: false, //是否显示面板指示点	
+	    autoplay: true, //是否自动切换
+	    interval: 3000, //自动切换时间间隔,3s
+	    duration: 1000, //  滑动动画时长1s
+	    //商品参数
+	    parameter:[],
+	    //规格属性底部浮出数据
+	    detailsBottom:{
+	    	choose: '5袋装（100g*5）',
+	    	choose1: '5袋装（100g*5）',
+	    	choose2: '3袋装（100g*3）',
+	    },
+	    storePrice: 183,
+	    hezhuang: false,
+	    num:0,
+	    //默认隐藏底部悬浮窗
+	    bottomShow:false,
+	    //遮罩
+	    maskFlag:true,
+	    //分享后按钮
+	    shareEnd:false,
+	    //选择地址
+	    address:'请选择地址',
+	    bannerImg:[1],
+	    dianXin:true,
+	   	goodsDetails :{
+	    	id: '',
+	    	title:'',
+	    	price: '',
+	    	cover:'',
+	    	selected:''
+	    },
+	    //商品id
+	    goodsId:0,
+	    //储存用户所点击商品信息
+	    clickGoods:[],
+	    //商品库存
+	    goodsSkus:[],
+			chooseSpec:'',
+	    choosePrice:'',
+	    //推荐商品
+	    randomGoods:[],
+	    //富文本-商品特色Banner
+	    characteristicBanner: '',
+	    //判断是否收藏商品
+	    isColletion:0,
+	    goodsNum:false,
+	    cartItemsLength:0,
+	    bottomBannerUrl:'',	
+	    commentLength:'',
+	    userId:'',
+	    judgeLogin:false,
+	    score:'',
+	    noScore:true,
+			// 商品细节_banner下
+			threeCover:[],
+			token:'',
+			skuIndex:0,
+			shareShow:false,
+			haiBaoImg:'',
+			haobaoShow:true,
+			specs:[],
+			Stock:'',
+			numPlusShow:true,
+			goodsSkus_:null,
+			claid:'',
+			Bury_Money:0,
+			localSpecialty:'',
+			integralGoods:''
+    }
+    onLoad(e) {
+			this.shopId = wepy.$instance.globalData.m_id;
+			this.claid = e.claid
+			if(e.localSpecialty) this.localSpecialty = e.localSpecialty
+			if(e.integralGoods) this.integralGoods = e.integralGoods
+			//获取token
+			this.token = wx.getStorageSync("token");
+			wx.showShareMenu({withShareTicket: true})
+    	wx.showNavigationBarLoading()
+			this.goodsId = e.id; //	ponlyid
+			this.getUserClickGoods();
+    }
+    onShareAppMessage(res){
+    	let that = this;
+    	if (res.from === 'button') {
+	      // 来自页面内转发按钮
+    	}
+    	return {
+	      title: that.clickGoods.title,
+	      path: '/pages/e/page/details?id=' + this.goodsId,
+	      success: function(res) {
+	       that.btnShare = false
+	       that.shareEnd = false
+	       that.storePrice = 143
+	       that.$apply()
+	      },
+	      fail: function(res) {
+	        // 转发失败
+	      }
+	    }
+		}
+    watch = {
+      	cartItemsLength (newValue, oldValue) {
+      		if(newValue){
+      			this.goodsNum = true
+      			this.$apply()
+      		}
+				},
+				num(newValue,oldValue){
+						if(newValue==this.Stock){
+							this.numPlusShow = false
+						}else{
+							this.numPlusShow = true
+						}
+					}
+  	}
+    components = {}
+    onShow(){	
+    	wx.getStorage({
+    		key:'address',
+    		success:(res)=>{
+					this.address = res.data.provinceName+" "+res.data.cityName+" "+res.data.countyName
+    		}
+    	})
+			wx.removeStorage({key: 'selectCoupon'});
+    }
+		onHide(){
+			wx.setStorage({
+				key:'cartItems',
+				data:''
+			})
+			this.cartItemsLength = Number(0);
+			this.$apply();
+			// console.log(this.cartItemsLength)
+		}
+    methods = {
+			//回到云上首页
+			backFirst(){
+				wx.switchTab({
+					url: '../../index'
+				});
+			},
+			backIndex () {
+				wx.navigateBack({
+					delta: 1
+				})
+				wx.setStorage({
+					key:'cartItems',
+					data:''
+				})
+			},
+			hezhuang (itemName,item,goodskusIdx){
+				this.num = 0;
+				let specs = [];
+				item.specValue.forEach((element,idx_) => {
+					if(element.id == itemName.id){
+						this.goodsSkus[goodskusIdx].specValue[idx_].checked = true
+					}else{
+						this.goodsSkus[goodskusIdx].specValue[idx_].checked = false
+					}
+				});
+				this.$apply()
+				this.goodsSkus.forEach((element,idx) => {
+					if(item.spec == element.spec){
+						element.specValue.forEach(ele => {
+							if(ele.checked){
+								if(this.specs[idx] == ele.id){
+									return
+								}else{
+									this.specs[idx] = ele.id
+								}
+							}
+						});
+					}
+				});
+				this.getProductSKU(this.specs)
+			},
+			showSpec (){
+				this.bottomShow = !this.bottomShow
+				this.maskFlag = false;
+			},
+			numMinus (){
+				if (this.num>0) {
+					this.num--
+				}else{
+					return
+				}
+			},
+			numPlus (){
+				if(this.numPlusShow){
+					this.num++
+				}else{
+					wx.showToast({
+						title: '已达到最大库存数',
+						icon: 'none'
+					});
+				}
+			},
+			goAddress(){
+				let that = this;
+				wx.chooseAddress({
+				success: function (res) {
+					let address = res;
+					that.address = res.provinceName+" "+res.cityName+" "+res.countyName
+					that.$apply()
+					wx.setStorage({
+						key:'address',
+						data: address
+					})
+				},
+				fail:()=>{
+					wx.openSetting()
+				}
+				})
+			},
+			currentImg(e){
+				this.bannerImg.pop()
+				this.bannerImg.push(e.detail.current+1)
+			},
+			dianXin(e){
+				return;
+				if(e.currentTarget.dataset.goodsId){
+					this.goodsCollection(e.currentTarget.dataset.goodsId)
+				}
+			},
+			immediatelyBuy(){
+				wx.getStorage({
+					key: 'address',
+					success: res => {
+						if(this.num){
+							this.Bury_Money = this.num*this.goodsSkus_.price
+							let productData = [
+								{
+									ponlyid: this.goodsId,
+									m_id: this.goodsSkus_.m_id,
+									claid: Number(this.claid),
+									price: this.goodsSkus_.price,
+									logopath : this.clickGoods.logopath,
+									pname : this.clickGoods.pname,
+									foodNum : this.num,
+									SKU:[
+										{
+											sku: this.goodsSkus_.SKU,
+											num: Number(this.num),
+											price: this.goodsSkus_.price
+										}
+									]
+								}
+							];
+							wx.setStorage({
+								key: 'deliverData',
+								data: productData,
+								success:()=>{
+									wx.navigateTo({
+										url: `./confirmOrder?m_id=${this.shopId}&Bury_Money=${this.Bury_Money}&localSpecialty=${this.localSpecialty}`
+									});
+								}
+							});
+							
+							// console.log(productData,this.Bury_Money)
+						}else{
+							wx.showToast({
+								title: '请选择商品数量',
+								icon: 'none',
+								duration: 1500,
+								mask: false,
+							});
+						}
+					},
+					fail:()=>{
+						wx.showToast({
+								title: '请选择收货地址',
+								icon: 'none',
+								duration: 1500,
+								mask: false,
+							});
+					}
+				});
+			},
+			//update share
+			shareFriends(){
+				this.shareShow = !this.shareShow
+				this.maskFlag = !this.maskFlag
+			},
+			//发朋友圈
+			sharequan(){
+					wx.showLoading({
+						title: '海报生成中...',
+						mask: true,
+					});
+					this.maskFlag = false
+					this.haobaoShow = false;
+					this.$apply()
+					wepy.request({
+						url: api.apiMall + '/api/get_good_share_img',
+						method: 'GET',
+						data: {
+							good_id:this.goodsId,
+							// path_url:'/pages/e/page/details?id='+this.goodsId
+							path_url:'/pages/e/page/details?id='+this.goodsId
+						},
+						header: {
+							Accept : 'application/vnd.lingmo.v1+json',
+							Authorization : 'Bearer '+ this.token
+						}
+					}).then(result=>{
+						wx.hideLoading();
+						this.haiBaoImg = result.data.message
+						this.$apply()
+					});
+			},
+			closeSpec (){
+				this.bottomShow = !this.bottomShow,
+				this.maskFlag = true;
+			},
+			closeHaiBao(){
+				this.haobaoShow = true;
+				this.$apply()
+			},
+			// 保存图片至相册
+			saveImg(imgUrl){
+				let imgSrc = imgUrl;
+				wx.downloadFile({
+					url: imgSrc,
+					success: (res)=>{
+						wx.saveImageToPhotosAlbum({
+							filePath: res.tempFilePath,
+							success: (data)=>{
+								wx.showToast({
+									title: '保存成功',
+									icon: 'success',
+									duration: 2000
+								});
+							},
+							fail: (err)=>{
+									if (err.errMsg === "saveImageToPhotosAlbum:fail auth denied") {
+										wx.openSetting({
+											success(settingdata) {
+											if (settingdata.authSetting['scope.writePhotosAlbum']) {
+												console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+											} else {
+												console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+											}
+											}
+										})
+									}
+							}
+						});
+					}
+				});
+			},
+  	}
+    // 获取用户点击商品数据
+    async getUserClickGoods(){
+			let url = requestUrl.getProductDetails;
+			let data = { ponlyid: this.goodsId };
+			
+			requestData(url,'POST',data).then(res=>{
+				wx.hideNavigationBarLoading()
+				res.data.data[0].remark3.forEach(element => {
+					this.specs.push(element.specValue[0].id)
+					element.specValue[0].checked = true
+				});
+				this.$apply()
+				this.getProductSKU(this.specs)
+				wx.setNavigationBarTitle({title: '商品详情'})
+				this.topCover = true;
+				this.clickGoods = res.data.data[0];
+				this.goodsSkus = res.data.data[0].remark3;
+				this.parameter = res.data.data[0].spec;
+				this.characteristicBanner = res.data.data[0].imagedescpath.split(';').slice(0,-1);
+				this.$apply()
+			})
+		}
+		// 根据SKU获取及价格详情
+		getProductSKU(specs){
+			let url = requestUrl.getProductSKU;
+			let data = {
+				ponlyid:this.goodsId,
+    		specs:specs
+			}
+			if(this.integralGoods) data.type=3
+			requestData(url,'POST',data).then(res=>{
+					if(this.integralGoods) res.data.data[0].price = `${res.data.data[0].point}积分+${res.data.data[0].price}元`
+					this.choosePrice = res.data.data[0].price
+					this.Stock = res.data.data[0].Stock
+					this.goodsSkus_ = res.data.data[0]
+					this.$apply()
+			})
+		}
+}
+</script>

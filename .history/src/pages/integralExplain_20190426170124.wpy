@@ -1,0 +1,26 @@
+<script>
+import wepy from 'wepy';
+import Counter from '../components/counter';
+
+export default class Page extends wepy.page {
+    config = {};
+    components = {counter1: Counter};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+    // Other properties
+}
+</script>
+
+<template lang="wxml">
+    <view>
+    </view>
+    <counter1></counter1>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

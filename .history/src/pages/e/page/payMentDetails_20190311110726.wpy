@@ -1,0 +1,114 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../../../api/requestUrl';
+import { requestData } from '../../../api/requestData'
+export default class payMentDetails extends wepy.page {
+    config = {
+        navigationBarTitleText: '订单详情',
+    };
+    components = {};
+
+    data = {
+        allData:null
+    };
+    methods = {};
+
+    events = {};
+    onLoad(options) {
+        // 获取订单详情数据
+        this.orderData(options.orderNumber)
+    };
+    // 获取订单详情数据
+    orderData(orderNumber){
+        let url = requestUrl.orderDetails;
+        let data = {
+            outTraceNo : orderNumber
+        }
+        requestData(url,'POST',data).then(res=>{
+            this.allData = res.data.data
+            this.$apply()
+        })
+    }
+}
+</script>
+
+<template lang="wxml">
+    <view class="topIconPriceBox">
+        <image src="{{allData.m_logo}}" />
+        <view>{{allData.m_name}}</view>
+        <view>- {{allData.product[0].total}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>支付方式</view>
+        <view>{{allData.paytypeStr}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>支付状态</view>
+        <view>{{allData.statusStr}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>支付类型</view>
+        <view>{{allData.tradetypeStr}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>商户</view>
+        <view>{{allData.m_name}} ({{allData.maddress}})</view>
+    </view>
+    <view class="paymentExplain">
+        <view>下单时间</view>
+        <view>{{allData.orderTime}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>支付时间</view>
+        <view>{{allData.paytime}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>交易单号</view>
+        <view>{{allData.outTraceNo}}</view>
+    </view>
+</template>
+
+<style lang="less">
+    .topIconPriceBox{
+        height: 444rpx;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1rpx solid #f1f1f1;
+        margin-bottom: 45rpx;
+        image{
+            width: 140rpx;
+            height: 140rpx;
+            border-radius: 50%;
+        }
+        view:first-of-type{
+            color: #000;
+            padding: 35rpx 0 20rpx 0;
+        }
+        view:last-of-type{
+            font-size: 60rpx;
+            color: #000;
+            transform: translateX(-8rpx);
+        }
+    }
+    .paymentExplain{
+        display: flex;
+        width: 100%;
+        padding: 0 40rpx;
+        margin-bottom: 35rpx;
+        view{
+            font-size: 28rpx;
+            color: #000;
+        }
+        view:first-of-type{
+            flex: .2;
+            color: #999;
+        }
+        view:last-of-type{
+            flex: 1;
+            padding-left: 20rpx;
+        }
+    }
+</style>

@@ -1,0 +1,11 @@
+.noOrderList {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 200rpx;
+  display: flex;
+  justify-content: center;
+}
+.noOrderList image {
+  width: 330rpx;
+  height: 283rpx;
+}

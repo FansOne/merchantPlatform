@@ -1,0 +1,33 @@
+
+  <view class="container">
+    <view class="topBox">
+      <view class="goods-img"><image src="{{goods.cover}}"/></view>
+      <view class="goods-name">{{goods.title}}</view>
+      
+  <view class="startBox">
+    <block  wx:for="{{$commentStar$stars}}" wx:key="idx">
+      <image class="star-image" style="left: {{item*88}}rpx;" src="{{$commentStar$key > item ?($commentStar$key-item == 0.5?$commentStar$halfSrc:$commentStar$selectedSrc) : $commentStar$normalSrc}}">
+        <view class="item1" style="left:0rpx" data-key="{{item+0.5}}" bindtap="$commentStar$selectLeft"/>
+        <view class="item1" style="left:25rpx" data-key="{{item+1}}" bindtap="$commentStar$selectRight"/>
+      </image>
+    </block>
+  </view>
+
+      <view class="prompt">-- 打个评分吧 --</view>
+    </view>
+    <view class="section">
+      <textarea placeholder="{{placeholder}}" placeholder-style="color:#969696;font-size:32rpx;letter-spacing:5rpx;" maxlength="500" bindinput="sectionValue"/>
+    </view>
+    <view class="maxInput">{{leng}}/500</view>
+    <view class="uploadImg">
+      <view class="userUpload-box">
+        <block  wx:for="{{tempFilePaths}}" wx:key="idx">
+          <image src="{{item}}" mode="widthFix"/>
+        </block>
+      </view>
+      <view class="camera" bindtap="chooseImage"><image src="http://www.qumatou.com.cn/zheng/xcximage/相机.png"/><text>添加照片</text></view>
+    </view>
+    <button class="preservation-btn {{btnUse?'btnUse':''}}" disabled="{{disabled}}" bindtap="uploadComment">
+      发布评论
+    </button>
+  </view>

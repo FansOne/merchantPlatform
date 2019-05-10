@@ -1,0 +1,79 @@
+
+  <view class="container">
+  	<view  wx:if="{{trackStatus}}" class="deliverGoods-box" bindtap="goLogistics">
+  		<view class="goodsStatus">
+  			<view>{{trackList.TrackStatus}}</view>
+  		</view>
+  		<view class="jiantou"><image src="http://www.qumatou.com.cn/zheng/xcximage/箭头.png"/></view>
+  	</view>
+    <!-- <view wx:else class ='deliverGoods-box'>
+      <view class='goodsStatus goodsStatus-paddingTop'>
+        <view>{{noTrackStatus}}</view>
+      </view>
+      <view class='depressedIcon'><image src='../../../images/等待.png'/></view>
+    </view> -->
+    <view class="confirmOrder-top">
+    <view class="messages">
+      <view class="nameTel">
+        <view>{{userAddress.truename}}</view>
+        <view>{{userAddress.mobile}}</view>
+      </view>
+      <view class="userAddress" style="color:#969696;letter-spacing: 3rpx;">{{userAddress.province+userAddress.address}}</view>
+    </view>
+  </view>
+  <view class="orderContent">
+    <!-- 下单商品 -->
+    <view  wx:for="{{selectGoods}}" wx:key="idx" class="packageBox">
+      <view class="packageIdx">包裹 {{index+1}}</view>
+      <view class="packageSpec">
+        <view class="storeSpec">
+          <view class="packageBanner"><image src="{{item.cover}}"/></view>
+          <view class="speces">
+            <view>{{item.title}}</view>
+            <view>{{item.spec}}</view>
+            <view class="package-price">
+              <view>¥{{item.price/100}}</view>
+              <view>×{{item.nums}}</view>
+            </view>
+          </view>
+        </view>
+        <!-- <view class='discountTransport'>
+          <view class='discount-box'>
+            <view>优惠</view>
+            <view>- ¥ {{item.discount}}</view>
+          </view>
+          <view>
+            <view>运费</view>
+            <view>¥ {{item.transport}}</view>
+          </view>
+        </view> -->
+      </view>
+      <view class="smallPrice">
+        <view bindtap="sss">共{{item.nums}}件</view>
+        <view>实付 <text>¥{{item.nums*(item.price/100)}}</text></view>
+      </view>
+    </view>
+  </view>
+  <view class="numberAndTime">
+    <view class="copyNumber">
+      <view>订单号</view>
+      <view class="copyContentBox">
+        <text selectable="true">{{userAddress.serial}}</text>
+        <view class="tblin_items_btn" bindtap="copyTBL">一键复制</view>
+      </view>
+    </view>
+    <view class="orderTime_box">
+      <view>下单时间</view>
+      <view class="order_time">{{userAddress.dateline}}</view>
+    </view>
+    <view class="orderTime_box">
+      <view>物流信息</view>
+      <view class="order_time" catchtap="goLogistics">查看物流></view>
+    </view>
+  </view>
+  	<view class="bottom-btnBox">
+  		<button class="{{remind?'applySale':''}}" bindtap="merchantTel">申请售后</button>
+  		<button wx:if="{{collectOrRemind}}" bindtap="confirmCollect">确认收货</button>
+      <button wx:else disabled="{{remind}}" class="{{remind?'disabledButton':''}}" bindtap="remind">{{remindSeller}}</button>
+  	</view>
+  </view>

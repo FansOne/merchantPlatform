@@ -1,0 +1,35 @@
+page {
+  background-color: #e5e5e5;
+}
+.swiper {
+  width: 100%;
+  height: 400rpx;
+}
+.swiper .slide-image {
+  width: 100%;
+}
+.name_time {
+  color: #333333;
+  position: relative;
+  bottom: 6rpx;
+  display: inline-block;
+  padding-left: 40rpx;
+  /*border: 1px solid red;*/
+}
+.name_time text {
+  display: block;
+  /*border: 1px solid red;*/
+}
+.store_name {
+  font-size: 34rpx;
+  color: #333333;
+  font-weight: bold;
+  padding-bottom: 15rpx;
+}
+.store_time {
+  font-size: 26rpx;
+}
+.mainView {
+  width: 750rpx;
+  height: 1138rpx;
+}

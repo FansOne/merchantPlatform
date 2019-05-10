@@ -1,0 +1,24 @@
+
+  <view class="container">
+	<view class="company-OrderNubmer-box">
+		<view class="company-box">
+			<view>物流公司：{{logisticsData.companyname}}</view>
+		</view>
+		<view class="orderNubmer-box">
+			<view>物流单号：<text class="logistic_number">{{logisticsData.out_id}}</text></view>
+			<view bindtap="copyNumber" class="copyNumber">复制</view>
+		</view>
+	</view>
+	<view class="middle-text">订单跟踪</view>
+	<view class="logisticContent-box">
+		<block  wx:for="{{trackList}}" wx:key="index">
+			<view class="logisticsStyle">
+				<view class="circular {{item.status?'circularBg':''}}" data-index="{{index}}"/>
+				<view class="trackStatus-trackDate-box">
+					<view class="trackStatus">{{item.TrackStatus}}</view>
+					<view class="trackDate">{{item.TrackDate}}</view>
+				</view>
+			</view>
+		</block>
+	</view>
+  </view>

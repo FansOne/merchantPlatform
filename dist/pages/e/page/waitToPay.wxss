@@ -1,0 +1,195 @@
+page {
+  background-color: #ffffff;
+}
+.container {
+  padding-bottom: 200rpx;
+}
+.confirmOrder-bottom {
+  background-color: #ffffff;
+  z-index: 99;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+  border-top: 1px solid #efeff4;
+  height: 120rpx;
+  width: 100%;
+}
+.confirmComputed {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  padding-left: 40rpx;
+}
+.confirmComputed view:nth-child(1) {
+  font-size: 28rpx;
+  line-height: 120rpx;
+  color: #333333;
+}
+.confirmComputed view:nth-child(2) {
+  font-size: 32rpx;
+  line-height: 120rpx;
+  color: #fd2323;
+  margin-left: 20rpx;
+}
+.confirmComputed .sendprice {
+  position: absolute;
+  left: 35rpx;
+  bottom: 8rpx;
+  font-size: 20rpx;
+}
+.confirmBuy {
+  height: 100%;
+  background-color: #ffd270;
+  color: #000;
+  text-align: center;
+  line-height: 120rpx;
+  font-size: 34rpx;
+  width: 250rpx;
+}
+.discount-box {
+  margin-bottom: 20rpx;
+}
+.ticketOpening-box {
+  margin: 20rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.ticketOpening-left {
+  display: flex;
+  align-items: center;
+}
+.ticketOpening-left image {
+  margin: 0 10rpx 0 25rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.ticketOpening-left text {
+  font-size: 26rpx;
+}
+.ticketOpening-left .colBg {
+  height: 64rpx;
+  width: 10rpx;
+  background-color: #ee7942;
+}
+.startTicketOpening {
+  margin: 20rpx 40rpx;
+  border-top: 1px dotted #DCDCDC;
+  border-bottom: 1px dotted #DCDCDC;
+  align-items: center;
+  padding: 15rpx 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.startTicketOpening image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.startTicketOpening view {
+  color: #8b8b8b;
+  font-size: 26rpx;
+}
+.merchantTel {
+  position: fixed;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  box-shadow: 8px 6px 8px #DCDCDC;
+  z-index: 100;
+}
+.show-faPiao {
+  margin: 0 40rpx;
+}
+.show-faPiao view {
+  font-family: "Microsoft YaHei";
+  font-size: 27rpx;
+  border: 1rpx  dashed #DCDCDC;
+  background-color: #f6f6f6;
+  padding: 15rpx 15rpx;
+}
+.confirmOrder-top.noAddress {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.confirmOrder-top.noAddress view.addressIcon {
+  flex: 0.5;
+  display: flex;
+  flex-direction: row;
+}
+.confirmOrder-top.noAddress view.addressIcon view {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 15rpx;
+  flex: 1;
+  font-size: 28rpx;
+  color: #666;
+}
+.confirmOrder-top.noAddress view.addressIcon image {
+  height: 68rpx;
+  width: 65rpx;
+  margin-left: 40rpx;
+}
+.confirmOrder-top.noAddress view:nth-child(2) {
+  padding-right: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0.5;
+}
+.confirmOrder-top.noAddress view:nth-child(2) image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.ticketOpening-box {
+  margin: 15rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.ticketOpening-left {
+  display: flex;
+  align-items: center;
+}
+.ticketOpening-left image {
+  margin: 0 10rpx 0 25rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.ticketOpening-left text {
+  font-size: 26rpx;
+}
+.ticketOpening-left .colBg {
+  height: 53rpx;
+  width: 6rpx;
+  background-color: #ffd270;
+}
+.paymentMethod {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10rpx 10rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+.paymentMethod .paymentMethod_title {
+  flex: .5;
+  font-size: 27rpx;
+  padding-left: 25rpx;
+}
+.paymentMethod .paymentMethod_select {
+  flex: .5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.paymentMethod .paymentMethod_select view:nth-child(1) {
+  font-size: 25rpx;
+  color: #969696;
+  margin-right: 40rpx;
+}
+switch {
+  zoom: .7;
+}

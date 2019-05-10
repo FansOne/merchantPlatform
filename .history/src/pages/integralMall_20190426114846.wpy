@@ -1,0 +1,25 @@
+<script>
+import wepy from 'wepy';
+
+export default class integralMall extends wepy.page {
+    config = {
+        navigationBarTitleText: '积分商城',
+    };
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <view>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

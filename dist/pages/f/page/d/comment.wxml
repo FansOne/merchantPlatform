@@ -1,0 +1,28 @@
+
+  <view id="comments" style="overflow:hidden;">
+    <view class="comments-wrap">
+      <view class="comments-head-wrap">
+        <image class="logo" src="{{orderInfo.cover_url}}"/>
+        <view class="name">{{orderInfo.title}}</view>
+      </view>
+      <!--评价星星-->
+      <view class="star-wrap">
+        
+  <view class="startBox">
+    <block  wx:for="{{$commentStar$stars}}" wx:key="idx">
+      <image class="star-image" style="left: {{item*88}}rpx;" src="{{$commentStar$key > item ?($commentStar$key-item == 0.5?$commentStar$halfSrc:$commentStar$selectedSrc) : $commentStar$normalSrc}}">
+        <view class="item1" style="left:0rpx" data-key="{{item+0.5}}" bindtap="$commentStar$selectLeft"/>
+        <view class="item1" style="left:25rpx" data-key="{{item+1}}" bindtap="$commentStar$selectRight"/>
+      </image>
+    </block>
+  </view>
+
+      </view>
+    </view>
+    <!--文字评价-->
+    <view class="comments-content-wrap">
+      <textarea class="comments" placeholder="亲，您感觉口味如何啊!" maxlength="100" bindinput="commentDesc"/>
+    </view>
+    <!--保存btn-->
+    <view class="save-btn" catchtap="submit">提交</view>
+  </view>

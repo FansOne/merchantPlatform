@@ -1,0 +1,320 @@
+<script>
+import wepy from 'wepy';
+import api from '../api/api';
+import util from '../utils/util'
+import couponItem  from '../components/payedCouponItem';
+
+export default class payedCouponsList extends wepy.page {
+    config = {
+        navigationBarTitleText: '支付成功',
+    };
+    components = {
+        couponItem:couponItem
+    };
+    data = {
+        MaskHeight:'',
+        userCoupon:[],
+        Mask:true,
+        shareBtn:'',
+        index:'',
+        inputValue:'',
+        nodata:true,
+        token:'',
+        shopId:'',
+        money:'',
+        is_limite:false,
+        gotCouponsAlready:[],
+        couponTabs:'',
+        couponTab:0,
+        industryId:'',
+    };
+    methods = {
+        //回到云上首页
+        backFirst(){
+            wx.switchTab({
+                url: './index'
+            });
+        },
+        bottomShow(){
+            this.Mask = !this.Mask;
+        },
+        userInputNum(e){
+            this.inputValue = e.detail.value;
+        },
+        shareBefore(){
+            if(Number(this.inputValue) && Number(this.inputValue) <= Number(this.userCoupon[this.index].number)){
+                this.shareBtn = 'share'
+                this.inputValue = ''
+            }else{
+                this.shareBtn = ''
+                this.inputValue = ''
+                wx.showToast({
+                    title: '请正确输入分享次数',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: false,
+                });
+            }
+        },
+        // 切换tab
+        changeCouponTab(index,industryId){
+            this.couponTab = index;
+            this.industryId = industryId;
+            this.getVoucherList(industryId)
+        }
+    };
+    computed = {
+    }
+    events = {
+      userSelect(e,idx){
+        wepy.request({
+          url: api.apiMall + 'api/user_coupons/' + e.id,
+          method: 'GET',
+          header:{
+            'Accept':'application/vnd.lingmo.v1+json',
+            'Authorization':'Bearer ' + this.token
+          },
+        }).then((res)=>{
+            //卡券未领取成功，限制用户点击
+            this.is_limite = true;
+            this.$apply()
+            if(res.data.status != '200'){
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'success',
+                    });
+            }else{
+                wepy.request({
+                    url: api.apiMall+'api/coupons',
+                    method: 'GET',
+                    header:{
+                        'Accept':'application/vnd.lingmo.v1+json',
+                        'Authorization':'Bearer ' + this.token
+                    },
+                    data:{
+                        merchant_id:this.shopId,
+                        industry_id:this.industryId
+                    }
+                }).then((res)=>{
+                    //计算已经领取的百分比
+                    this.userCoupon.forEach((item,index)=>{
+                        item.percent = (Number(item.receive)/(Number(item.lave) + Number(item.receive))*100).toFixed(2);
+                        if(e.id == item.id){
+                            item.checked = true;
+                            this.gotCouponsAlready.push(e.id)
+                        }
+                        
+                    })
+                });
+                this.userCoupon[idx].isrev = 1
+                setTimeout(() => {
+                    this.is_limite = false;
+                    this.$apply()
+                }, 1500);
+                this.$apply()
+                wx.showToast({
+                    title: '领取成功',
+                    icon: 'success',
+                });
+            }
+        });
+      }
+    };
+    //获取卡券列表
+    getVoucherList(industryId){
+        wepy.request({
+            url: api.apiMall+'api/coupons',
+            method: 'GET',
+            header:{
+                'Accept':'application/vnd.lingmo.v1+json',
+                'Authorization':'Bearer ' + this.token
+            },
+            data:{
+                merchant_id:this.shopId,
+                // merchant_id:310,
+                industry_id:industryId
+            }
+        }).then((res)=>{
+            //计算已经领取的百分比
+            res.data.message.forEach((item,index)=>{
+                item.percent = (Number(item.receive)/(Number(item.lave) + Number(item.receive))*100).toFixed(2);
+                if(item.begin_time == 0 || item.end_time==0){
+                    return false;
+                }else{
+                    item.begin_time = util.timestampToTime(item.begin_time);
+                    item.end_time = util.timestampToTime(item.end_time);
+                }
+            })
+            this.userCoupon = res.data.message;
+            this.userCoupon.forEach((item,index)=>{
+                this.gotCouponsAlready.forEach((item1,index)=>{
+                    if(item.id == item1){
+                        item.checked = true;
+                    }
+                })
+            })
+            this.$apply()
+        });
+    }
+    //获取卡券的分类
+    getCouponsCates(){
+        wepy.request({
+            url: api.apiMall+'api/get_cate',
+            method: 'GET',
+            header:{
+                'Accept':'application/vnd.lingmo.v1+json'
+            }
+        }).then((res)=>{
+            this.couponTabs = res.data.message;
+            if(this.couponTabs.length){
+                this.getVoucherList(this.couponTabs[0].id)
+            }
+            this.$apply()
+		});
+    }
+    onLoad(options) {
+        wx.removeStorage({key: 'selectSonCard'});
+        this.shopId = options.shopId;
+        this.money = options.money;
+        //获取token
+        let token = wx.getStorageSync("access_token");
+        this.token = token.access_token;
+        this.getCouponsCates()
+        this.$apply();
+        wx.getSystemInfo({
+            success: (res)=> {
+                this.MaskHeight = res.windowHeight;
+                this.$apply()
+            }
+        })
+    };
+}
+</script>
+
+<template lang="wxml">
+    <view class='container'>
+        <!-- 回到首页 -->
+		<view class='backindex_box' style='width:80rpx;height:80rpx;padding-top:16rpx;box-sizing:border-box;' @tap.stop="backFirst">
+            <image style='height:34rpx;width:30rpx;' src="http://applet.qumatou.com.cn/static/shop/backindex.png"/>
+            <view style='font-size:14rpx'>首页</view>
+        </view>
+        <view class='paymentTop'>
+            <view><image src='../../../../images/paymentSuccess.png'/></view>
+            <text style='font-size:32rpx;color:#000;margin-top:20rpx;'>您已支付成功</text>
+            <view style="font-size:46rpx;color: #fd2323;;margin-top:20rpx;text-align:center;">￥{{money}}</view>
+        </view>
+        <!-- <view style="font-size:28rpx;color: #969696;margin-top:50rpx;text-align:center;">您已支付成功</view> -->
+        <!-- <couponItem :syncTitle.sync="userCoupon"/> -->
+        <view wx:if="{{is_limite}}" class="rgba_background"></view>
+        <scroll-view scroll-x style="height:110rpx;background-color:white;white-space:nowrap;overflow:hidden;">
+            <view class="coupons_tab {{couponTab == index ? 'coupons_selected' : ''}}" @tap.stop="changeCouponTab({{index}},{{item.id}})" style="color:{{couponTab == index ? 'red' : ''}}" wx:for="{{couponTabs}}" wx:key="index">{{item.title}}</view>
+        </scroll-view>
+        <view style="flex:1;" id="top">
+            <scroll-view scroll-y wx:if="{{userCoupon.length != 0}}" style='height:{{scrollHeight}}rpx;'>
+                <couponItem :syncTitle.sync="userCoupon"/>
+            </scroll-view>
+            <view style="text-align:center;margin-top:30rpx;" wx:if="{{userCoupon.length == 0}}">暂无卡券</view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+    .backindex_box{
+        z-index: 9;
+        height: 75rpx;
+        width: 76rpx;
+        position: absolute;
+        right: 10rpx;
+        top:100rpx;
+        margin:auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color:rgba(0,0,0,.4);
+        border-radius: 50rpx;
+        padding-top: 2rpx;
+        image{
+            height: 41rpx;
+            width: 45rpx;
+        }
+        view{
+            font-size: 21rpx;
+            color: white;
+        }
+    }
+    .rgba_background{
+        width:100%;
+        height:100%;
+        background-color:rgba(0,0,0, .0);
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:100;
+    }
+    .paymentTop{
+        height: 276rpx;
+        padding-top:45rpx;
+        box-sizing:border-box;
+        background-color: #ffd270;
+        display: flex;
+        flex-direction: column;
+        color: #ffffff;
+        font-size: 32rpx;
+        font-weight: bold;
+        letter-spacing: 3rpx;
+        image{
+            width: 65rpx;
+            height: 65rpx;
+        }
+        view{
+            display: flex;
+            justify-content: center;
+        }
+        text{
+            display: block;
+            text-align: center;
+            margin-top: 15rpx;
+        }
+    }
+    .Mask{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9;
+        background-color: rgba(0, 0, 0, .6);
+        width: 100%;
+    }
+    page{
+        width:100%;
+        height:100%;
+        background-color: #fff;
+    }
+    .container{
+        width:100%;
+        height:100%;
+    }
+    .nodata{
+        text-align: center;
+        margin-top: 550rpx;
+    }
+    .coupons_tab{
+        display:inline-block;
+        width:auto;
+        font-size:34rpx;
+        line-height: 110rpx;
+        margin-left:30rpx;
+        position:relative;
+    }
+    .coupons_selected::after{
+        content:'';
+        width:40rpx;
+        height:6rpx;
+        background-color: #ff5038;
+        border-radius: 3rpx;
+        position:absolute;
+        left:0;
+        right:0;
+        margin:auto;
+        bottom:16rpx;
+    }
+</style>

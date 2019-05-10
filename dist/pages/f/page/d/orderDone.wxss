@@ -1,0 +1,298 @@
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #f3f3f3;
+}
+.sold-list-head {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.sold-list-head .image {
+  display: inline-block;
+  width: 6rpx;
+  height: 40rpx;
+  background-color: #ffd265;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+}
+.sold-list-head view {
+  display: inline-block;
+  height: 100%;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  color: #333;
+  vertical-align: top;
+}
+/*头部*/
+.deliver-wrap {
+  width: 100%;
+  height: 200rpx;
+  background-color: #ffd265;
+  border: 1rpx solid #ffd265;
+  box-sizing: border-box;
+}
+.deliver-wrap .deliver-head-wrap {
+  width: 710rpx;
+  height: 275rpx;
+  padding-bottom: 15rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 6rpx;
+  position: relative;
+  margin: 33rpx auto 0;
+}
+.deliver-wrap .deliver-head-wrap .deliver-head {
+  width: 670rpx;
+  height: auto;
+  margin: auto;
+}
+.deliver-wrap .deliver-head-wrap .deliver-head image {
+  display: inline-block;
+  width: 140rpx;
+  height: 140rpx;
+  margin-top: 21rpx;
+}
+.deliver-wrap .deliver-head-wrap .deliver-head .user-name {
+  display: inline-block;
+  width: auto;
+  height: 140rpx;
+  vertical-align: top;
+  font-size: 36rpx;
+  color: #333;
+  line-height: 180rpx;
+  margin-left: 30rpx;
+}
+.deliver-wrap .deliver-head-wrap .table-num-wrap {
+  width: 100%;
+  height: 64rpx;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 15rpx;
+}
+.deliver-wrap .deliver-head-wrap .table-num-wrap view {
+  width: 33.333333%;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 34rpx;
+  color: #333;
+  text-align: center;
+  line-height: 64rpx;
+}
+.deliver-wrap .order-done-wrap {
+  width: 710rpx;
+  height: 120rpx;
+  background-color: #fff;
+  position: absolute;
+  top: 20rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.deliver-wrap .order-done-wrap .order {
+  float: left;
+  height: 100%;
+  line-height: 120rpx;
+  font-size: 34rpx;
+  color: #333;
+}
+.deliver-wrap .order-done-wrap .integral {
+  float: right;
+  width: 220rpx;
+  height: 70rpx;
+  background-color: #ffd265;
+  border-radius: 35rpx;
+  font-size: 30rpx;
+  color: #333;
+  text-align: center;
+  line-height: 70rpx;
+  margin-top: 25rpx;
+}
+.box {
+  width: 710rpx;
+  height: auto;
+  margin: 60rpx auto 135rpx;
+  border-top: 2rpx solid #fff;
+}
+/*订单信息*/
+.order-info-wrap {
+  width: 710rpx;
+  height: auto;
+  background-color: #fff;
+  margin: 20rpx auto;
+}
+.more-order-wrap {
+  width: 100%;
+  height: 120rpx;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 13rpx 20rpx;
+  box-sizing: border-box;
+  /*display:none;*/
+}
+.more-order-wrap .more-order {
+  width: 710rpx;
+  height: 94rpx;
+  background-color: #ffd265;
+  border-radius: 42rpx;
+  font-size: 36rpx;
+  text-align: center;
+  line-height: 94rpx;
+  color: #333333;
+}
+.billing {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background-color: #fff;
+}
+.billing-active {
+  height: auto;
+  background-color: #fff;
+}
+.sold-list-head {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.sold-list-head .image {
+  display: inline-block;
+  width: 6rpx;
+  height: 40rpx;
+  background-color: #ffd265;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+}
+.sold-list-head view {
+  display: inline-block;
+  height: 100%;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  color: #333;
+  vertical-align: top;
+}
+.order-wrap-wrap {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  pdding-bottom: 30rpx;
+  border-radius: 6rpx;
+  box-sizing: border-box;
+}
+.user-info-model-wrap {
+  width: 656rpx;
+  height: auto;
+  padding-left: 40rpx;
+  box-sizing: border-box;
+}
+.order-wrap {
+  width: 100%;
+  height: auto;
+  /*订单列表*/
+}
+.order-wrap .user-info-wrap {
+  width: 656rpx;
+  height: auto;
+}
+.order-wrap .user-info-wrap .user-info {
+  width: 100%;
+  height: 80rpx;
+  background-color: #f3f3f3;
+  font-size: 32rpx;
+  color: #333;
+  padding: 0 7rpx;
+  box-sizing: border-box;
+}
+.order-wrap .user-info-wrap .user-info .user-profile {
+  display: inline-block;
+  width: 70rpx;
+  height: 70rpx;
+  background-color: red;
+  border-radius: 50%;
+  margin-top: 5rpx;
+  margin-right: 30rpx;
+}
+.order-wrap .user-info-wrap .user-info .user-name {
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+  line-height: 80rpx;
+}
+.order-wrap .user-info-wrap .user-info .food-num {
+  display: inline-block;
+  float: right;
+  vertical-align: top;
+  height: 100%;
+  line-height: 80rpx;
+}
+.order-wrap .user-info-wrap .foods-list {
+  width: 100%;
+  height: 140rpx;
+  margin-top: 40rpx;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic {
+  display: inline-block;
+  width: 140rpx;
+  height: 140rpx;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc {
+  float: right;
+  vertical-align: top;
+  width: 475rpx;
+  height: 100%;
+  padding-right: 7rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc .foods-name {
+  height: 36rpx;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc .foods-name view {
+  display: block;
+  font-size: 32rpx;
+  color: #333;
+  float: left;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc .foods-name .price {
+  float: right;
+  color: #ff2323;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc .num {
+  font-size: 32rpx;
+  color: #969696;
+  text-align: left;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.line {
+  width: 670rpx;
+  height: 2rpx;
+  margin: 0 auto;
+  background-color: #f3f3f3;
+  margin-top: 40rpx;
+}
+/*支付方式*/
+.pay-way-wrap {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  margin-top: 20rpx;
+  border-radius: 6rpx;
+}
+.balance {
+  color: #ff2323;
+}
+wx-switch-input::after {
+  width: 40rpx !important;
+  height: 36rpx !important;
+}
+.sold-list-head .payWayStyleActive {
+  color: #969696;
+}

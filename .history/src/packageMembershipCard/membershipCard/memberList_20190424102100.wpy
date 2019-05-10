@@ -1,0 +1,314 @@
+<script>
+import wepy from 'wepy';
+
+import requestUrl from '../../api/requestUrl'
+import { requestData } from '../../api/requestData'
+
+export default class Memberlist extends wepy.page {
+    config = {
+        navigationBarTitleText: '会员卡列表',
+    };
+    components = {};
+
+    data = {
+        memberData:[],
+        memberData2:[],
+        shopId:0,
+        page:1,
+        index:0,
+        height:0
+    };
+    methods = {
+        //跳转搜索
+        toSearchPage(){
+            wx.navigateTo({
+                url:'./searchMember'
+            })
+        },
+        //跳转会员卡详情
+        toMemberInfo(info){
+            wx.navigateTo({
+                url:'./cardIndex?info=' + JSON.stringify(info)
+            })
+        },
+        //立即充值
+        cardRecharge(item){
+            this.is_shopping(item)
+        },
+        //跳转店铺
+        goShop(e){
+            let dataset = e.currentTarget.dataset;
+            if(dataset.type == 1 || dataset.type == 2){
+            //电商、门店流程
+            wx.navigateTo({
+                url:'../../pages/e/page/index/index?id=' + dataset.id + '&shopType=' + dataset.type
+            })
+            }else if(dataset.type == 3 || dataset.type == 4){
+            //外卖、超市
+            wx.navigateTo({
+                url:'../../pages/f/page/index/index?id=' + dataset.id + '&shopType=' + dataset.type
+            })
+            }
+        },
+        scollBottom(){},
+        //最近使用的card
+        cardRenctly(){
+            this.memberData = [];
+            this.index = 0;
+            this.getMemberList();
+        },
+        //其它card
+        otherCard(){
+            this.memberData = [];
+            this.index = 1;
+            this.getMemberList(1,'');
+        }
+    };
+    // 获取会员卡列表
+    getMemberList(type,userInput){
+        wx.showLoading({title: '加载中...'});
+        let url = requestUrl.memberList;
+        let data = {
+            p_id : wepy.$instance.globalData.p_id,
+            token : wx.getStorageSync("token"),
+            type : type || 0,  //0-获取最近使用数据 1-全部数据 2-搜索数据
+            m_name : userInput
+        }
+        requestData(url,'POST',data).then(res=>{
+            wx.hideLoading();
+            if(this.memberData.length){
+                res.data.data.memberList.forEach((item,index)=>{
+                    this.memberData.push(item)
+                })
+            }else{
+                this.memberData = res.data.data.memberList;
+            }
+            this.$apply();
+        })
+    }
+    onLoad(){
+        var query = wx.createSelectorQuery();
+        //选择id
+        query.select('#search_wrap_update').boundingClientRect((rect)=> {
+            //获取屏幕高度
+            wx.getSystemInfo({
+                success:res=>{
+                    this.height = res.windowHeight - rect.height;
+                    this.$apply();
+                }
+            })
+        }).exec();
+    };
+    onShow(){
+        this.getMemberList()
+    }
+    onHide(){
+        this.memberData = []
+        this.memberData2 = []
+    }
+    //立即充值
+    async is_shopping(item){
+        let items = JSON.stringify(item);
+        wx.navigateTo({
+            url: './cardRecharge?item=' + items
+        });
+    }
+}
+</script>
+
+<template lang="wxml">
+    <view style="width:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;">
+        <view class="search_wrap_update" id="search_wrap_update"> 
+            <view class="search-wrap" @tap.stop="toSearchPage">请输入店铺名称，搜索会员卡
+                <image src="../../images/search.png"/>
+            </view>
+            <!-- 更新选项卡 -->
+            <view class="update_tab">
+                <view class="update_tab_item {{index==0 ? 'update_tab_item_style':''}}" @tap.stop="cardRenctly">最近使用</view>
+                <view class="update_tab_item {{index ? 'update_tab_item_style':''}}" @tap.stop="otherCard">其它</view>
+            </view>
+        </view>
+        <!-- 会员卡 -->
+        <view id='member-list' style="flex:1;">
+            <scroll-view scroll-y="true" style="height:{{height}}px;" @scrolltolower="scollBottom">
+                <!-- 会员卡 -->
+                <view class='userMesseContant' wx:for="{{memberData.length!=0? memberData:memberData2}}" wx:key="index" @tap.stop="toMemberInfo({{item}})">
+                    <view class='userMesseContant_left'>
+                        <image src='{{item.m_logo}}'/>
+                        <view>{{item.m_name}}</view>
+                    </view>
+                    <view class='userMesseContant_right'>
+                        <button class='userMesseContant_rightShare'>
+                            <view>分享</view>
+                            <image src='../../images/分享.png'/>
+                        </button>
+                        <view class='userMesseContant_rightMoney'>余额<text>{{item.balance}}</text></view>
+                        <view class='userMesseContant_rightRecharge' @tap.stop="cardRecharge({{item}})">立即充值</view>
+                        <view class='userMesseContant_leftRecharge' data-id="{{item.m_id}}"  data-type="{{item.shop_type}}" @tap.stop="goShop">去店铺</view>
+                    </view>
+                </view>
+                <view class="is_card" wx:if="{{memberData2.length == 0&&memberData.length == 0}}">暂无会员卡</view>
+            </scroll-view>
+        </view>
+
+    </view>
+</template>
+
+<style lang="less">
+    .search_wrap_update{
+        width:100%;
+        height:163rpx;
+        .update_tab{
+            width:500rpx;
+            margin:auto;
+            display:flex;
+            position:relative;
+            top:120rpx;
+            .update_tab_item{
+                flex:1;
+                text-align:center;
+                font-size:30rpx;
+                position:relative;
+            }
+            .update_tab_item_style::after{
+                content:'';
+                width:60rpx;
+                height:4rpx;
+                background-color:black;
+                position:absolute;
+                bottom:-10rpx;
+                left:0;
+                right:0;
+                margin:auto;
+            }
+        }
+    }
+    page{
+        width:100%;
+        height:100%;
+        background-color: #fff;
+    }
+    .search-wrap{
+        width: 560rpx;
+        height: 70rpx;
+        background-color: #f0f0f0;
+        border-radius: 35rpx;
+        color: #969696;
+        font-size:26rpx;
+        padding-left:75rpx;
+        box-sizing:border-box;
+        line-height: 70rpx;
+        position:absolute;
+        top:20rpx;
+        left:0;
+        right:0;
+        margin:auto;
+        z-index:100;
+        image{
+            display:block;
+            width: 26rpx;
+            height: 26rpx;
+            position:absolute;
+            left:37rpx;
+            top:0;
+            bottom:0;
+            margin:auto;
+        }
+    }
+    .userMesseContant{
+        width:710rpx;
+        margin:20rpx auto 0;
+        transform: translateY(35rpx);
+        background-image: url('http://www.qumatou.com.cn/zheng/xcximage/cardbg.png');
+        height: 250rpx;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        border-radius: 20rpx;
+        display: flex;
+        .userMesseContant_left,.userMesseContant_right{
+            position:absolute;
+            left:0;
+            height: 250rpx;
+            box-sizing: border-box;
+            padding: 20rpx;
+        }
+        .userMesseContant_left{
+            display: flex;
+            view{
+                color:#fff;
+                font-size: 32rpx;
+                padding-left: 20rpx;
+                height: 32rpx;
+                line-height: 32rpx;
+                margin-top: 50rpx;
+            }
+            image{
+                margin-left: 30rpx;
+                margin-top: 20rpx;
+                width: 100rpx;
+                height: 100rpx;
+                border-radius: 50%;
+                border: 1px solid #fff;
+            }
+        }
+        .userMesseContant_right{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            position:absolute;
+            right:0;
+            .userMesseContant_rightShare{
+                display: flex;
+                color: #fff;
+                width: 125rpx;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                margin: 0;
+                background-color: rgba(0, 0, 0, 0);
+                view{
+                    font-size: 25rpx;
+                    margin-right: 10rpx;
+                    color: #fff;
+                }
+                image{
+                    width: 35rpx;
+                    height: 37rpx;
+                }
+            }
+            .userMesseContant_rightMoney{
+                margin-top: 20rpx;
+                font-size: 30rpx;
+                color: #fff;
+                text{
+                    display: inline-block;
+                    margin-left: 17rpx;
+                    font-size: 48rpx
+                }
+            }
+            .userMesseContant_rightRecharge{
+                margin-top: 58rpx;
+                color: #ffd270;
+                font-size: 30rpx;
+            }
+            .userMesseContant_leftRecharge{
+                position:absolute;
+                left:50rpx;
+                bottom:20rpx;
+                color: #ffd270;
+                font-size: 30rpx;
+            }
+        }
+    }
+    .is_card{
+        font-size:30rpx;
+        color:#333;
+        text-align:center;
+        position:absolute;
+        left:0;
+        right:0;
+        top:300rpx;
+        margin:auto;
+    }   
+</style>

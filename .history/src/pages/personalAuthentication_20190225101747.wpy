@@ -1,0 +1,89 @@
+<script>
+import wepy from 'wepy';
+
+export default class personalAuthentication extends wepy.page {
+    config = {
+        navigationBarTitleText: '个人认证'
+    };
+    components = {};
+
+    data = {
+        identityChoose:[
+            {
+                id:0,
+                title:'村民'
+            },
+            {
+                id:1,
+                title:'贫困户'
+            },
+            {
+                id:2,
+                title:'扶贫干部'
+            },
+        ],
+    };
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <form @submit="formSubmit">
+        <view class="authenticationTitle">姓名</view>
+        <view class="inputBox"><input placeholder="请输入您的姓名" placeholder-style="font-size:28rpx;"  name='userName'/></view>
+        <view class="authenticationTitle">手机号</view>
+        <view class="inputBox"><input placeholder="请输入您的手机号" name='userTel' type='number'/></view>
+        <view class="authenticationTitle">身份证号</view>
+        <view class="inputBox"><input placeholder="请输入您的身份证号" name='userID' type='idcard'/></view>
+        <view class="authenticationTitle">身份证照片(正、反面)</view>
+        <view class="idcardChooseBox">
+            <view class="idcardChoose">+</view>
+            <view class="idcardChoose">+</view>
+        </view>
+        <view class="authenticationTitle">请选择您的身份</view>
+        <view class="identityChooseBox">
+            <view class="identityChoose" wx:for='{{identityChoose}}' wx:key=''>{{item.title}}</view>
+        </view>
+    </form>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+    }
+    .authenticationTitle{
+        font-size: 32rpx;
+        color: #000;
+        padding: 0 40rpx;
+    }
+    .inputBox{
+        width: 100%;
+        padding: 30rpx 40rpx;
+        input{
+            height: 80rpx;
+            background-color: #f3f3f3;
+            padding: 0 20rpx;
+            font-size: 28rpx;
+            border-radius: 7rpx;
+        }
+    }
+    .idcardChooseBox{
+        width: 100%;
+        padding: 30rpx 40rpx;
+        display: flex;
+        .idcardChoose{
+            background-color: #f3f3f3;
+            width: 160rpx;
+            height: 160rpx;
+            text-align: center;
+            line-height: 160rpx;
+            border-radius: 7rpx;
+            margin-right: 40rpx;
+            color: #d6d6d6;
+            font-size: 70rpx;
+        }
+    }
+</style>

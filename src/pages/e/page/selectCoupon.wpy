@@ -1,0 +1,148 @@
+<script>
+import wepy from 'wepy';
+import api from '../../../api/api';
+import util from '../../../utils/util';
+import userSelectUseCoupon from '../../../components/userSelectUseCoupon';
+
+export default class selectCoupon extends wepy.page {
+    config = {
+        navigationBarTitleText: '选择支付卡券',
+    };
+    components = {
+        userSelectUseCoupon:userSelectUseCoupon
+    };
+    data = {
+        userCoupon:[],
+        goodId:[],
+        nodata:true,
+        money:0
+    };
+    methods = {
+    };
+
+    events = {};
+    onLoad(options) {
+        //获取token
+        let token = wx.getStorageSync("access_token");
+        this.token = token.access_token;
+        if(options.fastMoney){
+            this.paymentCoupons(options);
+        }
+        //获取商品id
+        wx.getStorage({
+            key:'selectBuy',
+            success:res=>{
+                // this.money = util.getELowPrice(res.data);
+                if(res.data[0].goodsId){
+                    res.data.forEach((item,index)=>{
+                        this.goodId.push(item.id)
+                    })
+                }else{
+                    // res.data.forEach((item,index)=>{
+                    //     this.goodId.push(item.good_id) 
+                    // })
+                    this.goodId = util.getELowPrice(res.data);
+                }
+                if(options.money){
+                    this.userCoupons(options)
+                }else{
+                    this.paymentCoupons(options);
+                }
+                this.$apply();
+            }
+        })
+        this.$apply();  
+    };
+    // 用户代金券
+    userCoupons(options){
+        wepy.request({
+            url: api.apiMall + 'api/myCard',
+            method: 'GET',
+            data: {
+                merchant_id:options.shopId,
+                goods: JSON.stringify(this.goodId),
+                // money:this.money/100,
+                // money:12,
+                // money:Number(options.money)-Number(options.normalsend) || '',
+                order_type:1
+            },
+            header:{
+                'Accept':'application/vnd.lingmo.v1+json',
+                'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+                'Authorization':'Bearer ' + this.token
+            },
+        }).then((res)=>{
+            res.data.message.forEach((item,index)=>{
+                if(item.begin_time == 0||item.end_time == 0){
+                    return false;
+                }else{
+                    item.begin_time = util.timestampToTime(item.begin_time);
+                    item.end_time = util.timestampToTime(item.end_time);
+                }
+            })
+            this.userCoupon = res.data.message;
+            if(!res.data.message.length){
+                this.nodata = false;
+                this.$apply()
+            }else{
+                this.nodata = true;
+                this.$apply()
+            }
+            this.$apply()
+        });           
+    }
+    //买单选择优惠券
+    paymentCoupons(options){
+        wepy.request({
+            url: api.apiMall + 'api/user_coupons',
+            method: 'GET',
+            data: {
+                merchant_id:options.shopId,
+                order_type:3,
+                money:options.fastMoney
+                // money:options.fastMoney
+            },
+            header:{
+                'Accept':'application/vnd.lingmo.v1+json',
+                'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+                'Authorization':'Bearer ' + this.token
+            },
+        }).then((res)=>{
+            res.data.message.forEach((item,index)=>{
+                if(item.begin_time == 0||item.end_time == 0){
+                    return false;
+                }else{
+                    item.begin_time = util.timestampToTime(item.begin_time);
+                    item.end_time = util.timestampToTime(item.end_time);
+                }
+            })
+            this.userCoupon = res.data.message;
+            if(!res.data.message.length){
+                this.nodata = false;
+                this.$apply()
+            }else{
+                this.nodata = true;
+                this.$apply()
+            }
+            this.$apply()
+        });           
+    }
+}
+</script>
+
+<template lang="wxml">
+    <view class='container'>
+        <userSelectUseCoupon :syncTitle.sync="userCoupon"/>
+        <view hidden='{{nodata}}' class='nodata'>暂无卡券</view>
+    </view>
+</template>
+
+<style lang="less">
+    page{
+        background-color: #fff;
+    }
+    .nodata{
+        text-align: center;
+        margin-top: 550rpx;
+    }
+</style>

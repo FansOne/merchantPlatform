@@ -1,0 +1,37 @@
+<script>
+import wepy from 'wepy';
+
+export default class integralExplain extends wepy.page {
+    config = {
+        navigationBarTitleText: '赚取积分',
+    };
+    components = {};
+
+    data = {
+        imgUrls:[
+            imagePath:'http://www.qumatou.com.cn/zheng/20190417/FF9D2670E6D09188FFE219AF0D33C705.jpg'
+        ]
+    };
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <!-- 轮播图 -->
+    <view class="page-swiper-wrap">
+        <swiper autoplay interval="4000" circular>
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                    <image src="{{item.imagePath}}" class="slide-image"/>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

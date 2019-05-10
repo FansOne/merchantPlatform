@@ -1,0 +1,180 @@
+<script>
+  import wepy from 'wepy';
+
+  export default class paymentSuccess extends wepy.page {
+    config = {
+      navigationBarBackgroundColor: '#ffd265',
+      navigationBarTitleText: "支付成功",
+    }
+  	data = {
+  		payment: 0,
+      readPrompt:'安全提醒：我们不会以系统维护，订单异常等理由，要求您进行任何方式的退款操作，或以各种理由索取您的隐私信息（如个人信息,会员账号信息,银行卡账户,密码以及手机验证码等）。',
+      shopId:'',
+      userCoupon:[],
+      is_limite:false,
+      couponTabs:'',
+      couponTab:0,
+      scrollHeight:0,
+      industryId:'',
+      gotCouponsAlready:[]
+    }
+    methods = {
+      //查看订单
+      seeOrder(){
+        wx.switchTab({
+          url: '../../../../pages/order'
+        })
+      },
+      // 继续购物
+      goIndex(){
+        wx.navigateBack({
+          delta: 2
+        })
+      },
+      // 切换tab
+      changeCouponTab(index,industryId){
+        this.couponTab = index;
+        this.industryId = industryId;
+      }
+    }
+    onLoad(){}
+    onHide(){
+      //页面关闭
+      this.gotCouponsAlready.length = 0;
+    }
+  }
+</script>
+
+<template> 
+  <view calss='container' style="height:100%;display:flex;flex-direction: column;">
+    <view style="height:auto;width:100%;background-color:#fff;">
+      <view class='paymentTop'>
+        <view><image src='../../../../images/paymentSuccess.png'/></view>
+        <!-- <text style='font-size:26rpx;color:#000;'>谢谢</text> -->
+      </view>
+      <view class = 'paymentBottom'>
+        <view class = 'paymentBottom-btn'>
+          <view @tap = 'seeOrder'>查看订单</view>
+          <view @tap = 'goIndex'>继续购物</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<style lang="less">
+  .rgba_background{
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0, .0);
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:100;
+  }
+  .paymentTop{
+    height: 215rpx;
+    background-color: #ffd270;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 32rpx;
+    font-weight: bold;
+    letter-spacing: 3rpx;
+    padding-bottom: 25rpx;
+    image{
+      width: 80rpx;
+      height: 80rpx;
+    }
+    view{
+      display: flex;
+      justify-content: center;
+    }
+    text{
+      display: block;
+      text-align: center;
+      margin-top: 20rpx;
+    }
+  }
+  .paymentmiddle{
+    margin: 0 60rpx;
+    border-bottom: 1px solid #efeff4;
+    view:nth-child(1){
+      text-align: center;
+      margin-top: 70rpx;
+      font-size: 28rpx;
+      letter-spacing: 4rpx;
+      color: #969696;
+    }
+    view:nth-child(2){
+      text-align: center;
+      margin-top: 30rpx;
+      font-size: 46rpx;
+      font-weight: bold;
+      color: #fd2323;
+      margin-bottom: 50rpx;
+    }
+  }
+  .paymentBottom{
+     margin: 0 60rpx;
+     border-bottom: 1px solid #f1f1f1;
+     padding-top: 40rpx;
+  }
+  .userInfo{
+    color: #333333;
+    font-size: 32rpx;
+    margin-bottom: 24rpx;
+  }
+  .paymentBottom-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 40rpx;
+    view{
+      width: 250rpx;
+      height: 84rpx;
+      text-align: center;
+      line-height: 84rpx;
+    }
+    view:nth-child(1){
+      background-color: #efeff4;
+      color: #333333;
+      font-size: 28rpx;
+      letter-spacing: 2rpx;
+    }
+    view:nth-child(2){
+      background-color: #ffd270;
+      color: #ffffff;
+      font-size: 28rpx;
+      letter-spacing: 2rpx;
+    }
+  }
+  .readPrompt{
+     margin: 0 60rpx;
+     font-size: 22rpx;
+     color: #969696;
+     letter-spacing: 3rpx;
+     margin-top: 24rpx;
+  }
+  .coupons_tab{
+    display:inline-block;
+    width:auto;
+    font-size:34rpx;
+    line-height: 110rpx;
+    margin-left:30rpx;
+    position:relative;
+  }
+  .coupons_selected::after{
+    content:'';
+    width:40rpx;
+    height:6rpx;
+    background-color: #ff5038;
+    border-radius: 3rpx;
+    position:absolute;
+    left:0;
+    right:0;
+    margin:auto;
+    bottom:16rpx;
+  }
+</style>

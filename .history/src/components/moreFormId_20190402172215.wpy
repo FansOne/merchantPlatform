@@ -1,0 +1,41 @@
+<template lang="wxml">
+    <form class="catchForm" report-submit bindsubmit="catchSubmit" >
+        <button form-type="submit" class="catchBtn">
+            <slot ></slot >
+        </button>
+    </form>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class moreFormId extends wepy.component {
+    components = {};
+
+    data = {};
+    methods = {
+        getFormId(e) {
+            console.log(e.detail.formId)
+        }
+    };
+
+    events = {};
+    // Other properties
+}
+</script>
+
+<style lang="less">
+    form.catchForm button.catchBtn {
+      border: none;
+      text-align: inherit;
+      padding: 0;
+      margin: 0;
+      line-height: inherit;
+      background: transparent;
+      color: inherit;
+      border-radius: 0;
+      font-size: inherit;
+    }
+    form.catchForm button.catchBtn::after {
+      border: none;
+    }
+</style>

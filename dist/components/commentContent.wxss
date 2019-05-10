@@ -1,0 +1,81 @@
+.commentBox {
+  padding: 0rpx 40rpx;
+}
+.comment {
+  border-bottom: 1px solid #efeff4;
+}
+.comment-top {
+  padding-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+.comment-top view:nth-child(1) {
+  display: flex;
+  flex-direction: row;
+}
+.comment-top view:nth-child(1) image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.comment-top view:nth-child(1) view {
+  flex: 1;
+  padding: 10rpx 0 0 20rpx;
+}
+.comment-top view:nth-child(1) view text:nth-child(1) {
+  color: #333333;
+  font-size: 28rpx;
+  letter-spacing: 3rpx;
+}
+.comment-top view:nth-child(1) view text:nth-child(2) {
+  display: inline-block;
+  color: #969696;
+  font-size: 22rpx;
+  margin-top: 4rpx;
+}
+.commentSpec {
+  padding-left: 80rpx;
+  font-size: 22rpx;
+  color: #969696;
+  line-height: 22rpx;
+}
+.comment-middle {
+  padding-top: 30rpx;
+  font-size: 26rpx;
+  color: #333333;
+  letter-spacing: 1rpx;
+  padding-left: 80rpx;
+}
+.comment-bottom {
+  padding-bottom: 40rpx;
+  padding-top: 45rpx;
+  height: 60rpx;
+  position: relative;
+}
+.comment-bottom .dianZan-btn {
+  position: absolute;
+  right: 0;
+  border: 2px solid #b1b1b1;
+  width: 160rpx;
+  height: 60rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.comment-bottom .dianZan-btn image {
+  width: 35rpx;
+  height: 35rpx;
+  margin-right: 30rpx;
+}
+.comment-bottom .dianZan-btn view {
+  font-size: 22rpx;
+  color: #333333;
+  height: 100%;
+  line-height: 65rpx;
+}
+.star-image {
+  height: 30rpx;
+  width: 30rpx;
+}

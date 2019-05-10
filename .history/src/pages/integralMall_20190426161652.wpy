@@ -1,0 +1,94 @@
+<script>
+import wepy from 'wepy';
+
+export default class integralMall extends wepy.page {
+    config = {
+        navigationBarTitleText: '积分商城',
+    };
+    components = {};
+
+    data = {
+        imgUrls:[
+            {
+                cover:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1556269572887&di=4b164a218ac3cef24686565e067a51eb&imgtype=0&src=http%3A%2F%2Fpic55.nipic.com%2Ffile%2F20141211%2F12020363_202741153945_2.jpg'
+            }
+        ],
+        navbar: ['到店买单', '门店/电商', '本地产品', '外卖'],
+        currentTab: 0,
+        toview:'',
+        page_Num:0,
+    };
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <!-- 轮播图 -->
+    <view class="page-swiper-wrap">
+        <swiper autoplay interval="4000" circular>
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                    <image src="{{item.cover}}" class="slide-image"/>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <!-- 我的积分&积分赚取 -->
+    <view class="userIntegraMall">
+        <view class="userIntegraLeft">
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/integralIcon.png" />
+            <view>我的积分：1000</view>
+        </view>
+        <view class="userIntegraRight">
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/integralEranIcon.png" />
+            <view>赚取积分</view>
+        </view>
+    </view>
+    <!-- tabMenu -->
+    <view class="orderTabs integralTab">
+        <view scroll-x style="width: 100%" class="loopBox">
+            <!--循环-->
+            <view wx:for="{{navbar}}" wx:key="" class="item {{currentTab==index ? 'active' : ''}}" @tap="navbarTap({{index}})" id="data{{index}}">
+                {{item}}
+            </view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+    page{
+        background-color: #e5e5e5;
+    }
+    view{
+        color: #000;
+    }
+    .userIntegraMall{
+        background-color: #fff;
+        height: 100rpx;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        .userIntegraLeft,.userIntegraRight{
+            flex: .5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1rpx solid rgb(175, 175, 175);
+            image{
+                width: 55rpx;
+                height: 55rpx;
+                margin-right: 15rpx;
+            }
+        }
+        .userIntegraRight{
+            border-left: 1rpx solid rgb(175, 175, 175);
+            border-right: 0;
+        }
+    }
+    .integralTab{
+        margin-top: 30rpx;
+    }
+</style>

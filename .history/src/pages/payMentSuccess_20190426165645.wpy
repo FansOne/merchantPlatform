@@ -1,0 +1,233 @@
+<script>
+import wepy from 'wepy';
+import api from '../api/requestUrl';
+import { requestData } from '../api/requestData'
+import { vailPhone } from '../utils/util'
+
+export default class payMentSuccess extends wepy.page {
+    config = {
+        navigationBarTitleText:'支付成功',
+        disableScroll:true
+    };
+    components = {};
+
+    data = {
+        money:0,
+        memberMess:null,
+        m_id:'',
+        bindUserMsess:false
+    };
+    methods = {
+        // formSubmit(e){
+        //     let inputValue = e.detail.value;
+        //     if(inputValue.userName && inputValue.userPhone){
+        //         let checkPhoneNum = vailPhone(inputValue.userPhone);
+        //         if(checkPhoneNum){
+        //             this.MemUserInfo(inputValue.userPhone,inputValue.userName)
+        //         }else{
+        //             wx.showToast({title: '请输入有效手机号',icon: 'none'});
+        //         }
+        //     }else{
+        //         wx.showToast({title: '请完善信息后提交',icon: 'none'});
+        //     }
+        // }
+    };
+
+    events = {};
+    onLoad(options) {
+        this.money = options.money
+        this.m_id = options.m_id
+        // 会员Data
+        let cardMessage = {
+            p_id: wepy.$instance.globalData.p_id,
+            m_id: this.m_id,
+            type: "0",
+            token: wx.getStorageSync('token')
+        };
+        requestData(api.cardMessage,'POST',cardMessage).then(res=>{
+            if(res.data.data[0].isMem == 2){ //会员需实名认证
+                this.bindUserMsess = true
+            }
+            this.memberMess = res.data.data[0]
+            this.$apply()
+        })
+    };
+    // 绑定会员信息
+    // MemUserInfo(wxphone,memname){
+    //     let url = api.memUserInfo;
+    //     let data = {
+    //         type: "1",
+    //         token: wx.getStorageSync('token'),
+    //         wxphone: wxphone,
+    //         memname: memname
+    //     };
+    //     requestData(url,'POST',data).then(res=>{
+    //         wx.showToast({title: '信息录入成功',icon: 'success'});
+    //         this.bindUserMsess = false
+    //         this.$apply()
+    //     })
+    // }
+    // 微信解密接口（获取手机号明文）
+    bindgetphonenumber(e){
+        if(e.detail.errMsg=='getPhoneNumber:ok'){
+            requestData(api.getwxUserInfo,"POST",{
+                p_id:wepy.$instance.globalData.p_id,
+                m_id:this.m_id,
+                type:0,
+                token:wx.getStorageSync('token'),
+                encryptedData:e.detail.encryptedData,
+                iv:e.detail.iv,
+            }).then(res=>{
+                let phoneNumber = res.data.data.phoneNumber;
+                requestData(api.memUserInfo,'POST',{
+                    type:1,
+                    token: wx.getStorageSync('token'),
+                    wxphone:phoneNumber,
+                    memname:""
+                }).then(res=>{
+                    wx.reLaunch({
+                        url: './index.wpy'
+                    });
+                })
+            })
+        }
+    }
+}
+</script>
+
+<template lang="wxml">
+    <view class="container">
+        <!-- 遮罩 -->
+        <!-- <view class="mask" wx:if='{{bindUserMsess}}'></view> -->
+        <!-- 会员信息绑定 -->
+        <!-- <view class="bindUserMsessBox" wx:if='{{bindUserMsess}}'>
+            <form @submit="formSubmit">
+                <view class="promptTitle_">完善会员信息</view>
+                <view class="inputBox">
+                    <view class="inputItem">
+                        <view>姓 名：</view>
+                        <input placeholder="请输入会员姓名" name='userName'/>
+                    </view>
+                    <view class="inputItem">
+                        <view>手机号：</view>
+                        <input placeholder="请输入会员手机号" type='number' name='userPhone' maxlength="11"/>
+                    </view>
+                    <button form-type="submit">确定</button>
+                </view>
+            </form>
+        </view> -->
+        <view class="checkMarkBox">
+            <image src="../images/checkMark.png" />
+        </view>
+        <view class="money">￥{{money}}</view>
+        <view class="balance" wx:if='{{memberMess.isMem == 0}}'>卡内余额<text class="balanceColor">{{memberMess.MemInfo.balance}}元</text></view>
+        <view class="btnBox"><button open-type='getPhoneNumber' @getphonenumber='bindgetphonenumber'>确定</button></view>
+    </view>
+</template>
+
+<style lang="less">
+    page{
+        height: 100%;
+    }
+    view{
+        box-sizing: border-box;
+        color: #000;
+    }
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+    .checkMarkBox{
+        padding-top: 35rpx;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        image{
+            width: 361rpx;
+            height: 293rpx;
+        }
+    }
+    .money{
+        font-size: 75rpx;
+        font-weight: bold;
+        margin-top: 130rpx;
+        transform: translateX(-7rpx);
+    }
+    .balance{
+        margin-top: 20rpx;
+        font-size: 33rpx;
+        letter-spacing: 3rpx;
+        .balanceColor{
+            color: #ffd05c;
+            letter-spacing: 3rpx;
+        }
+    }
+    .btnBox{
+        width: 100%;
+        box-sizing: border-box;
+        padding-top: 330rpx;
+        button{
+            background-color: #f5e03c;
+            letter-spacing: 3rpx;
+            margin: 0rpx;
+            padding: 0rpx;
+        }
+    }
+    button{
+        border-radius:0;
+    }
+    .bindUserMsessBox{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        z-index: 11;
+        width: 551rpx;
+        height: 534rpx;
+        background-color: #ffffff;
+        border-radius: 10rpx;
+        overflow: hidden;
+        .promptTitle_{
+            text-align: center;
+            background-color: #ffd270;
+            padding: 25rpx 0;
+            font-size: 32rpx;
+        }
+        .inputBox{
+            width: 100%;
+            padding: 45rpx;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .inputItem{
+                display: flex;
+                align-items: center;
+                height: 90rpx;
+                background-color: #f2f2f2;
+                margin-bottom: 35rpx;
+                padding-left: 20rpx;
+                view,input{
+                    height: 52rpx;
+                    line-height: 52rpx;
+                    font-size: 28rpx;
+                }
+                view{
+                    width: 112rpx;
+                }
+            }
+            button{
+                background-color: #ffd270;
+                font-size: 30rpx;
+                padding: 0;
+                width: 200rpx;
+                height: 70rpx;
+                border-radius: 50rpx;
+            }
+        }
+    }
+</style>

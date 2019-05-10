@@ -1,0 +1,13 @@
+
+    <view id="cateList" style="position:position;">
+        <!-- 模块 -->
+        <view class="btn-things-wrap">
+            <view class="item"  wx:for="{{imagesBtn}}" wx:key="index" data-index="{{index}}" data-id="{{item.c_id}}" bindtap="toModelDetail" data-wpytomodeldetail-a="{{item.c_id}}" data-wpytomodeldetail-b="{{item.c_name}}">
+                <image class="image-btn" src="{{item.c_image}}"/>
+                <view class="btn-desc">{{item.c_name}}</view>
+            </view>
+        </view>
+
+        <!-- 数据未加载出来的白色遮罩 -->
+        <view class="cover-mask"  wx:if="{{imagesBtn.length == 0}}"/>
+    </view>

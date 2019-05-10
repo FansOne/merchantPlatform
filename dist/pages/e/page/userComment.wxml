@@ -1,0 +1,50 @@
+
+  <view class="container">
+    <view class="top-box"  wx:if="{{noComment}}">
+      <view class="haoPing"><text>{{options.totalScore*20}}</text>% 好评</view>
+      <view class="start-box">
+        <view class="img_box">
+        <block wx:for="{{stars}}" wx:key="idx">
+              <image class="star-images" style="left: {{item*100}}rpx;" src="{{options.totalScore > item ?(options.totalScore-item == 0.5?halfSrc:selectedSrc) : normalSrc}}"/>
+        </block>
+        </view>
+      </view>
+    </view>
+    <view class="top-box top-boxs"  wx:else>
+      <view class="start-box">
+        <view class="img_box no_Comment">
+          <image class="star-images dialogBox" src="../../../images/dialogBox.png"/>
+        </view>
+      </view>
+      <view class="haoPing noComments"><text/>该商品暂无评价</view>
+    </view>
+    <view class="grayLine {{noComment?'':'bgWhite'}}"/>
+    
+  <view calss="container">
+  	<view class="commentBox"  wx:for="{{$commentContent$comments}}" wx:key="index" wx:for-item="itemName">
+  		<view class="comment">
+  			<view class="comment-top">
+  				<view>
+  					<image src="{{itemName.cover}}"/>
+  					<view><text>{{itemName.nickname}}</text><text>{{itemName.dateline}}</text></view>
+  				</view>
+  				<view class="commentSpec">
+  					<block wx:for="{{$commentContent$stars}}" wx:key="idx">
+				      <image class="star-image" style="left: {{item*35}}rpx;" src="{{itemName.score > item ?(itemName.score-item == 0.5?$commentContent$halfSrc:$commentContent$selectedSrc) : $commentContent$normalSrc}}"/>
+				    </block>
+  				</view>
+  			</view>
+  			<view class="comment-middle">
+  				{{itemName.content}}
+  			</view>
+  			<view class="comment-bottom">
+  				<!-- <view class='dianZan-btn' bindtap='dianZan' data-id="{{index}}">
+  					<image src='{{item.dianZan}}'></image>
+  					<view>{{item.num}}</view>
+  				</view> -->
+  			</view>
+  		</view>
+  	</view>
+  </view>
+
+  </view>

@@ -1,0 +1,191 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../../api/requestUrl'
+import { requestData } from '../../api/requestData'
+export default class membershipMessage extends wepy.page {
+    config = {
+        navigationBarTitleText: '完善会员信息',
+    };
+    components = {};
+
+    data = {
+        m_id:'',
+        wxTel:'',
+    };
+    methods = {
+        formSubmit(e){
+            console.log(e.detail.value)
+            if(!e.detail.value.userName || !e.detail.value.telNumber){
+                wx.showToast({title: '请完善会员信息',icon: 'none'});
+            }else{
+                let url = requestUrl.memUserInfo;
+                let data = {
+                    type:"1",
+                    token:  wx.getStorageSync('token'),
+                    wxphone: e.detail.value.telNumber,
+                    memname: e.detail.value.userName
+                };
+                requestData(url,'POST',data).then(res=>{
+                    if(res.data.code == 1){
+                        wx.showToast({
+                            title: '绑定成功',
+                            icon: 'success',
+                            duration: 1500,
+                            mask: false,
+                            success:()=>{
+                                setTimeout(() => {
+                                    wx.navigateBack({
+                                        delta: 3
+                                    });
+                                }, 1200);
+                            }
+                        });
+                    }else{
+                        wx.showToast({
+                            title: res.data.message,
+                            icon: 'none',
+                            duration: 1500,
+                            mask: false,
+                        });
+                    }
+                })
+            }
+        }
+    };
+
+    events = {};
+    onLoad(options) {
+        this.m_id = options.m_id
+    };
+    // 获取用户手机号
+    getPhoneNumber(e) {
+        wx.checkSession({
+            success:()=> {    // session_key 未过期，并且在本生命周期一直有效
+                this.getwxUserInfo(e.detail.iv,e.detail.encryptedData)
+            },
+            fail:()=> {    // session_key 已经失效，需要重新执行登录流程 ,登录换取用户Token
+                wx.login({
+                    success: res => {
+                        wepy.request({
+                            url: requestUrl.getToken,
+                            method: 'POST',
+                            data: {
+                                p_id: wepy.$instance.globalData.p_id,
+                                m_id: 0,
+                                CODE: res.code
+                            }
+                        }).then(res=>{
+                            let token = res.data.data[0].accessToken;
+                            wx.setStorageSync('token', token);
+                            this.getwxUserInfo(e.detail.iv,e.detail.encryptedData)
+                        }).catch(res=>{
+                            wx.showToast({
+                                title: '请求服务器数据异常',
+                                icon: 'none',
+                                duration: 1500
+                            });
+                        });
+                    }
+                });
+            }
+        })
+    }
+    // 第三方服务端进行解密获取手机号
+    getwxUserInfo(iv,encryptedData){
+        let url = requestUrl.getwxUserInfo;
+        let data = {
+                p_id: wepy.$instance.globalData.p_id,
+                m_id:8,
+                type:0,
+                token: wx.getStorageSync('token'),
+                iv: iv,
+                encryptedData: encryptedData
+            };
+        requestData(url,'POST',data).then(res=>{
+            if(res.data.code == 1){
+                this.wxTel = res.data.data.phoneNumber
+                this.$apply()
+            }else{
+                wx.showToast({
+                    title: '请求服务器数据异常',
+                    icon: 'none',
+                    duration: 1500
+                });
+            } 
+        })
+    }
+}
+</script>
+
+<template lang="wxml">
+    <form bindsubmit="formSubmit">
+        <view class="membershipMessageTitle">姓名</view>
+        <view class="inputBox"><input placeholder='请输入您的真实姓名' type='text' name="userName"/></view>
+        <view class="membershipMessageTitle">手机号</view>
+        <view class="telNumberBox">
+            <input placeholder='请输入您的手机号' type='number' name="telNumber" value="{{wxTel}}"/>
+            <button open-type='getPhoneNumber' @getphonenumber="getPhoneNumber">使用微信绑定的手机号</button>
+        </view>
+        <view class="confirmBtn"><button form-type="submit">完成</button></view>
+    </form>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+    }
+    .membershipMessageTitle{
+        width: 100%;
+        color: #000;
+        font-size: 32rpx;
+        padding: 30rpx;
+    }
+    .inputBox{
+        width: 100%;
+        padding: 0 30rpx;
+        input{
+            border-radius: 8rpx;
+        }
+    }
+    .telNumberBox{
+        width: 100%;
+        padding: 0 30rpx;
+        display: flex;
+        align-items: center;
+        button{
+            font-size: 28rpx;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+            height: 80rpx;
+            line-height: 80rpx;
+            width: 307rpx;
+            background-color: #e41828;
+            color: #fff;
+            border-radius: 0 8rpx 8rpx 0;
+        }
+        input{
+            flex: 1;
+            border-radius: 8rpx 0 0 8rpx;
+        }
+    }
+    input{
+        background-color: #f3f3f3;
+        height: 80rpx;
+        padding: 0 30rpx;
+    }
+    .confirmBtn{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: 70rpx;
+        button{
+            background-color: #e41828;
+            color: #fff;
+            height: 80rpx;
+            font-size: 30rpx;
+            width: 250rpx;
+            letter-spacing: 15rpx;
+        }
+    }
+</style>

@@ -1,0 +1,162 @@
+
+  <view style="width:100%;height:100%;">
+    <!-- 回到首页 -->
+		<view class="backindex_box" style="width:80rpx;height:80rpx;padding-top:16rpx;box-sizing:border-box;" catchtap="backFirst">
+      <image style="height:34rpx;width:30rpx;" src="http://www.qumatou.com.cn/zheng/xcximage/backindex.png"/>
+      <view style="font-size:14rpx">首页</view>
+    </view>
+    <view style="width:100%;height:100%;display:flex;flex-flow: column;">
+      <view style="width:100%;height:280rpx;"  wx:if="{{!takeOutStatus}}">
+        <view class="deliver-wrap">
+          <!--头部-->
+          <view class="deliver-head-wrap">
+            <view class="deliver-head">
+              <image src="{{logoImg}}"/>
+              <view class="table-num-wrap">
+                <view class="table-num">桌号： {{socketTableNum}}</view>
+                <view class="user-num">人数： {{eatFoodNum ? eatFoodNum : 1}} 人</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--选择菜品-->
+      <view class="hot-sold-wrap" style="flex:1;overflow:auto;">
+        <view class="sold-slide-list-wrqp">
+          <scroll-view scroll-y style="display:block;width:100%;height:100%;display:flex;">
+            <view  wx:for="{{catelogs}}" wx:key="" bindtap="getStatus" class="sold-slide-list {{index == currentIndex ? 'sold-slide-list-active' : ''}}" data-wpygetstatus-a="{{item.classid}}" data-wpygetstatus-b="{{index}}">{{item.classname}}</view>
+          </scroll-view>
+        </view>
+        <view style="height:{{takeOutStatus?'100%':newStyles+'px'}};" wx:if="{{goodsShow}}">
+          <scroll-view bindscrolltolower="scrolltolower" scroll-y lower-threshold="60" style="height:{{takeOutStatus?'100%':newStyles+'px'}};display:flex;" scroll-top="{{scrollRightTo}}" scroll-with-animation="scroll-with-animation">
+            <view class="sold-list-wrap">
+              <!--增加的广告位-->
+              <image id="images" class="adver" src="http://www.qumatou.com.cn/zheng/xcximage/ad2.png"/>
+              <view style="width:100%;height:auto;" wx:for="{{takeaways}}" wx:key="" wx:for-item="goodsItem" wx:for-index="goodsIndex">
+                <view class="sold-list-head" id="sold-list-head" wx:if="{{goodsIndex == 0}}">
+                  <image src=""/>
+                  <view>{{goodsItem.c_name}}</view>
+                  <view class="desc">大家喜欢吃，才是好吃！</view>
+                </view>
+                <view id="sold" class="sold-list-content">
+                  <image class="food-img" src="{{goodsItem.logopath}}" catchtap="foodsPackageDetail" data-wpyfoodspackagedetail-a="{{goodsItem}}"/>
+                  <view class="food-desc-wrap">
+                    <view class="food-name">{{goodsItem.pname}}</view>
+                    <view class="food-num-wrap">
+                      <view class="price_" style="">￥{{goodsItem.price}}</view>
+                      <view class="add-reduce" wx:if="{{goodsItem.SKU == 0}}" style="position:relative;float:right;width:180rpx;display:flex;justify-content: space-between;">
+                        <view class="reduce-box" catchtap="reduce" data-wpyreduce-a="{{goodsItem}}" data-wpyreduce-b="{{goodsIndex}}"/>
+                        <view class="reduce-box-2" catchtap="add" data-wpyadd-a="{{goodsItem}}" data-wpyadd-b="{{goodsIndex}}"/>
+                        <image class="reduce" src="http://www.qumatou.com.cn/zheng/xcximage/reduce.png"/>
+                        <text class="num" style="">{{goodsItem.foodNum}}</text>
+                        <image class="increase" src="http://www.qumatou.com.cn/zheng/xcximage/increase.png"/>
+                      </view>
+                      <view class="selectSkus" wx:else bindtap="selectSkus" data-wpyselectskus-a="{{goodsItem.ponlyid}}" data-wpyselectskus-b="{{goodsItem}}" data-wpyselectskus-c="{{goodsIndex}}">选规格</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+      <view class="tab-wrap-none"/>
+    </view>
+    <!--底部固定栏-->
+    <view class="tab-wrap">
+      <view class="price_">
+        <view>总计：<text style="width:150rpx;color:#ff2323">￥{{updateTotal}}</text></view>
+        <view wx:if="{{takeOutStatus}}" class="sendPrice">起送费:{{sendPrice}}元</view>
+      </view>
+      <!-- style="display:{{myMenu}}" -->
+      <view class="mall-car" catchtap="myMenu">
+        <image src="http://www.qumatou.com.cn/zheng/xcximage/car.png"/>
+        <view class="num">{{updateCount ? updateCount : 0}}</view>
+      </view>
+    </view>
+    <!--商品详情弹窗 遮罩开始-->
+    <view class="commodity_screen" wx:if="{{showModalStatus}}" catchtap="hideModal" catchtouchmove="ture">
+      <!-- 原产品详情 -->
+      
+      <!-- <view class="food-detail-wrap" hidden="{{foodInfoShow}}">
+        <scroll-view scroll-y style="height: 850rpx;" scroll-top="{{scrollTop}}">
+          <view class="swiper">
+            <swiper autoplay>
+              <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                  <image src="{{item.cover}}" class="slide-image" width="355" height="150"/>
+                </swiper-item>
+              </block>
+            </swiper>
+          </view>
+          <view class="foods-package-detail-wrap">
+            <view class="sold-list-head" style="position:relative;">
+              <image src=""></image>
+              <view>美食简介</view>
+              <view class='swiperShare' catchtap='shareFriends'>
+                <icon class='iconfont icon-fenxiang'/>
+                <view>分享</view>
+              </view>
+            </view>
+            <view class="desc">
+              <rich-text nodes="{{detailContent}}" mode='widthFix'></rich-text>
+            </view>
+          </view>
+        </scroll-view>
+        <view class="bottom-btn-wrap">
+          <view class="price-wrap">
+            <view class="price">￥{{jObject?jObject.price:xaingqingData.price}}</view>
+            <view class="food-num">
+              <view class="reduce-box" catchtap="reduceDetail({{jObject}})"></view>
+              <view class="reduce-box-2" catchtap="addDetail({{jObject}})"></view>
+              <image class="reduce" src="http://applet.qumatou.com.cn/static/food/reduce.png"></image>
+              <text class="num">{{jObject?jObject.foodNum:0}}</text>
+              <image class="increase" src="http://applet.qumatou.com.cn/static/food/increase.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="shareFriends {{shareShow?'shareShow':''}}">
+        <view class='shareFriendsBtn'>
+          <button style='border-right:1rpx solid #f1f1f1' open-type='share'><icon class='iconfont icon-icon-'/><view>分享给好友</view></button>
+          <button catchtap= 'sharequan'><icon class='iconfont icon-pengyouquan'/><view>发朋友圈</view></button>
+        </view>
+        <view class='shareFriendsCancel' catchtap='shareFriends'>取消</view>
+      </view>
+      <view class="haiBao {{haobaoShow?'':'haobaoShow'}}" hidden='{{haobaoShow}}'>
+        <image src='{{haiBaoImg}}'/>
+        <button catchtap='saveImg({{haiBaoImg}})'>保存至相册</button>
+        <view>分享朋友圈时可在相册选取图片</view>
+        <view class='close' catchtap='closeHaiBao'>×</view>
+      </view> -->
+      
+      <!-- 产品规格 -->
+      <view class="productSkusBox" catchtouchmove="ture" catchtap="eventStop">
+          <view class="productTitle">{{ProductDetails.brandname}} -- {{ProductDetails.pname}}</view>
+          <view class="productContant">
+            <!-- <view class='productContantTitle'>规格</view> -->
+            <scroll-view scroll-y style="height:284rpx">
+              <view class="bottomShow-middle" wx:for="{{goodsSkus}}" wx:key="" wx:for-index="index" wx:for-item="item">
+                <view class="productContantTitle">{{item.spec}}</view>
+                <view class="hezhuang-x">
+                  <block wx:for="{{item.specValue}}" wx:key="" wx:for-index="idx" wx:for-item="itemName">
+                    <view bindtap="hezhuang" class="hezhuang {{itemName.checked ?'hezhuangBg':''}}" data-wpyhezhuang-a="{{itemName}}" data-wpyhezhuang-b="{{item}}" data-wpyhezhuang-c="{{index}}">{{itemName.value}}</view>
+                  </block>
+                </view>
+              </view>
+            </scroll-view>
+            <!-- 底部固定 -->
+            <view class="productContantBottom">
+              <view class="productContantPrice">￥ {{choosePrice}}</view>
+              <view class="add-reduce" style="position:relative;float:right;width:140rpx;display:flex;justify-content: space-between;">
+                <image class="reduce" src="http://www.qumatou.com.cn/zheng/xcximage/reduce.png" style="width:45rpx;height:44rpx;" catchtap="reduce"/>
+                <text class="num" style="">{{skusFoodNum}}</text>
+                <image class="increase" src="http://www.qumatou.com.cn/zheng/xcximage/increase.png" style="width:45rpx;height:44rpx;" catchtap="add"/>
+              </view>
+            </view>
+          </view>
+      </view>
+    </view>
+    <!-- 数据未加载出来的白色遮罩 -->
+    <view class="cover-mask" wx:if="{{takeaways.length == 0}}">暂无数据</view>
+  </view>

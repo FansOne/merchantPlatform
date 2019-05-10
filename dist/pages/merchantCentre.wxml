@@ -1,0 +1,15 @@
+
+    <view class="container">
+        <view class="topUserMessBox">
+            <view class="userAvatarUrlBox"><open-data type="userAvatarUrl" class="userAvatarUrl"/></view>
+            <open-data type="userNickName" class="userNickName"/>
+            <view class="noticeBox" style="text-align:center">欢迎您的到来</view>
+        </view>
+        <view class="lineBg"/>
+        <view class="otherModularBox">
+            <view class="otherModularItem"  wx:for="{{otherModular}}" wx:key="" bindtap="otherModularItem" data-wpyothermodularitem-a="{{index}}">
+                <moreFormId><image src="{{item.icon}}"/></moreFormId>
+                <view>{{item.title}}</view>
+            </view>
+        </view>
+    </view>

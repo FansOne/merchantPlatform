@@ -1,0 +1,154 @@
+.item_box_wrap {
+  width: 100%;
+  height: 239rpx;
+  background-color: #fff;
+  box-shadow: 0rpx 2rpx 16rpx 0rpx rgba(0, 0, 0, 0.14);
+  border-radius: 10rpx;
+  padding-bottom: 16rpx;
+  overflow: hidden;
+  position: relative;
+}
+.item_box_wrap_checked {
+  height: auto;
+}
+.process {
+  border-radius: 40rpx;
+  margin-top: 14rpx;
+  overflow: hidden;
+}
+.get_coupons {
+  width: 112rpx;
+  height: 36rpx;
+  background-color: #ffffff;
+  border-radius: 18rpx;
+  color: #1481ed;
+  font-size: 20rpx;
+  line-height: 36rpx;
+  text-align: center;
+  position: absolute;
+  bottom: 20rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.item_box {
+  box-sizing: border-box;
+  padding: 20rpx 40rpx;
+  border-bottom: 1px solid #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.item_box .couponItem {
+  height: 195rpx;
+  width: 100%;
+  border-radius: 7rpx;
+  background-size: 100%;
+  display: flex;
+}
+.item_box .couponItem .couponItem_left {
+  display: flex;
+  flex-direction: row;
+  width: 500rpx;
+}
+.item_box .couponItem .couponItem_left .logo {
+  width: 50%;
+  box-sizing: border-box;
+  padding-top: 25rpx;
+  padding-left: 90rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item_box .couponItem .couponItem_left .logo view {
+  margin-bottom: 15rpx;
+  font-size: 24rpx;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 3rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+.item_box .couponItem .couponItem_left .logo image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+}
+.item_box .couponItem .couponItem_left .pricess {
+  box-sizing: border-box;
+  padding-right: 6rpx;
+  width: 50%;
+  display: inline-block;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item_box .couponItem .couponItem_left .pricess .pricess_ {
+  font-size: 35rpx;
+  color: #fff;
+  padding-top: 10rpx;
+  box-sizing: border-box;
+}
+.item_box .couponItem .couponItem_left .pricess .pricess_ .bags {
+  font-size: 100rpx;
+}
+.item_box .couponItem .couponItem_left .pricess .prompt_ {
+  font-size: 20rpx;
+  letter-spacing: 2rpx;
+  color: #fff;
+  transform: translateX(6rpx) translateY(-6rpx);
+}
+.item_box .couponItem .couponItem_right {
+  box-sizing: border-box;
+  padding: 35rpx 10rpx 0rpx 5rpx;
+  flex: 1;
+  font-size: 22rpx;
+  color: #fff;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  position: relative;
+}
+.item_box .couponItem .couponItem_right .already_get {
+  display: block;
+  width: 115rpx;
+  height: 115rpx;
+  position: absolute;
+  right: 0rpx;
+  top: 4rpx;
+}
+.item_box .time {
+  display: flex;
+  width: 100%;
+  padding: 15rpx 16rpx 0;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+.item_box .time .term {
+  font-size: 22rpx;
+}
+.item_box .time .time_right {
+  display: flex;
+  justify-content: flex-end;
+}
+.item_box .time .time_right view {
+  font-size: 22rpx;
+}
+.item_box .time .long_btn {
+  display: block;
+  width: 38rpx;
+  height: 38rpx;
+  position: absolute;
+  right: 24rpx;
+  top: 208rpx;
+}
+.item_box .time .long_btn_transform {
+  transform: rotate(180deg);
+  transition: all .5s;
+}

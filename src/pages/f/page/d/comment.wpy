@@ -1,0 +1,161 @@
+<style lang="less">
+  page{
+    width:100%;
+    height:100%;
+    background-color:#f3f3f3;
+  }
+  .comments-wrap{
+    width:710rpx;
+    height:334rpx;
+    background-color:#fff;
+    margin:20rpx auto;
+    padding:30rpx 20rpx;
+    box-sizing: border-box;
+    .comments-head-wrap{
+      width:100%;
+      height:120rpx;
+      .logo{
+        display:inline-block;
+        width:120rpx;
+        height:120rpx;
+      }
+      .name{
+        display:inline-block;
+        vertical-align: top;
+        width:auto;
+        height:100%;
+        font-size:34rpx;
+        color:#333;
+        line-height:120rpx;
+        margin-left:30rpx;
+      }
+    }
+    .star-wrap{
+      width:405rpx;
+      height:43rpx;
+      margin:70rpx auto 0;
+      position:relative;
+    }
+  }
+  .comments-content-wrap{
+    width:710rpx;
+    height:574rpx;
+    background-color:#fff;
+    margin:0 auto;
+    padding:40rpx 20rpx;
+    box-sizing:border-box;
+  }
+  .comments{
+    width:670rpx;
+    height:490rpx;
+    padding:20rpx;
+    box-sizing: border-box;
+    background-color:#f3f3f3;
+    font-size:30rpx;
+    color:#969696;
+  }
+  .save-btn{
+    width:710rpx;
+    height:98rpx;
+    background-color:#ffd265;
+    margin:40rpx auto 0;
+    font-size:36rpx;
+    color:#333;
+    border-radius: 49rpx;
+    text-align:center;
+    line-height:98rpx;
+  }
+</style>
+<template>
+  <view id="comments" style="overflow:hidden;">
+    <view class="comments-wrap">
+      <view class="comments-head-wrap">
+        <image class="logo" src="{{orderInfo.cover_url}}"></image>
+        <view class="name">{{orderInfo.title}}</view>
+      </view>
+      <!--评价星星-->
+      <view class="star-wrap">
+        <commentStar />
+      </view>
+    </view>
+    <!--文字评价-->
+    <view class="comments-content-wrap">
+      <textarea class="comments" placeholder="亲，您感觉口味如何啊!" maxlength="100" @input="commentDesc"></textarea>
+    </view>
+    <!--保存btn-->
+    <view class="save-btn" @tap.stop="submit">提交</view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import api from '../../../../api/api'
+  import commentStar from '../../../../components/commentStar'
+  export default class Comment extends wepy.page {
+    config = {
+      navigationBarTitleText: '评价',
+      navigationBarBackgroundColor: '#ffd265',
+    }
+    data = {
+      commentDesc:'',
+      orderInfo:null,
+      token:''
+    }
+    components = {
+      commentStar:commentStar
+    }
+    methods = {
+      // 评价描述
+      commentDesc(e){
+        this.commentDesc = e.detail.value;
+      },
+      // 提交评价
+      submit(){
+        if(wepy.$instance.globalData.score && this.commentDesc){
+          this.getOrderList();
+        }else{
+          wx.showToast({
+            title: '请进行评论',
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      }
+    }
+    // 订单评论页面
+    async getOrderList(){
+      const url = api.apiMall + 'api/eat_comment'
+      const data = {
+        order_id:this.orderInfo.id,
+        score:wepy.$instance.globalData.score,
+        content:this.commentDesc
+      }
+      await wepy.request({
+        url: url,
+        method: 'POST',
+        header:{
+          'Accept':'application/vnd.lingmo.v1+json',
+          'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+          'Authorization':'Bearer ' + this.token
+        },
+        data: data,
+      }).then((res)=>{
+        if(res.data.status == 200){
+          wx.showToast({
+            title: '评价成功',
+            icon: 'success',
+            duration: 1000
+          })
+          wx.switchTab({
+            url:'../../../order'
+          })
+        }
+      })
+    }
+    onLoad(options){
+      let token = wx.getStorageSync("access_token");
+      this.token = token.access_token;
+      this.orderInfo = JSON.parse(options.orderInfo);
+      this.$apply();
+    }
+  }
+</script>

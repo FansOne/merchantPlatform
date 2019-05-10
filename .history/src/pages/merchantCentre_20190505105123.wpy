@@ -1,0 +1,105 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+
+export default class merchantCentre extends wepy.page {
+    config = {
+        navigationBarTitleText: '商户中心',
+    };
+    components = {};
+
+    data = {
+        otherModular:[
+            { icon:'http://www.qumatou.com.cn/zheng/xcximage/mdzzSHRZ.png', title:'商户认证'},
+            { icon:'http://www.qumatou.com.cn/zheng/xcximage/mdzzSHCZ.png', title:'商户充值'},
+            { icon:'http://www.qumatou.com.cn/zheng/xcximage/mdzzSYS.png', title:'扫-扫'}
+        ]
+    };
+    methods = {
+        otherModularItem(index){
+            if(index == 0){
+                let url = requestUrl.MerchantAuth;
+                    let data = {
+                        p_id: wepy.$instance.globalData.p_id,
+                        role: 0,
+                        type: 0,
+                        token: wx.getStorageSync("token")
+                    }
+                    requestData(url,'POST',data).then(res=>{
+                        if(res.data.data.status != 0 && res.data.data.status != -1){
+                            wx.navigateTo({
+                                url: './merchantCA'
+                            });
+                        }else if(res.data.data.status == 0){
+                            wx.showModal({
+                                title:'商户认证',
+                                content: `您已在${res.data.data.mname}商户认证成功`,
+                                showCancel: false,
+                                cancelColor: '#000000',
+                                confirmText: '确定',
+                                confirmColor: '#3CC51F'
+                            });
+                        }else if(res.data.data.status == -1){
+                            wx.showToast({
+                                title: '审核中..',
+                                icon: 'none',
+                                duration: 1500,
+                                mask: false,
+                            });
+                        }
+                    })
+            }else if (index == 1){
+                requestData(requestUrl.MerchantAuth,'POST',{
+                    p_id: wepy.$instance.globalData.p_id,
+                    role: 0,
+                    type: 0,
+                    token: wx.getStorageSync("token")
+                }).then(res=>{
+                    if(res.data.data.status == 0){
+                        let m_id = res.data.data.m_id;
+                        wx.navigateTo({
+                            url: `./merchatPrecharge?m_id=${m_id}`
+                        });
+                    }else{
+                        wx.showToast({title: '须进行商户认证',icon: 'none'});
+                    }
+                })
+            }
+        }
+    };
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <view class='container'>
+        <view class="topUserMessBox">
+            <view class='userAvatarUrlBox'><open-data type='userAvatarUrl' class='userAvatarUrl'/></view>
+            <open-data type='userNickName' class='userNickName'/>
+            <view class='noticeBox' style="text-align:center">欢迎您的到来</view>
+        </view>
+        <view class='lineBg'></view>
+        <view class='otherModularBox'>
+            <view class='otherModularItem' wx:for='{{otherModular}}' wx:key='' @tap='otherModularItem({{index}})'>
+                <moreFormId><image src='{{item.icon}}'/></moreFormId>
+                <view>{{item.title}}</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+        font-size: 26rpx;
+        color: #000;
+    }
+    .lineBg{
+        background-color: #efeff4;
+        width: 100%;
+        height: 18rpx;
+    }
+</style>

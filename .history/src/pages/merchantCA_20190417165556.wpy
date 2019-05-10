@@ -1,0 +1,132 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+export default class merchantCA extends wepy.page {
+    config = {
+        navigationBarTitleText: '商户认证'
+    };
+    components = {};
+
+    data = {
+        inputValue:null
+    };
+    methods = {
+        formSubmit(e){
+            let inputOjb = e.detail.value;
+            if( inputOjb.userName && inputOjb.userTel && inputOjb.password ){
+                let url = requestUrl.MerchantAuth;
+                let data = {
+                    p_id: wepy.$instance.globalData.p_id,
+                    role: 0,
+                    type: 1,
+                    token: wx.getStorageSync("token"),
+                    name: inputOjb.userName,
+                    userid: inputOjb.userTel,
+                    password: inputOjb.password,
+                    cardno:''
+
+                }
+                requestData(url,'POST',data).then(res=>{
+                    if(res.data.data.status == -4){
+                        wx.showToast({
+                            title: '账户信息验证失败',
+                            icon: 'none',
+                            duration: 1500,
+                        });
+                    }else if (res.data.data.status == 0){
+                        wx.showToast({
+                            title: '成功认证',
+                            icon: 'success',
+                            duration: 1500,
+                            success:()=>{
+                                setTimeout(() => {
+                                    wx.navigateBack({
+                                        delta: 1
+                                    });
+                                }, 1200);
+                            }
+                        });
+                    }else if (res.data.data.status == -1){
+                        wx.showToast({
+                            title: '待审核中',
+                            icon: 'none',
+                            duration: 1500,
+                            success:()=>{
+                                setTimeout(() => {
+                                    wx.navigateBack({
+                                        delta: 1
+                                    });
+                                }, 1200);
+                            }
+                        });
+                    }else if (res.data.data.status == -2){
+                        wx.showToast({
+                            title: '请勿重复提交',
+                            icon: 'none',
+                            duration: 1500,
+                            success:()=>{
+                                setTimeout(() => {
+                                    wx.navigateBack({
+                                        delta: 1
+                                    });
+                                }, 1200);
+                            }
+                        });
+                    }else if (res.data.data.status == -3){
+                        wx.showToast({
+                            title: '提交成功',
+                            icon: 'success',
+                            duration: 1500,
+                            success:()=>{
+                                setTimeout(() => {
+                                    wx.navigateBack({
+                                        delta: 1
+                                    });
+                                }, 1200);
+                            }
+                        });
+                    }else if (res.data.data.status == 1){
+                        wx.showToast({
+                            title: '审核未通过',
+                            icon: 'none',
+                            duration: 1500,
+                        });
+                    }
+                    this.inputValue = ''
+                    this.$apply()
+                })
+            }else{
+                wx.showToast({
+                    title: '请完善信息',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: false,
+                });
+            }
+        }
+    };
+
+    events = {};
+    onLoad() {};
+    // Other properties
+}
+</script>
+
+<template lang="wxml">
+    <form @submit="formSubmit">
+        <view class="authenticationTitle">姓名</view>
+        <view class="input_Box"><input placeholder="请输入您的姓名" placeholder-style="font-size:28rpx;"  name='userName' value='{{inputValue}}'/></view>
+        <view class="authenticationTitle">账户名称(手机号)</view>
+        <view class="input_Box"><input placeholder="请输入您的手机号" name='userTel' type='number' value='{{inputValue}}'/></view>
+        <view class="authenticationTitle">密码</view>
+        <view class="input_Box"><input placeholder="请输入您的账户密码" name='password' value='{{inputValue}}'/></view>
+        <button form-type="submit" class="submitBtn_">提交</button>
+    </form>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+    }
+</style>

@@ -1,0 +1,130 @@
+<template lang="wxml">
+    <view class="orderListsBox">
+        <!-- 遍历店铺 -->
+        <view class="shoppingsBox" wx:if='{{!noOrderList}}' wx:for='{{orderList}}' wx:key='abroad'>
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{item.m_logo}}"/>
+                    <view>{{item.m_name}}</view>
+                </view>
+                <view class="shopTitleRight">{{item.statusStr}}</view>
+            </view>
+            <view class="goodsItem" wx:for='{{item.product}}' wx:key='within' wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}" />
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view>× {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="orderTime">下单时间：{{item.orderTime}}</view>
+            <view class="btnBox">
+                <view>{{item.statusStr=='未支付'?'去付款':'状态未处理'}}</view>
+            </view>
+        </view>
+        <view wx:else>3</view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class orderGoods extends wepy.component {
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    props = {
+        orderList: {
+            type: Array,
+            default: 'null'
+        },
+        noOrderList: Boolean
+    };
+}
+</script>
+
+<style lang="less">
+    .orderListsBox{
+        width: 100%;
+        padding: 20rpx;
+        box-sizing: border-box;
+        .shoppingsBox{
+            border-bottom: 1rpx solid #f1f1f1;
+            box-sizing: border-box;
+            padding: 25rpx 0;
+            .shopTitleBox{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .shopTitleLeft{
+                    display: flex;
+                    align-items: center;
+                    image{
+                        width: 60rpx;
+                        height: 60rpx;
+                        border-radius: 50%;
+                    }
+                    view{
+                        font-size: 28rpx;
+                        color: #000;
+                        padding-left: 20rpx;
+                    }
+                }
+                .shopTitleRight{
+                    color: #f40;
+                    font-size: 28rpx;
+                }
+            }
+        }
+        .goodsItem{
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            padding: 20rpx;
+            image{
+                width: 100rpx;
+                height: 100rpx;
+                border-radius: 7rpx;
+            }
+            .goodsItemRight{
+                height: 100rpx;
+                flex: 1;
+                padding-left: 20rpx;
+                .goodsItemProductName{
+                    font-size: 28rpx;
+                }
+                .goodsItemPrice{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20rpx;
+                    view{
+                        font-size: 28rpx;
+                    }
+                    view:last-of-type{
+                        color: #666;
+                    }
+                }
+            }
+        }
+        .orderTime{
+            color: #999;
+            font-size: 24rpx;
+        }
+        .btnBox{
+            width: 100%;
+            padding-top: 10rpx;
+            display: flex;
+            justify-content: flex-end;
+            view{
+                background-color: #ffd27b;
+                font-size: 28rpx;
+                padding: 8rpx 14rpx;
+                border-radius: 7rpx;
+            }
+        }
+    }
+</style>

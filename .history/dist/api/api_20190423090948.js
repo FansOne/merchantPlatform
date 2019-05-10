@@ -1,0 +1,7 @@
+'use strict';
+
+var mainApi = 'https://www.qumatou.com.cn/platform-api-server/';
+module.exports = {
+  mainApi: mainApi
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwaS5qcyJdLCJuYW1lcyI6WyJtYWluQXBpIiwibW9kdWxlIiwiZXhwb3J0cyJdLCJtYXBwaW5ncyI6Ijs7QUFDQSxJQUFNQSxVQUFVLG1EQUFoQjtBQUNBQyxPQUFPQyxPQUFQLEdBQWlCO0FBQ2ZGO0FBRGUsQ0FBakIiLCJmaWxlIjoiYXBpLmpzIiwic291cmNlc0NvbnRlbnQiOlsiXG5jb25zdCBtYWluQXBpID0gJ2h0dHBzOi8vc3RvcmUucXVtYXRvdS5jb20uY24vcGxhdGZvcm0tYXBpLXNlcnZlci8nO1xubW9kdWxlLmV4cG9ydHMgPSB7XG4gIG1haW5BcGksXG59XG4iXX0=

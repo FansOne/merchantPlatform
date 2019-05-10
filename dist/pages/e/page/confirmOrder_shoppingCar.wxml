@@ -1,0 +1,118 @@
+
+  <view class="container">
+	<view  wx:if="{{haveAddress}}" class="confirmOrder-top" catchtap="goAddress">
+		<view class="messages">
+			<view class="nameTel">
+				<view>{{userAddress.userName}}</view>
+				<view>{{userAddress.telNumber}}</view>
+			</view>
+			<view class="userAddress">{{userAddress.provinceName+userAddress.cityName+userAddress.countyName+userAddress.detailInfo}}</view>
+		</view>
+		<view class="jiantou">
+			<image src="../../../images/箭头.png"/>
+		</view>
+	</view>
+	<view  wx:else class="confirmOrder-top noAddress" catchtap="goAddress">
+		<view class="addressIcon">
+			<image src="http://www.qumatou.com.cn/zheng/xcximage/位置.png"/>
+			<view>请选择收货地址</view>
+		</view>
+		<view>
+			<image src="../../../images/箭头.png"/>
+		</view>
+	</view>
+	<view class="orderContent">
+		<!-- 下单商品 -->
+		<view wx:for="{{selectGoods}}" wx:key="idx" class="packageBox">
+  		<view class="packageIdx">包裹 {{index+1}}</view>
+  		<view class="packageSpec">
+  			<view class="storeSpec">
+  				<view class="packageBanner"><image src="{{item.cover}}"/></view>
+	  			<view class="speces">
+	  				<view>{{item.title}}</view>
+	  				<view>{{item.spec}}</view>
+	  				<view class="package-price">
+	  					<view>¥{{item.price/100}}</view>
+	  					<view>×{{item.quantity}}</view>
+	  				</view>
+	  			</view>
+  			</view>
+  			<!-- <view class='discountTransport'>
+  				<view class='discount-box'>
+  					<view>优惠</view>
+  					<view>- ¥ {{item.discount}}</view>
+  				</view>
+  				<view>
+  					<view>运费</view>
+  					<view>¥ {{item.transport}}</view>
+  				</view>
+  			</view> -->
+  		</view>
+  		<view class="smallPrice">
+  			<view bindtap="sss">共{{item.quantity}}件</view>
+  			<view>小计 <text>¥{{item.quantity*item.price/100}}</text></view>
+  		</view>
+  	</view>
+	</view>
+	<!-- 开票 -->
+	<view class="ticketOpening-box">
+		<view class="ticketOpening-left"><view class="colBg"/><image src="../../../images/提供发票.png"/><text>开具发票</text></view>
+		<switch bindchange="switchChange"/>
+	</view>
+	<view class="startTicketOpening" hidden="{{TicketOpening}}" catchtap="selectTicketOpening">
+		<view><text hidden="{{piao}}">请选择发票抬头</text><text wx:if="{{piao}}">已选择</text></view>
+		<image src="../../../images/箭头.png"/>
+	</view>
+	<view wx:if="{{piao}}" class="show-faPiao">
+		<view wx:if="{{ticketMessage.type ==1}}">
+			<view>类型：个人</view>
+			<view>名称：{{ticketMessage.title}}</view>
+		</view>
+		<view wx:else>
+			<view>类型：公司</view>
+			<view>名称：{{ticketMessage.title}}</view>
+			<view>税号：{{ticketMessage.taxNumber}}</view>
+		</view>
+	</view>
+	<!-- 优惠券 -->
+	<view class="ticketOpening-box" style="padding-right:10rpx;" catchtap="selectPayMent" data-id="2">
+		<view class="ticketOpening-left"><view class="colBg"/><text style="padding-left:30rpx;">优惠券</text></view>
+		<view style="font-size:25rpx;color:#969696;">
+			<!-- <block wx:if='{{!selectCoupon.title}}'><text style='color:#ff915e'>{{userUseCoupon}}</text>选择优惠券</block> -->
+			<block wx:if="{{!selectCoupon.title}}"><text>{{userUseCoupon}}</text><text style="color:red;weight:bold;">{{userCoupon.length}}</text>张优惠券可用</block>
+			<block wx:else><text style="color:#ff915e">{{selectCoupon.type == 1?'满'+selectCoupon.min_money/100+'减'+selectCoupon.amount/100+'元':(selectCoupon.type == 2?selectCoupon.amount+'折优惠':selectCoupon.amount/100+'元代金券')}}</text></block>
+
+			<text style="font-size:30rpx;color:#666;padding-left:38rpx;">></text>
+		</view>
+	</view>
+	<!-- 支付方式 -->
+	<view class="ticketOpening-box">
+		<view class="ticketOpening-left"><view class="colBg" style="margin-right:30rpx;"/><text>支付方式</text></view>
+	</view>
+	<view class="paymentMethod">
+		<view class="paymentMethod_title" style="flex:.4">会员卡支付</view>
+		<view class="paymentMethod_select" catchtap="selectPayMent" data-id="0" style="flex:.6">
+			<view style="margin-right:28rpx">余额：￥{{amount}}<text wx:if="{{amount == 0}}" style="color:#ff915e;padding-left:15rpx;" catchtap="cardRecharge">(点击充值优惠)</text></view>
+			<icon type="success" size="17" color="{{selectSonCard.share_nickname?'#969696':'#ffd270'}}" style="transform: translateX(6rpx)"/>
+		</view>
+	</view>
+	<!-- 子卡支付 -->
+	<!-- <view class='paymentMethod'>
+		<view class='paymentMethod_title' style='flex:.2'>子卡支付</view>
+		<view class='paymentMethod_select' catchtap="selectPayMent" data-id='1' style='flex:.8'>
+			<view wx:if='{{!selectSonCard.share_nickname}}'>选择支付子卡</view>
+			<view wx:else>{{selectSonCard.share_nickname}}分享的<text style='color:#f40'>￥{{selectSonCard.amount}}</text>会员卡</view>
+			<view>></view>
+		</view>
+	</view> -->
+	<!-- 联系卖家 -->
+	<image class="merchantTel" src="http://www.qumatou.com.cn/zheng/xcximage/群蜂电话.png" catchtap="merchantTel" style="bottom:{{ballBottom}}px;right:{{ballRight}}px;" bindtouchmove="ballMoveEvent"/>
+	<view class="confirmOrder-bottom">
+		<view class="confirmComputed">
+			<view>合计</view>
+			<view>¥{{orderPrice}}</view>
+			<view class="sendprice">￥{{sendprice}}起送,另需配送费￥{{normalsend}}</view>
+		</view>
+		<view class="confirmBuy" catchtap="confirmPayment">确认支付</view>
+	</view>
+  </view>

@@ -1,0 +1,35 @@
+
+    <view id="deliciousFood" style="position:relative;">
+        <view class="shop-list-wrapBox"  wx:if="{{shopInfo}}">
+        <!-- 店铺列表 -->
+        <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1" catchtap="toShop" data-wpytoshop-a="{{item1.sendprice}}" data-wpytoshop-b="{{item1.mId}}" data-wpytoshop-c="{{item1.shop_type}}" data-wpytoshop-d="{{item1.takeout}}">
+          <moreFormId><image lazy-load="true" class="shop-img" src="{{item1.mLogo}}" style="height:313rpx;"/></moreFormId>
+          <view class="shop-info-wrap">
+            <view class="title-wrap">
+              <view class="title">{{item1.mName}}</view>
+            </view>
+            <view class="star-wrap">
+              <view class="star">
+                <view class="startBox">
+                  <block wx:for="{{stars}}" wx:key="idx">
+                    <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?selectedSrc : normalSrc}}">
+                      <view class="item" style="left:0rpx" data-key="{{item+0.5}}"/>
+                      <view class="item" style="left:25rpx" data-key="{{item+1}}"/>
+                    </image>
+                  </block>
+                </view>
+              </view>
+              <view class="position">
+                <image src="../images/location.png"/>
+                <text style="margin-left:10rpx;">{{item1.distanceStr}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+        <!-- 数据未加载出来的白色遮罩 -->
+        <view class="cover-mask" style="display:{{showOrHide}}"/>
+        <view style="width:100%;height:30rpx;text-align:center;line-height:30rpx;"  wx:if="{{shopInfo.length >= 5}}">{{dataMessage}}</view>
+        <view class="matchData" wx:if="{{shopInfo.length == 0}}">暂无该分类数据</view>
+    </view>

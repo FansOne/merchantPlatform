@@ -1,0 +1,588 @@
+<style lang="less">
+	page{
+		background-color: #ffffff;
+	}
+	.container{
+		padding-bottom: 200rpx;
+	}
+	.confirmOrder-bottom{
+		background-color: #ffffff;
+		z-index: 99;
+		position: fixed;
+		display: flex;
+		flex-direction: row;
+		bottom: 0;
+		border-top: 1px solid #efeff4;
+		height: 120rpx;
+		width: 100%;
+	}
+	.confirmComputed{
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex:1;
+		padding-left: 40rpx;
+		view:nth-child(1){
+			font-size: 28rpx;
+			line-height: 120rpx;
+			color: #333333;
+		}
+		view:nth-child(2){
+			font-size: 32rpx;
+			line-height: 120rpx;
+			color: #fd2323;
+			margin-left: 20rpx;
+		}
+		.sendprice{
+			position: absolute;
+			left: 35rpx;
+			bottom: 8rpx;
+			font-size: 20rpx;
+		}
+	}
+	.confirmBuy{
+		height: 100%;
+		background-color:#ffd270;
+		color: #000;
+		text-align: center;
+		line-height:120rpx;
+		font-size: 34rpx;
+		width: 250rpx;
+	}
+	
+	.discount-box{
+		margin-bottom: 20rpx;
+	}
+	.ticketOpening-box{
+		margin: 20rpx 40rpx;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.ticketOpening-left{
+		display: flex;
+		align-items: center;
+		image{
+			margin: 0 10rpx 0 25rpx;
+			width: 50rpx;
+			height: 50rpx;
+		}
+		text{
+			font-size: 26rpx;
+		}
+	}
+	.ticketOpening-left .colBg{
+		height: 64rpx;
+		width: 10rpx;
+		background-color: #ee7942;
+	}
+	.startTicketOpening{
+		margin: 20rpx 40rpx;
+		border-top:1px dotted #DCDCDC;
+		border-bottom:1px dotted #DCDCDC;
+		align-items: center;
+		padding: 15rpx 0; 
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		image{
+			width: 40rpx;
+			height: 40rpx;
+		}
+		view{
+			color: rgb(139,139,139);
+			font-size: 26rpx;
+		}
+	}
+	.merchantTel{
+		position: fixed;
+		width: 43px;
+		height: 43px;
+		border-radius:50%;
+		box-shadow: 8px 6px 8px #DCDCDC;
+		z-index: 100;
+	}
+	.show-faPiao{
+		margin: 0 40rpx;
+		view{
+			font-family: "Microsoft YaHei";
+			font-size: 27rpx;
+			border: 1rpx  dashed #DCDCDC;
+			background-color: rgb(246,246,246);
+			padding: 15rpx 15rpx;
+		}
+	}
+	.confirmOrder-top.noAddress{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		view.addressIcon{
+			flex:0.5;
+			display: flex;
+			flex-direction: row;
+			view{
+				display: flex;
+				justify-content: flex-start;
+				padding-left: 15rpx;
+				flex: 1;
+				font-size: 28rpx;
+				color: #666;
+			}
+			image{
+				height: 68rpx;
+				width: 65rpx;
+				margin-left: 40rpx;
+			}
+		}
+		view:nth-child(2){
+			padding-right: 10rpx;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			flex:0.5;
+			image{
+				width: 40rpx;
+				height: 40rpx;
+			}
+		}
+	}
+	.ticketOpening-box{
+		margin: 15rpx 40rpx;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.ticketOpening-left{
+		display: flex;
+		align-items: center;
+		image{
+			margin: 0 10rpx 0 25rpx;
+			width: 50rpx;
+			height: 50rpx;
+		}
+		text{
+			font-size: 26rpx;
+		}
+	}
+	.ticketOpening-left .colBg{
+		height: 53rpx;
+		width: 6rpx;
+		background-color: #ffd270;
+	}
+	.paymentMethod{
+		display: flex;
+		align-items: center;
+		box-sizing: border-box;
+		padding: 10rpx 10rpx;
+		border-bottom: 1rpx solid #f1f1f1;
+		.paymentMethod_title{
+			flex: .5;
+			font-size: 27rpx;
+			padding-left: 25rpx;
+		}
+		.paymentMethod_select{
+			flex: .5;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			view:nth-child(1){
+				font-size: 25rpx;
+				color: #969696;
+				margin-right: 40rpx;
+			}
+		}
+	}
+	switch{
+		zoom: .7;
+	}
+</style>
+<template>
+  <view class='container'>
+	<view class='confirmOrder-top'>
+		<view class='messages'>
+			<view class='nameTel'>
+				<view>{{orderInfo.truename}}</view>
+				<view>{{userAddress.mobile}}</view>
+			</view>
+			<view class='userAddress'>{{orderInfo.province+orderInfo.address}}</view>
+		</view>
+		<view class='jiantou'>
+			<image src = '../../../images/箭头.png'/>
+		</view>
+	</view>
+	<!-- <view wx:else class='confirmOrder-top noAddress' @tap='goAddress'>
+		<view class='addressIcon'>
+			<image src='http://applet.qumatou.com.cn/static/shop/位置.png'/>
+			<view>请选择收货地址</view>
+		</view>
+		<view>
+			<image src = '../../../images/箭头.png'/>
+		</view>
+	</view> -->
+	<view class='orderContent'>
+		<!-- 下单商品 -->
+		<view wx:for='{{selectGoods}}' wx:key='idx' class='packageBox'>
+  		<view class="packageIdx">包裹 {{index+1}}</view>
+  		<view class ='packageSpec'>
+  			<view class='storeSpec'>
+  				<view class='packageBanner'><image src='{{item.cover}}'/></view>
+	  			<view class= 'speces'>
+	  				<view>{{item.title}}</view>
+	  				<view>{{item.spec}}</view>
+	  				<view class='package-price'>
+	  					<view>¥{{item.price/100}}</view>
+	  					<view>×{{item.nums}}</view>
+	  				</view>
+	  			</view>
+  			</view>
+  		</view>
+  		<view class='smallPrice'>
+  			<view @tap='sss'>共{{item.nums}}件</view>
+  			<view>小计 <text>¥{{item.nums*item.price/100}}</text></view>
+  		</view>
+  	</view>
+	</view>
+	<!-- 开票 -->
+	<view class='ticketOpening-box'>
+		<view class='ticketOpening-left'><view class='colBg'></view><image src='../../../images/提供发票.png'/><text>发票</text></view>
+        <view style='font-size:25rpx;color:#969696;' wx:if="{{orderInfo.isvoice == 1}}">无发票信息</view>
+	</view>
+	<view wx:if="{{orderInfo.isvoice != 1}}" class='show-faPiao'>
+		<view wx:if="{{orderInfo.intype ==2}}">
+			<view>类型：个人</view>
+			<view>名称：{{orderInfo.invoice_title}}</view>
+		</view>
+		<view wx:else>
+			<view>类型：公司</view>
+			<view>名称：{{orderInfo.invoice_title}}</view>
+			<view>税号：{{orderInfo.invoice_number}}</view>
+		</view>
+	</view>
+	<!-- 优惠券 -->
+	<view class='ticketOpening-box' style='padding-right:10rpx;' data-id='2'>
+		<view class='ticketOpening-left'><view class='colBg'></view><text style='padding-left:30rpx;'>优惠券</text></view>
+		<view style='font-size:25rpx;color:#969696;'>
+			<block wx:if='{{orderInfo.coupon_id == 0}}'><text style='color:#ff915e'></text>未使用优惠券</block>
+			<block wx:else><text style='color:#ff915e'>{{orderInfo.coupon_money}}</text></block>
+		</view>
+	</view>
+	<!-- 支付方式 -->
+	<view class='ticketOpening-box'>
+		<view class='ticketOpening-left'><view class='colBg' style='margin-right:30rpx;'></view><text>支付方式</text></view>
+	</view>
+	<view class='paymentMethod'>
+		<view class='paymentMethod_title' style='flex:.4'>会员卡支付</view>
+		<view class='paymentMethod_select' @tap="selectPayMent" data-id='0' style='flex:.6'>
+			<view style='margin-right:28rpx'>余额：￥{{amount}}<text wx:if='{{amount == 0}}' style='color:#ff915e;padding-left:15rpx;' @tap='cardRecharge'>(点击充值优惠)</text></view>
+			<icon type="success" size="17" color="{{selectSonCard.share_nickname?'#969696':'#ffd270'}}" style='transform: translateX(6rpx)'/>
+		</view>
+	</view>
+	<!-- 子卡支付 -->
+	<!-- <view class='paymentMethod'>
+		<view class='paymentMethod_title' style='flex:.2'>子卡支付</view>
+		<view class='paymentMethod_select' @tap.stop="selectPayMent" data-id='1' style='flex:.8;'>
+			<view wx:if='{{!selectSonCard.share_nickname}}'>选择支付子卡</view>
+			<view wx:else>{{selectSonCard.share_nickname}}分享的<text style='color:#f40'>￥{{selectSonCard.amount}}</text>会员卡</view>
+			<view>></view>
+		</view>
+	</view> -->
+	<!-- 联系卖家 -->
+	<image class ='merchantTel' src='http://applet.qumatou.com.cn/static/shop/群蜂电话.png' @tap='merchantTel' style="bottom:{{ballBottom}}px;right:{{ballRight}}px;" @touchmove="ballMoveEvent"/>
+	<view class='confirmOrder-bottom'>
+		<view class='confirmComputed'>
+			<view>合计</view>
+			<view>¥{{orderInfo.total/100}}</view>
+			<view class='sendprice'>￥{{orderInfo.sendprice/100}}起送,另需配送费￥{{orderInfo.normalsend/100}}</view>
+		</view>
+		<view class='confirmBuy' @tap ='confirmPayment'>确认支付</view>
+	</view>
+  </view>
+</template>
+<script>
+	import wepy from 'wepy'
+	import api from '../../../api/api'
+
+	export default class New extends wepy.page {
+		config = {
+			navigationBarTitleText: '确认订单',
+		}
+		data = {
+			ballBottom: 120,
+			ballRight: 30,
+			screenHeight: 0,
+			screenWidth: 0,
+			orderPrice:'',
+			selectGoods:[],
+			userCode:'',
+			userInfo:{},
+			//订单信息
+			orderResult:'',
+			//微信支付所需参数
+			jssdk:{},
+			//用户地址
+			userAddress:{},
+			cartItems:[],
+			//开票
+			TicketOpening:true,
+			ticketMessage:{},
+			//商户电话
+			merchantTel:'',
+			//是否有发票
+			isvoice:'',
+			//发票展示
+			piao:false,
+			userid:'',
+			//有无地址
+			haveAddress:true,
+			userId:'',
+			normalsend:0,
+			sendprice:0,
+			token:'',
+			orderInfo:null,
+			amount:0,
+			shopId:'',
+			payType:999,
+			selectSonCard:null,
+			selectCoupon:{},
+			orderId:0
+		}
+		onLoad(options){
+			//获取token
+			let token = wx.getStorageSync("access_token");
+			this.token = token.access_token;
+			this.$apply();
+			try{
+                this.shopId = JSON.parse(options.waitToPay).merchant_id;
+				this.orderId = JSON.parse(options.waitToPay).id;
+			}catch(err){}
+			if(this.shopId){
+				this.getCardMoney();
+				this.getOrderDetail()
+			}
+		}
+		components = {}
+		methods = {
+			ballMoveEvent(e){
+				var touchs = e.touches[0];
+				var pageX = touchs.pageX;
+				var pageY = touchs.pageY;
+				//防止坐标越界,view宽高的一半
+				if (pageX < 21) return;
+				if (pageX > this.screenWidth - 21) return;
+				if (this.screenHeight - pageY <= 21) return;
+				if (pageY <= 21) return;
+				//用right和bottom.所以需要将pageX pageY转换
+				var x = this.screenWidth - pageX - 21;
+				var y = this.screenHeight - pageY - 21;
+				this.ballBottom = y,
+				this.ballRight = x
+				this.$apply()
+			},
+			goAddress(){
+				let that = this;
+				wx.chooseAddress({
+				success: function (res) {
+					that.userAddress = res
+					that.$apply()
+					wx.setStorage({
+						key:'address',
+						data: res
+					})
+					wx.redirectTo({
+					    url: 'waitToPay'
+					})
+				},fail:function (res) {
+					wx.openSetting({})
+				}
+				})
+			},
+			confirmPayment(){
+				wx.showModal({
+					title: '支付提示',
+					content: '您确认进行支付吗？',
+					showCancel: true,
+					cancelText: '取消',
+					cancelColor: '#000000',
+					confirmText: '确定',
+					confirmColor: '#3CC51F',
+					success: res => {
+						if(res.confirm){
+							this.shopPay();
+						}
+					}
+				});
+			},
+			switchChange(e){
+				if(e.detail.value){
+					this.TicketOpening = false
+					this.$apply()
+				}else{
+					this.TicketOpening = true
+					this.ticketMessage ={}
+					this.piao = false
+					this.$apply()
+				}
+			},
+			selectTicketOpening(){
+				let that = this;
+				wx.chooseInvoiceTitle({
+					success(res) {
+						that.piao = true
+						that.ticketMessage = res
+						that.$apply()
+					}
+				})
+			},
+			merchantTel(){
+				let that = this;
+				wx.getStorage({
+					key:'shopTel',
+					success:function(res){
+						that.merchantTel = res.data
+						that.$apply()
+					}
+				})
+				wx.makePhoneCall({
+					phoneNumber: that.merchantTel 
+				})
+			},
+			//会员卡充值
+			cardRecharge(){
+				wx.navigateTo({
+					url: '../../../packageMembershipCard/membershipCard/cardRecharge?shopId=' + this.shopId
+				});
+			},
+			selectPayMent(e){
+				let idx = Number(e.currentTarget.dataset.id);
+				if(!idx){
+					this.selectSonCard = {}
+					wx.removeStorage({key:'selectSonCard'})
+				}else if(idx == 1){
+					wx.navigateTo({
+						url: '../../../packageMembershipCard/membershipCard/selectCardLists?shopId=' + this.shopId
+					});
+				}else{
+					wx.navigateTo({
+						url: '../../selectCoupon?shopId=' + this.shopId + '&normalsend='+this.normalsend + '&money='+ this.orderPrice
+					});
+				}
+			},
+		}
+		onShow(){
+			let that = this;
+			//选择子卡
+			wx.getStorage({
+				key: 'selectSonCard',
+				success: res => {
+					that.selectSonCard = res.data;
+					that.$apply()
+				}
+			});
+
+		}
+		//发起微信支付
+		async shopPay(){
+			const that = this;
+			const url = api.apiMall + 'api/shop_order/' + that.orderInfo.id;
+			let data = {};
+			if(Object.keys(this.selectSonCard).length  && Object.keys(this.selectCoupon).length){
+				//两个都有
+				data = {
+					payment_method:this.payType,
+					card_uuid:this.selectSonCard.uuid,
+					coupon_id:this.orderInfo.coupon_id
+				}
+			}else if(Object.keys(this.selectCoupon).length){
+				data = {
+					payment_method:2,
+					coupon_id:this.orderInfo.coupon_id
+				}
+			}else if(Object.keys(this.selectSonCard).length){
+				//选择了会员卡
+				data = {
+					payment_method:2,
+					card_uuid:this.selectSonCard.uuid
+				}
+			}else{
+				data = {
+					payment_method:this.payType,
+				}
+			}
+			await wepy.request({
+				url: url,
+				method: 'GET',
+				header:{
+					'Accept':'application/vnd.lingmo.v1+json',
+					'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+					'Authorization':'Bearer ' + this.token
+				},
+				data:data
+			}).then((res)=>{
+				if(res.data.message.length == 0){
+					//会员卡支付
+					wx.redirectTo({
+						url: './paymentSuccess'
+					})
+				}else{
+					that.jssdk = res.data.message;
+					that.$apply()
+					//发起微信支付
+					wx.requestPayment({
+						'appId':that.jssdk.appId,
+						'timeStamp': that.jssdk.timeStamp,
+						'nonceStr':that.jssdk.nonceStr,
+						'package': that.jssdk.package,
+						'signType': that.jssdk.signType,
+						'paySign': that.jssdk.paySign,
+						success:function(res){
+							wx.redirectTo({
+								url: './paymentSuccess'
+							})
+						},
+					})
+				}
+			})
+			
+		}
+		//获取订单详情
+		async getOrderDetail(){
+			const url = api.apiMall + 'api/shop_order_details/' + this.orderId;
+			await wepy.request({
+				url: url,
+				method: 'GET',
+				header:{
+					'Accept':'application/vnd.lingmo.v1+json',
+					'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+					'Authorization':'Bearer ' + this.token
+				},
+			}).then(res=>{
+				this.orderInfo = res.data.message;
+				this.selectGoods = res.data.message.goods;
+				this.$apply();
+			})
+		}
+		//获取会员卡金额
+		getCardMoney(){
+			wepy.request({
+				url: api.apiMall+'api/user_card/'+ this.shopId,
+				method: 'GET',
+				header:{
+					'Accept':'application/vnd.lingmo.v1+json',
+					'Authorization':'Bearer ' + this.token
+				}
+			}).then((res)=>{
+				res.data.message.money = Number(res.data.message.money/100).toFixed(2)
+				this.amount = res.data.message.money;
+				// if(){
+
+				// }
+				if(Number(this.amount)>0){
+					this.payType = 2
+				}else{
+					this.payType = 1
+				}
+				this.$apply()
+			});
+		}
+	}
+</script>

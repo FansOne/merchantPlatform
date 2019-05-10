@@ -1,0 +1,60 @@
+<template lang="wxml">
+    <view class="orderListsBox">
+        <!-- 遍历店铺 -->
+        <view class="shoppingsBox" wx:for='{{orderList}}' wx:key=''>
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{item.m_logo}}"/>
+                    <view>{{item.m_name}}</view>
+                </view>
+                <view class="shopTitleRight">{{item.statusStr}}</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class orderGoods extends wepy.component {
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    props = {
+        orderList: {
+            type: Array,
+            default: 'null'
+        }
+    };
+}
+</script>
+
+<style lang="less">
+    .orderListsBox{
+        width: 100%;
+        padding: 20rpx;
+        box-sizing: border-box;
+        .shoppingsBox{
+            border-bottom: 1rpx solid #f1f1f1;
+            .shopTitleBox{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .shopTitleLeft{
+                    display: flex;
+                    align-items: center;
+                    image{
+                        width: 60rpx;
+                        height: 60rpx;
+                        border-radius: 50%;
+                    }
+                    view{
+                        font-size: 26rpx;
+                    }
+                }
+            }
+        }
+    }
+</style>

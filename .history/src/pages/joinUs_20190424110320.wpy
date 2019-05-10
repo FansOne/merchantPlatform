@@ -1,0 +1,371 @@
+<style lang="less">
+    page{
+        width:100%;
+        height:100%;
+        background-color:#fff;
+        border-top:2rpx solid #d2d2d2;
+        box-sizing:border-box;
+    }
+    #mine{
+        width:670rpx;
+        height:auto;
+        margin:0 auto;
+        padding-bottom:30rpx;
+    }
+    .title-wrap{
+        color:#333;
+        font-size:30rpx;
+        .title{
+            margin-top:20rpx;
+        }
+        input{
+            width: 670rpx;
+            height: 80rpx;
+            background-color: #f3f3f3;
+            border-radius: 6rpx;
+            padding-left:36rpx;
+            box-sizing:border-box;
+            margin-top:20rpx;
+        }
+    }
+    .img-list{
+        width:100%;
+        height:160rpx;
+        // background-color:red;
+        margin-top:20rpx;
+        .demo,.user-input{
+            width:160rpx;
+            height:160rpx;
+            float:left;
+            border-radius: 6rpx;
+        }
+        .user-input{
+            float:right;
+        }
+    }
+    // 用户协议
+    .agreement-wrap{
+        width: 100%;
+        height: 98rpx;
+        // background-color: #ffffff;
+        // box-shadow: 0rpx 3rpx 9rpx 0rpx rgba(0, 0, 0, 0.04);
+        // border-radius: 6rpx;
+        margin:0 auto;
+        image{
+            display:inline-block;
+            width:36rpx;
+            height:36rpx;
+            margin:32rpx 30rpx 0 0;
+        }
+        view{
+            display:inline-block;
+            height:100%;
+            line-height:98rpx;
+            vertical-align: top;
+            font-size:30rpx;
+            color:#333;
+            font-weight:bold;
+        }
+    }
+    .submit{
+        width: 580rpx;
+        height: 90rpx;
+        margin:100rpx auto 0;
+        background-color: #ffd265;
+        box-shadow: 2rpx 3rpx 16rpx 0rpx rgba(0, 0, 0, 0.3);
+        border-radius: 10rpx;
+        color: #333333;
+        font-size:36rpx;
+        line-height:90rpx;
+        text-align:center;
+    }
+    .btnCode{
+        display:inline-block;
+        float:right;
+        font-size:26rpx;
+        background-color:#f3f3f3;
+        border-radius:6rpx;
+        padding:10rpx 14rpx;
+        box-sizing:border-box;
+        margin-top:31rpx;
+    }
+    /*遮罩*/
+    .commodity_screen {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #000;
+        background:rgba(0,0,0,0.5);
+        overflow: hidden;
+        z-index: 1000;
+        color: #fff;
+        .update-tips{
+            width: 525rpx;
+            height: auto;
+            background-color: #fff;
+            border-radius: 10rpx 10rpx 0rpx 0rpx;
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            .tips-wrap{
+                display:block;
+                width:100%;
+                height:235rpx;
+                background-color:red;
+                border-radius: 20rpx 10rpx 0rpx 0rpx;
+            }
+            .code{
+                display:block;
+                width:400rpx;
+                height:400rpx;
+                margin:10rpx auto;
+            }
+            .info-btn{
+                font-size:24rpx;
+                color:#333;
+                background-color:#ffd265;
+                box-shadow: 2rpx 3rpx 20rpx 0rpx #ffd265;
+                border-radius: 40rpx;
+                padding:10rpx;
+                box-sizing:border-box;
+                text-align:center;
+                margin-top:30rpx;
+            }
+        }
+    }
+</style>
+
+<template>
+    <view id="mine">
+        <view class="title-wrap">
+            <view class="title">您的姓名</view>
+            <input placeholder="请输入商户简称/门店名称" name="name" @input="getName"/>
+        </view>
+        <view class="title-wrap" style="height:150rpx;">
+            <view class="title">您的电话</view>
+            <input style="display:inline-block;float:left;width:400rpx;" name="number" maxlength="11" type="number" @input="getMobile" placeholder="请输入联系电话"/>
+            <view class="btnCode" style="background:{{mobileColor ? '#ffd265':''}}" wx:if="{{!countDown}}" @tap.stop="getVerifyCode" >获取验证码</view>
+            <view class="btnCode" wx:if="{{countDown}}" @tap.stop="getVerifyCode" >{{wxTimerList['wxTimer1'].wxTimerSecond}}{{second}}</view>
+        </view>
+        <view class="title-wrap" style="height:100rpx;">
+            <input style="display:inline-block;float:left;width:200rpx;" @input="getCode" name="code" type="number" placeholder="输入验证码"/>
+        </view>
+        <!-- 上传图片 -->
+        <!-- <view class="title-wrap">
+            <view class="title">开户许可证</view>
+            <view class="img-list">
+                <image class="demo" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3861697820,4137505648&fm=27&gp=0.jpg"/>
+                <image class="user-input" src="../images/put.png"/>
+            </view>
+        </view> -->
+        <!-- 同意协议 -->
+        <view class="agreement-wrap">
+            <image @tap.stop="isAgree" src="{{agree == 1 ? 'http://www.qumatou.com.cn/zheng/xcximage/right-active.png' : 'http://www.qumatou.com.cn/zheng/xcximage/right.png'}}"></image>
+            <view>我已阅读并同意<text style="color:#fd2323;" @tap="agreement">《平台入驻协议》</text></view>
+        </view>
+        <!-- 提交按钮 -->
+        <view class="submit" @tap.stop="submit">提交</view>  
+        <view class="commodity_screen" wx:if="{{showModalStatus}}" @tap="hideModal">
+        <!-- <view class="commodity_screen" @tap="hideModal"> -->
+            <!-- <image class="tips-wrap" src="../images/tips.png" /> -->
+            <view class="update-tips"> 
+                <image class="tips-wrap" src="../images/submit.png"/>
+                <view style="height:auto;padding:20rpx;box-sizing:border-box;">
+                    <text style="text-align:center;font-size:26rpx;">关注"趣码头"公众号，完善资料，我们会在7个工作日之内联系您！</text>
+                    <view class="info-btn" @tap="hideModal">好的</view>
+                    <!-- <image class="code" src="http://applet.qumatou.com.cn/static/food/code.png" catchlongpress='baocun'/> -->
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+<script>
+    import wepy from 'wepy'
+    import api from '../api/api'
+    import util from '../utils/util'
+    // import timer from '../utils/wxTimer'
+    export default class Mine extends wepy.page{
+        config = {
+            navigationBarTitleText: '我要加盟'
+        }
+        data = {
+            showModalStatus:false,
+            wxTimerList:{},
+            wxTimer1:'',
+            agree:1,
+            mobile:0,
+            mobileColor:0,
+            name:'',
+            code:0,
+            countDown:false,
+            second:'秒'
+        }
+        methods = {
+            //打开H5
+            // toH5(){
+            //     wx.navigateTo({
+            //         url:'./h5'
+            //     })
+            // },
+            baocun: function (e) {
+                wx.showModal({
+                    title: '提示',
+                    content: '确定要保存这张图片吗？',
+                    success: function (res) {
+                        if (res.confirm) {
+                            // wx.getImageInfo({
+                            //     src: 'http://applet.qumatou.com.cn/static/food/code.png',
+                            //     success: function (res) {
+                            //         console.log(res);
+                            //         var path = res.path;
+                            //         wx.saveImageToPhotosAlbum({
+                            //             filePath: path,
+                            //             success: function (res) {
+                            //                 console.log('图片已保存');
+                            //             },
+                            //             fail: function (res) {
+                            //                 console.log('保存失败');
+                            //             }
+                            //         })
+                            //     }
+                            // });
+                            wx.scanCode({
+                                success: (res) => {
+                                }
+                            })
+                        } else if (res.cancel) {
+                        }
+                    }
+                })
+            },
+            //跳转协议
+            agreement(){
+                wx.navigateTo({
+                    url:'./agreement'
+                })
+            },
+            //隐藏modal
+            hideModal(){
+                this.showModalStatus = false;
+                this.$apply();
+                wx.navigateBack({
+                    delta:1
+                })
+            },
+            //是否同意用户协议
+            isAgree(){
+                this.agree = !this.agree;
+            },
+            //获取验证码
+            getVerifyCode(){
+                if(this.mobileColor){
+                    this.getClassify();
+                    this.countDown = true;
+                    this.wxTimer1 = new timer({
+                        beginTime:'00:00:59',
+                        name:'wxTimer1',
+                        complete:(res=>{
+                            this.countDown = !this.countDown;
+                            this.$apply();
+                            this.wxTimer1.stop(this);
+                        })
+                    })
+                    this.wxTimer1.start(this);
+                }else{
+                    wx.showToast({
+                        title:'请输入正确的手机号',
+                        icon:'none',
+                        duration:1000
+                    })
+                }
+            },
+            //获取手机号
+            getMobile(e){
+                this.mobile = e.detail.value;
+            },
+            //获取名称
+            getName(e){
+                this.name = e.detail.value;
+            },
+            //获取code
+            getCode(e){
+                this.code = e.detail.value;
+            },
+            //提交表单
+            submit(){
+                if(this.mobile && this.name && this.code && this.agree){
+                    this.submitInput();
+                }else{
+                    wx.showToast({
+                        title:'请输入信息',
+                        icon:'none',
+                        duration:1000
+                    })
+                }
+            }
+        }
+        computed = {
+            verifyMobile(){
+                this.mobileColor = util.vailPhone(this.mobile)
+            }
+        }
+        async getClassify(){
+            const url = api.apiMall + 'api/join_sms'
+            const data = {
+                mobile:this.mobile
+            }
+            await wepy.request({
+                url: url,
+                method: 'GET',
+                header:{
+                    'Accept':'application/vnd.lingmo.v1+json',
+                },
+                data:data
+            }).then(res=>{
+                if(res.data.status == 200){
+                    wx.showToast({
+                        title:'获取验证码成功',
+                        duration:1000
+                    })
+                }else{
+                   wx.showToast({
+                        title:'您已经添加了加盟信息',
+                        icon:'none',
+                        duration:3000
+                    }) 
+                }
+                
+                this.$apply();
+            })
+        } 
+        //提交表单
+        async submitInput(){
+            const url = api.apiMall + 'api/m_join'
+            const data = {
+                mobile:this.mobile,
+                name:this.name,
+                code:this.code
+            }
+            await wepy.request({
+                url: url,
+                method: 'POST',
+                header:{
+                    'Accept':'application/vnd.lingmo.v1+json',
+                },
+                data:data
+            }).then(res=>{
+                if(res.data.status == 200){
+                    this.showModalStatus = true;
+                }
+                this.$apply();
+            })
+        }
+        onShow(){
+        }
+        onLoad(){
+        }
+    }
+</script>

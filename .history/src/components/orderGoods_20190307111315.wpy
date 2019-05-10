@@ -1,0 +1,31 @@
+<template lang="wxml">
+    <view class="orderListsBox">
+
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class orderGoods extends wepy.component {
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    props = {
+        syncTitle: {
+            type: Array,
+            default: 'null'
+        }
+    };
+}
+</script>
+
+<style lang="less">
+    .orderListsBox{
+        width: 100%;
+        padding: 20rpx;
+        box-sizing: border-box;
+    }
+</style>

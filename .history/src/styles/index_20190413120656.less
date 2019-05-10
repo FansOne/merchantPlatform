@@ -1,0 +1,464 @@
+page{
+    background:#fff;
+  }
+  // 轮播
+  .banner{
+    width:100%;
+    height:400rpx;
+    margin:0 auto;
+    swiper{
+      width:100%;
+      height:100%;
+      image{
+        width:100%;
+        height:100%;
+      }
+    }
+  }
+  // 模块
+  .btn-things-wrapBox{
+    box-sizing:border-box;
+    width: 100%;
+    padding: 0 22rpx;
+    transform: translateY(-40rpx);
+    .btn-things-wrap{
+      background-color: #fff;
+      border-radius: 15rpx;
+      box-shadow: 0 10rpx 10rpx rgb(223, 223, 223);
+      box-sizing:border-box;
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      padding:40rpx 0 12rpx 0;
+      .item{
+        width:130rpx;
+        height:130rpx;
+        display:flex;
+        flex-direction: column;
+        justify-content:space-between;
+        text-align:center;
+        margin-bottom:28rpx;
+        .image-btn{
+          display:block;
+          margin:0 auto;
+          width:84rpx;
+          height:84rpx;
+          border-radius:50%;
+        }
+        .btn-desc{
+          font-size:24rpx;
+          color: #666666;
+        }
+      }
+    }
+  }
+  // 周边好店
+  .shop-wrap{
+    width:100%;
+    height:100rpx;
+    transform: translateY(-10rpx);
+    .title-img{
+      width:100%;
+      height:100%;
+    }
+  }
+  .shop-list-wrapBox{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 2rpx;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
+    .shop-list-wrap{
+      box-sizing: border-box;
+      width:49%;
+      padding:20rpx 10rpx;
+      box-shadow: 0 0 10rpx rgb(228, 228, 228);
+      margin-bottom: 20rpx;
+      border-radius:10rpx;
+      .shop-img{
+        width:100%;
+        height:250rpx;
+        border-radius:6rpx;
+      }
+      .shop-info-wrap{
+        box-sizing:border-box;
+        .title-wrap{
+          width:100%;
+          height:55rpx;
+          padding-top:5rpx;
+          box-sizing:border-box;
+          font-size:28rpx;
+          color: #333333;
+          display:flex;
+          justify-content: space-between;
+          .title{
+            flex: 1;
+            font-size: 28rpx;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+          }
+        }
+        .star-wrap{
+          width:100%;
+          height:26rpx;
+          margin-top:4rpx;
+          display: flex;
+          align-items: center;
+          .star{
+            vertical-align:top;
+            display:inline-block;
+            width:165rpx;
+            height:24rpx;
+            position:relative;
+          }
+          .position{
+            flex:1;
+            text-align:right;
+            image{
+              display:inline-block;
+              width:19rpx;
+              height:23rpx;
+            }
+            text{
+              font-size: 24rpx;
+              color: #999;
+            }
+          }
+        }
+      }
+    }
+  }
+  //星星
+  .star-image{
+    position: absolute;
+    top: 0rpx;
+    width: 25rpx;
+    height: 25rpx;
+    src: "../images/star.png";
+  }
+  .item1{
+    position: absolute;
+    top: 0rpx;
+    width: 25rpx;
+    height: 25rpx;
+  }
+  .button{
+    width:160rpx;
+    padding:12rpx 0;
+    background-color:#ffd265;
+    font-size:26rpx;
+    text-align:center;
+    border-radius:6rpx;
+    position:absolute;
+    left:0;
+    right:0;
+    top:450rpx;
+    margin:auto;
+  }
+  //最近使用
+  .used-renctly-wrap{
+    width:690rpx;
+    height:332rpx;
+    margin:0rpx auto 30rpx;
+    display:flex;
+    flex-direction:column;
+    .title{
+      font-size:38rpx;
+      height:120rpx;
+      line-height:120rpx;
+      color:#e3360f;
+      text-align:center;
+      position:relative;
+      text{
+        display:inline-block;
+        height:100%;
+        font-size:30rpx;
+        color:#999999;
+        margin-left:20rpx;
+      }
+    }
+    .user-renctly{
+      width:100%;
+      flex:1;
+      .shop-wrap{
+        display:inline-block;
+        width:120rpx;
+        height:100%;
+        padding-top:20rpx;
+        box-sizing:border-box;
+        margin-right:60rpx;
+        
+        image{
+          display:block;
+          width:120rpx;
+          height:120rpx;
+        }
+        .name{
+          color: #333333;
+          font-size:26rpx;
+          text-align:center;
+          margin-top:16rpx;
+          overflow:hidden;
+        }
+      }
+      .shop-wrap:last-child{
+        margin-right:0rpx;
+      }
+    }
+  } 
+  //优惠
+  .discount-wrap{
+    width:100%;
+    height:160rpx;
+    // background-color:yellow;
+    box-shadow: 0rpx 4rpx 17rpx 0rpx rgba(176, 174, 174, 0.4);
+    border-radius: 6rpx;
+    display:flex;
+    justify-content: space-between;
+    margin-bottom:30rpx;
+    position:relative;
+    .background-discount{
+      padding:0;
+      border:none;
+      display:block;
+      width:100%;
+      height:100%;
+      position:absolute;
+      left:0;
+      top:0;
+      z-index:-1;
+    }
+    .dis-words{
+      flex:1;
+      height:100%;
+      position:relative;
+      text-align:center;
+      padding:20rpx 0 0rpx 0;
+      box-sizing:border-box;
+      .dis-title{
+        color: #d74c00;
+        font-size:24rpx;
+      }
+      .price{
+        color: #9d9d9d;
+        font-size:22rpx;
+      }
+      .now-price-wrap{
+        .btn{
+          display:inline-block;
+          margin-right:10rpx;
+          width: 109rpx;
+          height: 38rpx;
+          background-color: #f5655f;
+          border-radius: 6rpx;
+          font-size:26rpx;
+          font-weight:bold;
+          color:#fff;
+          line-height:38rpx;
+          text-align:center;
+        }
+      }
+      .img{
+        display:block;
+        width:114rpx;
+        height:24rpx;
+        position:absolute;
+        bottom:0;
+        left:0;
+      }
+    }
+    .background-img{
+      flex:1;
+      display:block;
+      height:100%;
+      .food-img{
+        width:233rpx;
+        height:100%;
+        background-color:pink;
+      }
+    }
+  }
+  .discount-wrap:last-child{
+    margin-bottom:0;
+  }
+  // 免费领券
+  .background-coupon{
+    width:100%;
+    height:160rpx;
+    position:relative;
+    box-shadow: 0rpx 4rpx 17rpx 0rpx 	rgba(176, 174, 174, 0.4);
+    .background-img{
+      display:block;
+      width:100%;
+      height:160rpx;
+      position:absolute;
+      left:0;
+      top:0;
+    }
+    .food-img{
+      display:block;
+      width:104rpx;
+      height:104rpx;
+      background-color:green;
+      position:absolute;
+      left:35rpx;
+      top:0;
+      bottom:0;
+      margin:auto;
+    }
+    .food-words{
+      width:auto;
+      height:104rpx;
+      position:absolute;
+      left:160rpx;
+      top:0;
+      bottom:0;
+      margin:auto;
+      .coupon-title{
+        color: #333333;
+        font-size:28rpx;
+      }
+      .price{
+        color: #fe5b54;
+        font-size:34rpx;
+        margin-top:20rpx;
+      }
+    }
+  }
+  .update-food-image{
+    display:block;
+    width:233rpx;
+    height:100%;
+    float:right;
+    margin-right:16rpx;
+  }
+  //搜索框
+  .search-wrap{
+    height: 80rpx;
+    background-color: #f0f0f0;
+    border-radius: 10rpx;
+    margin:0 0 20rpx 20rpx;
+    color: #969696;
+    font-size:26rpx;
+    line-height:80rpx;
+    padding-left:60rpx;
+    box-sizing:border-box;
+    position:relative;
+    .search_btn{
+      display:block;
+      width:26rpx;
+      height:26rpx;
+      position:absolute;
+      top:0;
+      bottom:0;
+      margin:auto;
+      left:20rpx;
+    }
+    .share_btn{
+      display:block;
+      width:50rpx;
+      height:50rpx;
+      position:absolute;
+      right:-90rpx;
+      top:10rpx;
+    }
+  }
+  .shareFriends{
+		background-color: #fff;
+		z-index: 99;
+		position: fixed;
+		top: 0rpx;
+		width: 100%;
+		height: 205rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		transform: translateY(0rpx);
+    transition: all .4s;
+		.shareFriendsBtn{
+				width: 100%;
+				display: flex;
+				align-items: center;
+				height:125rpx;
+				button{
+					background-color: #fff;
+					width:100%;
+					height:125rpx;
+					padding: 0;
+					border-radius: 0;
+					icon{
+						font-size: 54rpx;
+						color: #7ada55;
+						transform: translateY(-25rpx);
+					}
+					view{
+						font-size: 26rpx;
+						transform: translateY(-70rpx);
+					}
+				}
+		}
+		.shareFriendsCancel{
+			letter-spacing: 2rpx;
+			width: 100%;
+			height: 79rpx;
+			line-height: 80rpx;
+			text-align: center;
+			border-top: 1rpx solid #f1f1f1;
+		}
+	}
+	.haiBao{
+		background-color: #fff;
+		box-sizing: border-box;
+		width: 100%;
+		height: 1000rpx;
+		padding: 20rpx 118rpx 40rpx;
+		position: fixed;
+		bottom: 0;
+		z-index: 9999;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		transform: translateY(1000rpx);
+		transition: all .7s;
+		image{
+			height: 727rpx;
+			width: 100%;
+			margin-bottom: 52rpx;
+		}
+		button{
+			height: 90rpx;
+			width: 100%;
+			border-radius: 50rpx;
+			background-color: #ffd270;
+			font-size: 34rpx;
+			line-height: 90rpx;
+		}
+		view{
+			padding-top: 20rpx;
+			font-size: 24rpx;
+			color: #666;
+		}
+		.close{
+			position: absolute;
+			right: 35rpx;
+			top: 0rpx;
+			font-size: 40rpx;
+			color: #666;
+		}  
+	}
+	.haobaoShow{
+		transform: translateY(0) !important;
+  }
+  .mask {
+    width:100%;
+    height:100%;
+    position:absolute;
+    background-color:rgba(0, 0, 0, 0.7);
+    z-index:10;
+    top:0;
+    left:0;
+    opacity:0.5;
+  }

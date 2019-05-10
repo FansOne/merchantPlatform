@@ -1,0 +1,44 @@
+
+    <view class="container">
+        <view class="moneyBox">
+            <view class="inputMoney">
+                <view class="symbol">￥</view>
+                <view class="money">{{inputValue}}</view>
+            </view>
+            <view class="prompt">该笔订单金额</view>
+        </view>
+        <view class="preferentialRules">
+            <view class="preferentialRulesTop">
+                <view data-id="0" data-money="{{getRechargeRule.elasticBigDec1 + getRechargeRule.givenMoenyBigDec1}}" class="preferentialRulesItemBox {{activeRulesItem[0].active?'activeRulesItem':''}}" bindtap="selectRules">
+                    <view class="preferentialRulesItem">
+                        <view class="topPrompt" style="background-color:#328cb3">最划算</view>
+                        <view class="recharge">充{{getRechargeRule.elasticBigDec1}}元</view>
+                        <view class="preferential">送{{getRechargeRule.givenMoenyBigDec1}}元</view>
+                    </view>
+                </view>
+                <view data-id="1" data-money="{{getRechargeRule.elasticBigDec2 + getRechargeRule.givenMoenyBigDec2}}" class="preferentialRulesItemBox {{activeRulesItem[1].active?'activeRulesItem':''}}" bindtap="selectRules">
+                    <view class="preferentialRulesItem">
+                        <view class="topPrompt" style="background-color:#5845b3">大赠送</view>
+                        <view class="recharge">充{{getRechargeRule.elasticBigDec2}}元</view>
+                        <view class="preferential">送{{getRechargeRule.givenMoenyBigDec2}}元</view>
+                    </view>
+                </view>
+                <view data-id="2" data-money="{{getRechargeRule.elasticBigDec3 + getRechargeRule.givenMoenyBigDec3}}" class="preferentialRulesItemBox {{activeRulesItem[2].active?'activeRulesItem':''}}" bindtap="selectRules">
+                    <view class="preferentialRulesItem">
+                        <view class="topPrompt" style="background-color:#ec5350">本次免单</view>
+                        <view class="recharge">充{{getRechargeRule.elasticBigDec3}}元</view>
+                        <view class="preferential">送{{getRechargeRule.givenMoenyBigDec3}}元</view>
+                    </view>
+                </view>
+            </view>
+            <view class="preferentialRulesBottom">充值享受更多优惠，订单实扣<text>{{inputValue}}元</text>，剩余<text>{{surplusMoney}}元</text></view>
+        </view>
+        <!-- btn -->
+        <view class="payBtnBox_">
+            <button class="discountBtn" bindtap="payment" data-wpypayment-a="1">{{memberMess.isMem != 1 ?'充值并支付':'优惠办卡并支付'}}</button>
+            <button class="originalPriceBtn" bindtap="payment" data-wpypayment-a="{{memberPayMode}}">{{ memberPayMode == 2 ?'卡内余额支付':'原价买单'}}</button>
+            <view class="currentBalance"  wx:if="{{memberMess.isMem == 0 || memberMess.isMem == 2}}">当前余额 <text>{{memberMess.MemInfo.balance}}元</text></view>
+        </view>
+        <!-- 底部说明提示 -->
+        <view class="bottomPrompt">商品及服务均由商户提供，与平台无关</view>
+    </view>

@@ -1,0 +1,129 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+
+export default class integralMall extends wepy.page {
+    config = {
+        navigationBarTitleText: '积分商城',
+        backgroundColor:'#e5e5e5'
+    };
+    components = {};
+
+    data = {
+        imgUrls:[],
+        navbar: [],
+        currentTab: 0,
+        toview:'',
+        page_Num:0,
+        orderList:[],
+    };
+    methods = {
+        navbarTap(status){
+          this.page_Num = 0
+          this.orderList = []
+          this.currentTab = status;
+        },
+    };
+
+    events = {};
+    onLoad() {
+        // 获取积分商城产品分类
+        requestData(requestUrl.GetProductClass,'POST',{
+            p_id: wepy.$instance.globalData.p_id,
+            m_id: "8",
+            type: 3,
+            token: wx.getStorageSync('token')
+        }).then(res=>{
+            this.imgUrls = res.data.data.Merchant_Banner
+            this.navbar = res.data.data.claid
+            this.$apply()
+        })
+    };
+}
+</script>
+
+<template lang="wxml">
+    <!-- 轮播图 -->
+    <view class="page-swiper-wrap">
+        <swiper autoplay interval="4000" circular>
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                    <image src="{{item.imagePath}}" class="slide-image"/>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <!-- 我的积分&积分赚取 -->
+    <view class="userIntegraMall">
+        <view class="userIntegraLeft">
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/integralIcon.png" />
+            <view>我的积分：1000</view>
+        </view>
+        <view class="userIntegraRight">
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/integralEranIcon.png" />
+            <view>赚取积分</view>
+        </view>
+    </view>
+    <!-- tabMenu -->
+    <view class="orderTabs integralTab">
+        <view scroll-x style="width: 100%" class="loopBox">
+            <!--循环-->
+            <view wx:for="{{navbar}}" wx:key="" class="item {{currentTab==index ? 'active' : ''}}" @tap="navbarTap({{index}})" id="data{{index}}">
+                {{item.classname}}
+            </view>
+        </view>
+    </view>
+    
+    <!-- 热销产品 -->
+    <view wx:if="{{currentTab == 0}}">
+    </view>
+    
+    <!-- 新品上市 -->
+    <view wx:if="{{currentTab == 1}}">
+    </view>
+</template>
+
+<style lang="less">
+    page{
+        background-color: #e5e5e5;
+    }
+    view{
+        color: #000;
+    }
+    .userIntegraMall{
+        background-color: #fff;
+        height: 100rpx;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        .userIntegraLeft,.userIntegraRight{
+            flex: .5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1rpx solid rgb(175, 175, 175);
+            image{
+                width: 55rpx;
+                height: 55rpx;
+                margin-right: 15rpx;
+            }
+        }
+        .userIntegraRight{
+            border-left: 1rpx solid rgb(175, 175, 175);
+            border-right: 0;
+        }
+    }
+    .integralTab{
+        margin-top: 30rpx;
+        height:78rpx;
+        padding-top: 0;
+        .loopBox{
+            display: flex;
+            justify-content: space-around;
+        }
+        .item.active:after{
+            background-color: #cb5343;
+        }
+    }
+</style>

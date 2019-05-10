@@ -1,0 +1,21 @@
+
+    <view class="container">
+        <view class="cardRecharge_top">
+            <view class="cardRecharge_title">余额</view>
+            <view class="cardRecharge_money"><text>￥</text>{{amount}}</view>
+        </view>
+
+        <view class="youhui"  wx:if="{{msgList.length}}">
+            <view class="youhui_title">充值优惠：</view>
+            <swiper class="swiper_container" vertical="vertical" autoplay circular="circular" interval="3000">
+                <block wx:for="{{msgList}}" wx:key="">
+                    <swiper-item>
+                        <view class="swiper_item">{{item.content}}</view>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+
+        <input placeholder-style="font-size:33rpx;" disabled value="{{options.rechargeAmount}}" type="digit"/>
+        <button bindtap="payMent">立即充值</button>
+    </view>

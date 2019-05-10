@@ -1,0 +1,165 @@
+<script>
+  import wepy from 'wepy'
+
+  export default class inputValue extends wepy.page {
+    config = {
+      // navigationBarTitleText: '',
+    }
+    components = {}
+
+    data = {
+      title:'',
+      m_id:'',
+      inputValue: null,
+      btnDisabled:true,
+      inputFocus:true
+    }
+
+    methods = {
+      changeInput (e) {
+        let value = e.detail.value
+        if (value[0] === '.' || (value[0] === '0' && value[1] !== '.' && this.inputValue.length !== 2)) {
+          this.inputValue = '0.'
+          return {
+            value: '0.',
+          }
+        } else if (this._have2Digit(value)) {
+          this.inputValue = value.slice(0, -1)
+          return {
+            value: value.slice(0, -1)
+          }
+        } else if (this._haveDigit(value)) {
+          let index = value.indexOf('.')
+          this.inputValue = value.slice(0, index + 3)
+          return {
+            value: value.slice(0, index + 3)
+          }
+        }
+        this.inputValue = value
+      },
+      goRecharge(){
+        wx.navigateTo({
+          url: `./payMentRecharge?inputValue=${this.inputValue}&m_id=${this.m_id}`
+        });
+      }
+    }
+
+    computed = {
+      inputValid () {
+        if (this.inputValue === '0' || this.inputValue === '0.' || !this.inputValue || this.inputValue === '0.0' || this.inputValue === '0.00' ||
+          this.inputValue[this.inputValue.length - 1] === '.') {
+          this.btnDisabled = true;
+          return false
+        } else if(this.inputValue > 50000){
+          this.btnDisabled = true
+          return false
+        }else {
+          this.btnDisabled = false;
+          return true
+        }
+      }
+    }
+    _have2Digit (str) {
+      let sum = 0;
+      for (let i = 0; i < str.length; i++) {
+        if (str[i] === '.') {
+          sum += 1
+        }
+      }
+      return sum > 1
+    }
+    _haveDigit (str) {
+      let index = str.indexOf('.')
+      if (index === -1) {
+        return false
+      } else {
+        return true
+      }
+    }
+    onLoad(options){
+      this.title = options.title
+      this.m_id = options.m_id
+    }
+    onShow(){
+      this.inputFocus = true
+    }
+    onHide(){
+      this.inputValue = null
+      this.inputFocus = false
+    }
+  }
+</script>
+
+<template>
+  <view class="container">
+    <view class='inputBox'>
+      <view class='title'>{{title}}</view>
+      <view class='inputItemBox'>
+        <view class='prompt'>消费金额</view>
+        <view class='inputItem'>
+          <view>￥</view>
+          <input placeholder='0.00' type='digit' focus='{{inputFocus}}' maxlength="8" value='{{inputValue}}' @input="changeInput"/>
+        </view>
+      </view>
+      <view class='payBtn'>
+        <button type='primary' disabled='{{btnDisabled}}' @tap='goRecharge'>确认支付</button>
+      </view>
+    </view>
+  </view>
+</template>
+
+<style lang="less">
+  page{
+    background-color: #efeff4;
+  }
+  .container{
+    padding: 20rpx;
+    .inputBox{
+      height: 533rpx;
+      background-color: #fff;
+      border-radius: 7rpx;
+      .title{
+        height: 113rpx;
+        line-height: 113rpx;
+        padding: 0 40rpx;
+        font-size: 26rpx;
+        color: #999;
+        background-color: #f9f9f9;
+        letter-spacing: 3rpx;
+      }
+      .inputItemBox{
+        height: 195rpx;
+        padding: 0 40rpx;
+        .prompt{
+          letter-spacing: 3rpx;
+          font-size: 28rpx;
+          color: #666;
+          margin: 40rpx 0;
+        }
+        .inputItem{
+          height: 94rpx;
+          display: flex;
+          border-bottom: 1rpx solid #f1f1f1;
+          padding-bottom: 30rpx;
+          align-items: center;
+          view{
+            width: 45rpx;
+            height: 64rpx;
+            text-align: left;
+            line-height: 77rpx;
+            font-weight: bold;
+          }
+          input{
+            flex: 1;
+            font-size: 64rpx;
+            height: 64rpx;
+            line-height: 64rpx;
+          }
+        }
+      }
+      .payBtn{
+        padding: 33rpx 40rpx 0 40rpx;
+      }
+    }
+  }
+</style>

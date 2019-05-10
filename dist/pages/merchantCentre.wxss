@@ -1,0 +1,10 @@
+view {
+  box-sizing: border-box;
+  font-size: 26rpx;
+  color: #000;
+}
+.lineBg {
+  background-color: #efeff4;
+  width: 100%;
+  height: 18rpx;
+}

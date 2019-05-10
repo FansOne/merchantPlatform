@@ -1,0 +1,32 @@
+
+    <view style="width:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;">
+        <view class="search_wrap_update" id="search_wrap_update"> 
+            <view class="search-wrap" catchtap="toSearchPage">请输入店铺名称，搜索会员卡
+                <image src="../../images/search.png"/>
+            </view>
+            <!-- 更新选项卡 -->
+            <view class="update_tab">
+                <view class="update_tab_item {{index==0 ? 'update_tab_item_style':''}}" catchtap="cardRenctly">最近使用</view>
+                <view class="update_tab_item {{index ? 'update_tab_item_style':''}}" catchtap="otherCard">其它</view>
+            </view>
+        </view>
+        <!-- 会员卡 -->
+        <view id="member-list" style="flex:1;">
+            <scroll-view scroll-y="true" style="height:{{height}}px;" bindscrolltolower="scollBottom">
+                <!-- 会员卡 -->
+                <view class="userMesseContant"  wx:for="{{memberData.length!=0? memberData:memberData2}}" wx:key="index" catchtap="toMemberInfo" data-wpytomemberinfo-a="{{item}}">
+                    <view class="userMesseContant_left">
+                        <image src="{{item.m_logo}}"/>
+                        <view>{{item.m_name}}</view>
+                    </view>
+                    <view class="userMesseContant_right">
+                        <view class="userMesseContant_rightMoney">余额<text>{{item.balance}}</text></view>
+                        <view class="userMesseContant_rightRecharge" catchtap="cardRecharge" data-wpycardrecharge-a="{{item}}">立即充值</view>
+                        <view class="userMesseContant_leftRecharge" data-id="{{item.m_id}}" data-type="{{item.shop_type}}" catchtap="goShop">去店铺</view>
+                    </view>
+                </view>
+                <view class="is_card"  wx:if="{{memberData2.length == 0&&memberData.length == 0}}">暂无会员卡</view>
+            </scroll-view>
+        </view>
+
+    </view>

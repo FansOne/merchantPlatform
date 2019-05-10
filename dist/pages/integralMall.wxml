@@ -1,0 +1,74 @@
+
+    <!-- 轮播图 -->
+    <view class="page-swiper-wrap">
+        <swiper autoplay interval="4000" circular="circular">
+            <block  wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                    <image src="{{item.imagePath}}" class="slide-image"/>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <!-- 我的积分&积分赚取 -->
+    <view class="userIntegraMall">
+        <view class="userIntegraLeft">
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/integralIcon.png"/>
+            <view>我的积分：{{member_points}}</view>
+        </view>
+        <view class="userIntegraRight" bindtap="integralExplain">
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/integralEranIcon.png"/>
+            <view>赚取积分</view>
+        </view>
+    </view>
+    <!-- tabMenu -->
+    <view class="orderTabs integralTab">
+        <view scroll-x style="width: 100%" class="loopBox">
+            <!--循环-->
+            <view  wx:for="{{navbar}}" wx:key="" class="item {{currentTab==index ? 'active' : ''}}" bindtap="navbarTap" id="data{{index}}" data-wpynavbartap-a="{{index}}">
+                {{item.classname}}
+            </view>
+        </view>
+    </view>
+    <!-- 吸顶tabMenu -->
+    <view hidden="{{adsorbentTabs}}" class="orderTabs integralTab adsorbentTabs">
+        <view scroll-x style="width: 100%" class="loopBox">
+            <!--循环-->
+            <view  wx:for="{{navbar}}" wx:key="" class="item {{currentTab==index ? 'active' : ''}}" bindtap="navbarTap" id="data{{index}}" data-wpynavbartap-a="{{index}}">
+                {{item.classname}}
+            </view>
+        </view>
+    </view>
+    
+    <!-- 热销产品 -->
+    <view  wx:if="{{currentTab == 0}}" class="integralMallGoodsBox">
+        <view class="integralProductItem" wx:for="{{product}}" wx:key="" bindtap="goodDetail" data-wpygooddetail-a="{{item.ponlyid}}" data-wpygooddetail-b="{{item.c_id}}">
+            <image src="{{item.logopath}}"/>
+            <view class="productPriceBox">
+                <view class="productTitle">{{item.pname}}</view>
+                <view class="productPrice">
+                    <view class="originalPrice">原价 ￥{{item.price}}</view>
+                    <view class="currentPrice">
+                        <view>{{item.point}}积分</view>
+                        <view>+ {{item.currentprice}}元</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    
+    <!-- 新品上市 -->
+    <view  wx:if="{{currentTab == 1}}" class="integralMallGoodsBox">
+        <view class="integralProductItem" wx:for="{{product}}" wx:key="" bindtap="goodDetail" data-wpygooddetail-a="{{item.ponlyid}}" data-wpygooddetail-b="{{item.c_id}}">
+            <image src="{{item.logopath}}"/>
+            <view class="productPriceBox">
+                <view class="productTitle">{{item.pname}}</view>
+                <view class="productPrice">
+                    <view class="originalPrice">原价 ￥{{item.price}}</view>
+                    <view class="currentPrice">
+                        <view>{{item.point}}积分</view>
+                        <view>+ {{item.currentprice}}元</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>

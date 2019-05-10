@@ -1,0 +1,532 @@
+<style lang="less">
+    page{
+        width:100%;
+        height:100%;
+    }
+    #around{
+        width:100%;
+        height:100%;
+        display:flex;
+        flex-direction:column;
+    }
+    // 轮播
+    .banner{
+        width:100%;
+        height:350rpx;
+        margin:0 auto;
+        padding-bottom:50rpx;
+        box-sizing:border-box;
+        swiper{
+            width:100%;
+            height:100%;
+            image{
+                display:block;
+                width:100%;
+                height:100%;
+                border-radius: 6rpx;
+            }
+        }
+    }
+    // scroll-view
+    .weui-navbar{
+        width: 100%;
+        white-space: nowrap; 
+        background: white;
+        padding:0 20rpx;
+        box-sizing:border-box;
+    }
+    .weui-navbar .default-item{
+        display: inline-block;
+        text-align: center;
+        font-size: 32rpx;
+        box-sizing: border-box;
+        padding: 0rpx 20rpx 20rpx;
+        color:#999;
+    }
+    swiper{
+        margin:0;
+        padding:0;
+    }
+    .weui-navbar .item_on{
+        color: #333;
+        // border-bottom:6rpx solid #333;
+        // border-radius:4rpx;
+    }
+    .swiper-box .swiper-item{
+        text-align: center;
+        height: 100%;
+        will-change:no-transform;
+    }
+    .swiper-wrap{
+        width:100%;
+        flex:1;
+    }
+    .slide-view{
+        width:710rpx;
+        height:100%;
+        margin:0 auto;
+        border-top:2rpx solid #f3f3f3;
+        padding-bottom:20rpx;
+        box-sizing:border-box;
+    }
+    // 列表
+    .shop-list-wrap{
+        width:100%;
+        height:196rpx;
+        margin-top:20rpx;
+        display:flex;
+        .shop-img{
+            width:180rpx;
+            height:180rpx;
+            border-radius:6rpx;
+            margin-top:8rpx;
+        }
+        .shop-info-wrap{
+            flex:1;
+            height:100%;
+            padding-left:16rpx;
+            box-sizing:border-box;
+            .title-wrap{
+                width:100%;
+                height:72rpx;
+                padding-top:24rpx;
+                box-sizing:border-box;
+                font-size:28rpx;
+                color: #333333;
+                display:flex;
+                justify-content: space-between;
+                .title{
+                    width:auto;
+                }
+                .position{
+                    height:100%;
+                    flex:1;
+                    // background-color:red;
+                    text-align:right;
+                    image{
+                        display:inline-block;
+                        width:20rpx;
+                        height:25rpx;
+                    }
+                }
+            }
+            .star-wrap{
+                width:100%;
+                height:26rpx;
+                // background-color:red;
+                .star{
+                    //   vertical-align:top;
+                    //   display:inline-block;
+                    float:left;
+                    width:165rpx;
+                    height:24rpx;
+                    //   background-color:cyan;
+                    position:relative;
+                }
+                .average{
+                    //vertical-align:top;
+                    //display:inline-block;
+                    float:left;
+                    font-size:24rpx;
+                    color: #c55159;
+                    margin-left:16rpx;
+                }
+            }
+            .price{
+                font-size: 28rpx;
+                color: #fd2323;
+                margin-top:30rpx;
+                text-align:left;
+            }
+        }
+    }
+    //星星
+    .star-image{
+        position: absolute;
+        top: 0rpx;
+        width: 28rpx;
+        height: 28rpx;
+        src: "../images/star.png";
+    }
+    .item1{
+        position: absolute;
+        top: 0rpx;
+        width: 28rpx;
+        height: 28rpx;
+    }
+    .line{
+        width:26rpx;
+        height:6rpx;
+        color: #333;
+        border-bottom:6rpx solid #333;
+        border-radius:4rpx;
+        margin:0 auto;
+    }
+    .collageIndex_box{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20rpx;
+    .collageIndex{
+        width: 100%;
+        border-radius: 10rpx;
+        overflow: hidden;
+        box-shadow: 0 0 10rpx #dcdcdc;
+        margin-bottom: 20rpx;
+        image{
+            width: 100%;
+            border-radius: 10rpx 10rpx 0 0;
+        }
+    }
+    .collageIndex_bottom{
+        padding: 0 20rpx 15rpx 20rpx;
+        background-color: #fff;
+        .collageIndex_title{
+            width: 670rpx;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: #333;
+            font-size: 30rpx;
+            letter-spacing: 3rpx;
+            text-align:left;
+        }
+        .collageIndex_skus{
+            padding-top: 5rpx;
+            font-size: 25rpx;
+            color: #666;
+            letter-spacing: 3rpx;
+        }
+        .groupPrice{
+            display: flex;
+            align-items: center;
+            margin-top: 15rpx;
+            justify-content: space-between;
+            .groupPrice_left{
+                display: flex;
+                align-items: center;
+                .groupPrice_price{
+                    color: #ff262f;
+                    font-size: 30rpx;
+                    text:nth-child(2){
+                        font-size: 42rpx;
+                    }
+                }
+                .groupPrice_discount{
+                    color: #333;
+                    font-size: 25rpx;
+                    text-decoration:line-through;
+                    transform: translateY(5rpx);
+                    margin-left: 22rpx;
+                }
+                .groupPrice_groupNum{
+                    color: #666;
+                    font-size: 24rpx;
+                    transform: translateY(5rpx);
+                    margin-left: 22rpx;
+                    letter-spacing: 3rpx;
+                }
+            }
+            .groupPrice_btn{
+                background: linear-gradient(to right,#FFA500,#FF8C00);
+                color: white;
+                padding: 10rpx 20rpx;
+                border-radius: 50rpx;
+                box-shadow: 0 0 10rpx #FFA500;
+                font-size: 25rpx;
+                letter-spacing: 3rpx;
+            }
+        }
+    }
+}
+</style>
+<template>
+    <view id="around">
+        <!-- 轮播图 -->
+        <view class="banner" style="border-radius: 6rpx;">
+            <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+                <block wx:for="{{imgUrls}}" wx:key="index">
+                    <swiper-item>
+                        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+        <!-- swiper -->
+        <view style="width:100%;height:104rpx;">
+            <scroll-view scroll-x="true" class="weui-navbar" >
+                <block wx:for-items="{{tabs}}" wx:key="index"  >
+                    <view style="display:inline-block;width:auto;height:auto;" id="navbar">
+                        <view id="{{index}}" class="default-item" bindtap="tabClick" style="display:inline-block;">
+                            <text style="height:100%;" class="{{activeIndex == index ?'item_on':''}}">{{item}}</text>
+                            <view class="{{activeIndex == index ?'line':''}}"></view>
+                        </view>
+                    </view>
+                </block>
+            </scroll-view>
+        </view>
+        
+        <view class="swiper-wrap" id="swiper-wrap">
+            <swiper current="{{activeIndex}}" class="swiper-box" style="margin:0;padding:0;height:100%;" duration="100" bindchange="bindChange">
+                <swiper-item class="swiper-item">
+                    <view class="slide-view">
+                        <scroll-view scroll-y style="width:100%;height:100%;white-space: nowrap;">
+                            <view class='collageIndex_box' style="padding:20rpx 0 0 0;">
+                                <block>
+                                    <view class='collageIndex'>
+                                        <image src='https://img1.doubanio.com/view/group_topic/l/public/p50280567.webp' style="display:block;width:100%;height:220rpx"/>
+                                        <view class='collageIndex_bottom'>
+                                            <view class='collageIndex_title'>拼团名称</view>
+                                            <view class='collageIndex_skus'></view>
+                                            <view class='groupPrice' style="'margin-top:0rpx">
+                                                <view class='groupPrice_left'>
+                                                    <view class='groupPrice_price'><text>￥</text><text>56</text></view>
+                                                    <view class='groupPrice_discount'>￥67</view>
+                                                    <view class='groupPrice_groupNum'>·已团56件</view>
+                                                </view>
+                                                <view class='groupPrice_btn'>78人团·去拼团</view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </block>
+                            </view>
+                        </scroll-view>    
+                    </view>
+                </swiper-item>
+                <swiper-item class="swiper-item">
+                    <view class="slide-view">
+                        <scroll-view scroll-y style="width:100%;height:100%;white-space: nowrap;">
+                            <view class='collageIndex_box' style="padding:20rpx 0 0 0;">
+                                <block>
+                                    <view class='collageIndex'>
+                                        <image src='https://img1.doubanio.com/view/group_topic/l/public/p50280567.webp' style="display:block;width:100%;height:220rpx"/>
+                                        <view class='collageIndex_bottom'>
+                                            <view class='collageIndex_title'>拼团名称</view>
+                                            <view class='collageIndex_skus'></view>
+                                            <view class='groupPrice' style="'margin-top:0rpx">
+                                                <view class='groupPrice_left'>
+                                                    <view class='groupPrice_price'><text>￥</text><text>56</text></view>
+                                                    <view class='groupPrice_discount'>￥67</view>
+                                                    <view class='groupPrice_groupNum'>·已团56件</view>
+                                                </view>
+                                                <view class='groupPrice_btn'>78人团·去拼团</view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </block>
+                            </view>
+                        </scroll-view>  
+                    </view>
+                </swiper-item>
+                <swiper-item class="swiper-item">
+                    <view class="slide-view">
+                        <scroll-view scroll-y style="width:100%;height:100%;white-space: nowrap;">
+                            <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1">
+                                <image class="shop-img" src="{{item1.img}}"/>
+                                <view class="shop-info-wrap">
+                                <view class="title-wrap">
+                                    <view class="title">{{item1.title}}</view>
+                                    <view class="position">
+                                    <image src="../images/location.png" />
+                                    <text style="margin-left:10rpx;">{{item1.distance/1000}}m</text>
+                                    </view>
+                                </view>
+                                <view class="star-wrap">
+                                    <view class="star">
+                                    <view class = 'startBox'>
+                                        <block wx:for="{{stars}}" wx:key='idx' >
+                                        <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                                            <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                                            <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                                        </image>
+                                        </block>
+                                    </view>
+                                    </view>
+                                    <view class="average">人均￥{{item1.averagePrice/100}}</view>
+                                </view>
+                                <!-- <view class="price">￥{{item1.price/100}}起</view> -->
+                                </view>
+                            </view>
+                        </scroll-view>  
+                    </view>
+                </swiper-item>
+                <swiper-item class="swiper-item">
+                    <view class="slide-view">
+                        <scroll-view scroll-y style="width:100%;height:100%;white-space: nowrap;">
+                            <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1">
+                                <image class="shop-img" src="{{item1.img}}"/>
+                                <view class="shop-info-wrap">
+                                <view class="title-wrap">
+                                    <view class="title">{{item1.title}}</view>
+                                    <view class="position">
+                                    <image src="../images/location.png" />
+                                    <text style="margin-left:10rpx;">{{item1.distance/1000}}m</text>
+                                    </view>
+                                </view>
+                                <view class="star-wrap">
+                                    <view class="star">
+                                    <view class = 'startBox'>
+                                        <block wx:for="{{stars}}" wx:key='idx' >
+                                        <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                                            <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                                            <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                                        </image>
+                                        </block>
+                                    </view>
+                                    </view>
+                                    <view class="average">人均￥{{item1.averagePrice/100}}</view>
+                                </view>
+                                <view class="price">￥{{item1.price/100}}起</view>
+                                </view>
+                            </view>
+                        </scroll-view>  
+                    </view>
+                </swiper-item>
+                <swiper-item class="swiper-item">
+                    <view class="slide-view">
+                        <scroll-view scroll-y style="width:100%;height:100%;white-space: nowrap;">
+                            <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1">
+                                <image class="shop-img" src="{{item1.img}}"/>
+                                <view class="shop-info-wrap">
+                                <view class="title-wrap">
+                                    <view class="title">{{item1.title}}</view>
+                                    <view class="position">
+                                    <image src="../images/location.png" />
+                                    <text style="margin-left:10rpx;">{{item1.distance/1000}}m</text>
+                                    </view>
+                                </view>
+                                <view class="star-wrap">
+                                    <view class="star">
+                                    <view class = 'startBox'>
+                                        <block wx:for="{{stars}}" wx:key='idx' >
+                                        <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                                            <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                                            <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                                        </image>
+                                        </block>
+                                    </view>
+                                    </view>
+                                    <view class="average">人均￥{{item1.averagePrice/100}}</view>
+                                </view>
+                                <view class="price">￥{{item1.price/100}}起</view>
+                                </view>
+                            </view>
+                        </scroll-view>  
+                    </view>
+                </swiper-item>
+                <swiper-item class="swiper-item">
+                    <view class="slide-view">
+                        <scroll-view scroll-y style="width:100%;height:100%;white-space: nowrap;">
+                            <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1">
+                                <image class="shop-img" src="{{item1.img}}"/>
+                                <view class="shop-info-wrap">
+                                <view class="title-wrap">
+                                    <view class="title">{{item1.title}}</view>
+                                    <view class="position">
+                                    <image src="../images/location.png" />
+                                    <text style="margin-left:10rpx;">{{item1.distance/1000}}m</text>
+                                    </view>
+                                </view>
+                                <view class="star-wrap">
+                                    <view class="star">
+                                    <view class = 'startBox'>
+                                        <block wx:for="{{stars}}" wx:key='idx' >
+                                        <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                                            <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                                            <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                                        </image>
+                                        </block>
+                                    </view>
+                                    </view>
+                                    <view class="average">人均￥{{item1.averagePrice/100}}</view>
+                                </view>
+                                <view class="price">￥{{item1.price/100}}起</view>
+                                </view>
+                            </view>
+                        </scroll-view>  
+                    </view>
+                </swiper-item>
+                <swiper-item class="swiper-item">
+                    <view class="slide-view">
+                        <scroll-view scroll-y style="width:100%;height:100%;white-space: nowrap;">
+                            <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1">
+                                <image class="shop-img" src="{{item1.img}}"/>
+                                <view class="shop-info-wrap">
+                                <view class="title-wrap">
+                                    <view class="title">{{item1.title}}</view>
+                                    <view class="position">
+                                    <image src="../images/location.png" />
+                                    <text style="margin-left:10rpx;">{{item1.distance/1000}}m</text>
+                                    </view>
+                                </view>
+                                <view class="star-wrap">
+                                    <view class="star">
+                                    <view class = 'startBox'>
+                                        <block wx:for="{{stars}}" wx:key='idx' >
+                                        <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                                            <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                                            <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                                        </image>
+                                        </block>
+                                    </view>
+                                    </view>
+                                    <view class="average">人均￥{{item1.averagePrice/100}}</view>
+                                </view>
+                                <view class="price">￥{{item1.price/100}}起</view>
+                                </view>
+                            </view>
+                        </scroll-view>  
+                    </view>
+                </swiper-item>
+            </swiper>
+        </view>
+    </view>
+</template>
+<script>
+    import wepy from 'wepy'
+    export default class Coupons extends wepy.page{
+        config = {
+            navigationBarTitleText: '附近'
+        }
+        data = {
+            stars: [0, 1, 2, 3, 4],
+            normalSrc: 'http://applet.qumatou.com.cn/static/food/star.png',
+            selectedSrc: 'http://applet.qumatou.com.cn/static/food/starWhole.png',
+            halfSrc:'http://applet.qumatou.com.cn/static/food/starHalf.png',
+            key: 0,
+            imgUrls: [
+                'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+                'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+                'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+            ],
+            indicatorDots: false,
+            autoplay: true,
+            interval: 5000,
+            duration: 1000,
+            tabs:["全部","美食","电影","娱乐","出行","旅游","交友","快乐生活"],
+            activeIndex:0,
+            slideOffset:0,
+            shopInfo:[]
+        }
+        tabClick(e){
+            var that = this;
+            var idIndex = e.currentTarget.id;
+            var offsetW = e.currentTarget.offsetLeft;  //2种方法获取距离文档左边有多少距离
+            that.activeIndex = idIndex;
+            that.slideOffset = offsetW;
+        }
+        bindChange(e){
+            var current = e.detail.current;
+            if((current+1)%4 == 0){
+            }var current = e.detail.current;
+            if((current+1)%4 == 0){
+            }
+            var offsetW = current * this.mtabW;    //2种方法获取距离文档左边有多少距离
+            this.activeIndex = current;
+            this.slideOffset = offsetW;
+        }
+        onLoad () {
+           this.shopInfo = wx.getStorageSync("shopInfo");
+           this.$apply();
+        }
+    }
+</script>

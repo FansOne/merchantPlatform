@@ -1,0 +1,93 @@
+
+	<view class="container">
+		<view  wx:if="{{noBuy}}">
+	        <view class="noBuy-box">
+	          <view class="shiluo">
+	            <image src="http://www.qumatou.com.cn/zheng/xcximage/空购物车.jpg"/>
+	            <text>空空的购物车也会孤单呢</text>
+	            <text>快去给她添加宝贝吧</text>
+	          </view>
+	        </view>
+      	</view>
+		<view  wx:else>
+			<view class="userAdd-commodity">
+			<!-- wx:for 渲染购物车列表 -->
+			<view wx:for="{{cartItems}}" wx:key="idx">
+				<view class="userAdd-commodity-item">
+				    <!-- wx:if 是否选择显示不同图标 -->
+				    <icon wx:if="{{item.selected}}" type="success" size="25" color="orange" catchtap="selectList" data-index="{{index}}"/>
+				    <icon wx:else type="circle" catchtap="selectList" data-index="{{index}}" size="25" color="orange"/>
+				    <!-- 点击商品图片可跳转到商品详情 -->
+				    <navigator>
+				        <image class="commodity-img" src="{{item.cover}}"/>
+				    </navigator>
+				    <view class="userAdd-commodity-item-right">
+				    	<view class="titleSpec" style="position:relative;">
+				    		<text class="commodity-title">{{item.title}}</text>
+				    		<text style="position:absolute;top:0;right:0;font-right:28rpx;">库存{{item.quantity_num}}</text>
+				    	</view>
+					    <view class="commodity-item-computed" style="position:relative;">
+					    	<text>￥{{item.price/100}}</text>
+						    <!-- 增加减少数量按钮 -->
+						    <view class="addMinus-box">
+						        <text class="minusBtn" bindtap="minusCount" data-index="{{index}}" data-id="{{item.id}}">-</text>
+						        <text class="itemNum">{{item.quantity}}</text>
+						        <text class="addBtn" bindtap="addCount" data-index="{{index}}" data-id="{{item.id}}">+</text>
+						    </view>
+						    <!-- 删除按钮 -->
+						    <view class="deleteBox">
+						    	<text data-index="{{index}}" data-id="{{item.id}}"> × </text>
+						    </view>
+							<view catchtap="deleteList" data-index="{{index}}" data-id="{{item.id}}" style="position:absolute;width:50rpx;height:100%;right:0;bottom:0;"/>
+					    </view>
+				    </view>
+				</view>
+			</view>
+		</view>
+		<!-- 猜你喜欢 -->
+		<view class="guessLike">
+			<!-- 推荐标题 -->
+			<text class="guessLike-title">- 猜你喜欢 -</text>
+			<!-- 推荐商品 -->
+			<view class="">
+				<navigator url="./details?id={{item.id}}" wx:for="{{ commodityMessage }}" wx:key="index" wx:for-index="idx">
+                  <view class="item-ans">
+                    <view class="avatar">
+                          <image class="img" src="{{item.cover}}"/>
+                    </view>
+                    <view class="expertInfo">
+                        <view class="name">{{ item.title }}</view>
+                        <view class="tag">{{ item.subtitle }}</view>
+                        	<view class="price">
+                            	<view class="quan">券后</view>
+                            	<view class="moneys">
+                              		<text>¥ {{ item.price/100}} /</text>
+                          			<!-- <text class='number'>{{ item.num }}</text> -->
+                              		<text class="originalPrice">¥ {{ item.sell/100 }}</text>
+                            	</view>
+                        	</view>
+                      </view>
+                  	</view>
+              	</navigator>
+			</view>
+			<!-- 滑动底部 -->
+			<text class="guessLike-title guessLike-bottomTitle">- 人家是有底线的 -</text>
+		</view>
+
+		<!-- 底部操作栏 -->
+		<view class="bottom-select">
+		    <view class="select-box">
+		    	<!-- wx:if 是否全选显示不同图标 -->
+			    <icon wx:if="{{selectAllStatus}}" type="success" color="orange" size="25" bindtap="selectAll" class="selectAll-icon"/>
+			    <icon wx:else type="circle" color="orange" size="25" bindtap="selectAll" class="selectAll-icon"/>
+			    <text>全选</text>
+		    </view>
+		    <view class="totalPrice-box">
+		    	<!-- 总价 -->
+			    <view class="computedPrice"><text>￥{{totalPrice}}</text><text>￥{{sendprice}}起送,另需配送费￥{{normalsend}}</text></view>
+			    <view class="Settlement-btn" bindtap="jiesuan">结算</view>
+			    <!-- <button wx:else open-type='getUserInfo' bindgetuserinfo='getuserinfo' class='Settlement-btn kaoRight' bindtap='jiesuan'>结算</button> -->
+		    </view>
+		</view>
+		</view>
+	</view>

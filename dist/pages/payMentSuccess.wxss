@@ -1,0 +1,104 @@
+page {
+  height: 100%;
+}
+view {
+  box-sizing: border-box;
+  color: #000;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.checkMarkBox {
+  padding-top: 35rpx;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkMarkBox image {
+  width: 361rpx;
+  height: 293rpx;
+}
+.money {
+  font-size: 75rpx;
+  font-weight: bold;
+  margin-top: 130rpx;
+  transform: translateX(-7rpx);
+}
+.balance {
+  margin-top: 20rpx;
+  font-size: 33rpx;
+  letter-spacing: 3rpx;
+}
+.balance .balanceColor {
+  color: #ffd05c;
+  letter-spacing: 3rpx;
+}
+.btnBox {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 330rpx;
+}
+.btnBox button {
+  background-color: #f5e03c;
+  letter-spacing: 3rpx;
+  margin: 0rpx;
+  padding: 0rpx;
+}
+button {
+  border-radius: 0;
+}
+.bindUserMsessBox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 11;
+  width: 551rpx;
+  height: 534rpx;
+  background-color: #ffffff;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+.bindUserMsessBox .promptTitle_ {
+  text-align: center;
+  background-color: #ffd270;
+  padding: 25rpx 0;
+  font-size: 32rpx;
+}
+.bindUserMsessBox .inputBox {
+  width: 100%;
+  padding: 45rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.bindUserMsessBox .inputBox .inputItem {
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  background-color: #f2f2f2;
+  margin-bottom: 35rpx;
+  padding-left: 20rpx;
+}
+.bindUserMsessBox .inputBox .inputItem view,
+.bindUserMsessBox .inputBox .inputItem input {
+  height: 52rpx;
+  line-height: 52rpx;
+  font-size: 28rpx;
+}
+.bindUserMsessBox .inputBox .inputItem view {
+  width: 112rpx;
+}
+.bindUserMsessBox .inputBox button {
+  background-color: #ffd270;
+  font-size: 30rpx;
+  padding: 0;
+  width: 200rpx;
+  height: 70rpx;
+  border-radius: 50rpx;
+}

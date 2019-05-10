@@ -1,0 +1,87 @@
+page {
+  background-color: #fff;
+}
+.company-OrderNubmer-box {
+  background-color: #ecebf3;
+  height: 250rpx;
+  padding: 0 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+.company-OrderNubmer-box .company-box {
+  letter-spacing: 3rpx;
+  margin-top: 60rpx;
+  margin-bottom: 30rpx;
+}
+.company-OrderNubmer-box .company-box view {
+  letter-spacing: 3rpx;
+  color: #333;
+  font-size: 31rpx;
+}
+.company-OrderNubmer-box .orderNubmer-box {
+  height: 46rpx;
+  line-height: 46rpx;
+  letter-spacing: 3rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.company-OrderNubmer-box .orderNubmer-box view:nth-child(1) {
+  color: #333;
+  font-size: 31rpx;
+}
+.company-OrderNubmer-box .orderNubmer-box view:nth-child(1) .logistic_number {
+  letter-spacing: 4rpx;
+  color: #2b7aed;
+}
+.company-OrderNubmer-box .orderNubmer-box .copyNumber {
+  width: 75rpx;
+  height: 46rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 26rpx;
+  background-color: #b1b1b1;
+}
+.middle-text {
+  color: #333;
+  font-size: 33rpx;
+  padding: 45rpx 40rpx;
+  border-bottom: 1rpx solid #efeff4;
+}
+.logisticContent-box {
+  margin-top: 55rpx;
+  margin-bottom: 45rpx;
+  padding: 0 40rpx 0 100rpx;
+}
+.logisticsStyle {
+  position: relative;
+  width: 100%;
+  border-left: 2rpx solid #b1b1b1;
+  padding-left: 25rpx;
+  margin-bottom: 30rpx;
+}
+.logisticsStyle .circular {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #b1b1b1;
+  position: absolute;
+  left: -11rpx;
+  top: -23rpx;
+}
+.logisticsStyle .trackStatus-trackDate-box {
+  /*border:1px solid red;*/
+  transform: translateY(-30rpx);
+}
+.logisticsStyle .trackStatus-trackDate-box .trackStatus {
+  color: #333;
+  font-size: 27rpx;
+  margin-bottom: 20rpx;
+}
+.logisticsStyle .trackStatus-trackDate-box .trackDate {
+  color: #969696;
+  font-size: 22rpx;
+}
+.circularBg {
+  background-color: #f3825d !important;
+}

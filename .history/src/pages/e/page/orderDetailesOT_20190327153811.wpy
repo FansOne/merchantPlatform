@@ -1,0 +1,224 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../../../api/requestUrl';
+import { requestData } from '../../../api/requestData'
+
+export default class orderDetailesOT extends wepy.page {
+    config = {
+        navigationBarTitleText: '订单详情',
+    };
+    components = {};
+
+    data = {
+        allData:null,
+        goodsTotal:''
+    };
+    methods = {
+        goShop(shop_type,m_id){
+            if(shop_type == 1 || shop_type == 2){
+                //电商、门店流程
+                wx.navigateTo({
+                    url:'./index/index?id=' + m_id + '&shopType=' + shop_type
+                })
+            }else if(shop_type == 3 || shop_type == 4){
+                //外卖、超市
+                wx.navigateTo({
+                    url:'../../f/page/index/index?id=' + m_id + '&shopType=' + shop_type
+                })
+            }
+        }
+    };
+
+    events = {};
+    onLoad(options) {
+        // 获取订单详情数据
+        this.orderData(options.orderNumber)
+    };
+    // 获取订单详情数据
+    orderData(orderNumber){
+        let url = requestUrl.orderDetails;
+        let data = {
+            outTraceNo : orderNumber
+        }
+        requestData(url,'POST',data).then(res=>{
+            console.log(res.data.data)
+            let goodsTotal = 0;
+            res.data.data.product.forEach(element => {
+                goodsTotal += element.total
+            });
+            this.allData = res.data.data
+            this.goodsTotal = goodsTotal
+            this.$apply()
+        })
+    }
+}
+</script>
+
+<template lang="wxml">
+    <view class="orderDetailsTop">
+        <view class="topBox">
+            <view>支付成功</view>
+            <image src='http://sttfv1jm7n.cdhttp.cn/zheng/xcximage/orderCart.png' />
+        </view>
+        <view class="addressBox">
+            <image wx:if ='{{allData.address.cityName}}' src="http://applet.qumatou.com.cn/static/food/address.png" />
+            <view class="userAddress_"  style="{{allData.address.cityName?'':'padding-left:0rpx'}}">
+                <view class="userAddressName">
+                    <view>{{allData.address.userName}}</view>
+                    <view>{{allData.address.telNumber}}</view>
+                </view>
+                <view class="userAddressWhere" wx:if ='{{allData.address.cityName}}'>{{allData.address.cityName}} {{allData.address.countyName}} {{allData.address.detailInfo}}</view>
+                <view class="userAddressWhere" wx:else>{{allData.tradetypeStr}} 堂食/自提</view>
+            </view>
+        </view>
+    </view>
+    <!-- 商品 -->
+    <view class="orderListsBox">
+        <view class="shoppingsBox">
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{allData.m_logo}}"/>
+                    <view>{{allData.m_name}}</view>
+                </view>
+                <view class="shopTitleRight"></view>
+            </view>
+            <view class="goodsItem" wx:for='{{allData.product}}' wx:key='' wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}" />
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view>* {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="btnBox">
+                <view>实付款：<text>￥{{goodsTotal}}</text></view>
+            </view>
+        </view>
+    </view>
+    <!-- 订单详情 -->
+    <view class="orderDetailTitle"><view></view><view>订单详情</view></view>
+    <view class="orderDetailItem">产品类型：{{allData.tradetypeStr}}</view>
+    <view class="orderDetailItem">订单编号：{{allData.outTraceNo}}</view>
+    <view class="orderDetailItem">下单时间：{{allData.orderTime}}</view>
+    <view class="orderDetailItem">支付时间：{{allData.paytime}}</view>
+    <view class="orderDetailItem" style="padding-bottom:100rpx;">店铺地址：{{allData.maddress}}</view>
+    <!-- 底部按钮 -->
+    <view class="orderDetailBottom" @tap='goShop({{allData.shop_type}},{{allData.m_id}})'>
+        <view>再来一单</view>
+    </view>
+</template>
+
+<style lang="less">
+    .orderDetailsTop{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 35rpx 25rpx;
+        box-shadow: 0 10rpx 10rpx #f1f1f1;
+        .topBox{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box;
+            border-bottom: 1rpx solid #f1f1f1;
+            padding: 15rpx 15rpx 50rpx 15rpx;
+            view:first-of-type{
+                font-size: 44rpx;
+                color: #000;
+            }
+            image{
+                height: 67rpx;
+                width: 188rpx;
+            }
+        }
+        .addressBox{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 35rpx 15rpx 0 15rpx;
+            image{
+                width: 26rpx;
+                height: 38rpx;
+            }
+            .userAddress_{
+                flex: 1;
+                padding-left: 25rpx;
+                .userAddressName{
+                    display: flex;
+                    margin-bottom: 10rpx;
+                    view{
+                        font-size: 28rpx;
+                        color: #000;
+                    }
+                    view:last-of-type{
+                        color: #999;
+                        padding-left: 20rpx;
+                    }
+                }
+                .userAddressWhere{
+                    font-size: 28rpx;
+                    color: #000;
+                }
+            }
+        }
+    }
+    .btnBox{
+        view{
+            background-color: #fff !important;
+            font-size: 34rpx;
+            color: #000;
+            text{
+                font-size: 38rpx;
+                color: red;
+            }
+        }
+    }
+    .orderDetailTitle{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 30rpx 20rpx 30rpx;
+        display: flex;
+        align-items: center;
+        view:first-of-type{
+            background-color: #ffd270;
+            width: 6rpx;
+            height: 45rpx;
+            margin-right: 20rpx;
+        }
+        view:last-of-type{
+            color: #000;
+        }
+    }
+    .orderDetailItem{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0rpx 55rpx 20rpx 55rpx;
+        color: #999;
+        font-size: 26rpx;
+    }
+    .orderDetailBottom{
+        box-sizing: border-box;
+        width: 100%;
+        height: 100rpx;
+        position: fixed;
+        bottom: 0;
+        border-top: 1rpx solid #f1f1f1;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 25rpx;
+        view{
+            width: 170rpx;
+            height: 70rpx;
+            background-color: #ffd270;
+            color: #000;
+            border-radius: 7rpx;
+            line-height: 70rpx;
+            text-align: center;
+        }
+    }
+</style>

@@ -1,0 +1,309 @@
+{
+	"description": "A WePY project",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"appid": "wx9d4d36b4ef8d2653",
+	"projectname": "%E4%BA%91%E4%B8%8A%E6%BE%84%E5%9F%8E-%E9%BD%90%E6%B4%8B%E6%B4%8B",
+	"miniprogramRoot": "dist/",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 40,
+			"list": [
+				{
+					"id": 0,
+					"name": "支付成功的卡券",
+					"pathName": "pages/payedCouponsList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "买单完成领券",
+					"pathName": "pages/payedCouponsList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "卡券领取",
+					"pathName": "pages/shareCpn",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "首页模拟热启动",
+					"pathName": "pages/index",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "登录页面",
+					"pathName": "pages/login",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "支付成功",
+					"pathName": "pages/e/page/paymentSuccess",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "支付完成",
+					"pathName": "pages/e/page/paymentSuccess",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "快速支付页面",
+					"pathName": "pages/payedCouponsList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "快速买单页面",
+					"pathName": "pages/payMent",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "餐饮支付成功",
+					"pathName": "pages/f/page/d/paymentSuccess",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "外卖支付完成",
+					"pathName": "pages/f/page/takeout/shopDeliverDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "外卖待支付",
+					"pathName": "pages/f/page/takeout/readyToPay",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会员卡领取",
+					"pathName": "packageMembershipCard/membershipCard/cardShare",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "餐饮快速买单完成",
+					"pathName": "pages/payedCouponsList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "买单成功",
+					"pathName": "pages/payMentSuccess",
+					"query": "money=8",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "店铺商城",
+					"pathName": "pages/e/page/homePage",
+					"query": "id=315&localSpecialty=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/mine",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "会员卡列表",
+					"pathName": "packageMembershipCard/membershipCard/memberList",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "会员卡充值",
+					"pathName": "packageMembershipCard/membershipCard/cardRecharge",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "会员手机绑定",
+					"pathName": "packageMembershipCard/membershipCard/membershipMessage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "个人认证",
+					"pathName": "pages/personalAuthentication",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商户认证",
+					"pathName": "pages/merchantCA",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 22,
+					"name": "商品详情",
+					"pathName": "pages/e/page/details",
+					"query": "id=103f9abd7cf94fa685ccafe066c9b309",
+					"scene": null
+				},
+				{
+					"id": 23,
+					"name": "餐饮首页",
+					"pathName": "pages/f/page/index/index",
+					"query": "id=33&shopType=3&n=111",
+					"scene": 1001
+				},
+				{
+					"id": 24,
+					"name": "点餐商品列表",
+					"pathName": "pages/f/page/d/d",
+					"query": "num=8&logoImg=http://sttfv1jm7n.cdhttp.cn/zheng/20190216/chaungdongl_20190216170651_1550308033208.jpg&m_id=8",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单",
+					"pathName": "pages/order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "餐饮支付成功",
+					"pathName": "pages/e/page/d/paymentSuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "餐饮下单",
+					"pathName": "pages/f/page/d/myMenu",
+					"query": "id=8&shopType=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "下单成功",
+					"pathName": "pages/f/page/d/paymentSuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "pages/e/page/orderDetailesOT",
+					"query": "orderNumber=00010000000000920190308115416zFD",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "买单订单详情",
+					"pathName": "pages/e/page/payMentDetails",
+					"query": "orderNumber=00010000000000820190309090328g6d",
+					"scene": null
+				},
+				{
+					"id": 33,
+					"name": "扫码点餐",
+					"pathName": "pages/f/page/index/index",
+					"query": "id=8&n=22&shop_type=3",
+					"scene": 1011
+				},
+				{
+					"id": -1,
+					"name": "外卖下单",
+					"pathName": "pages/f/page/d/myMenu",
+					"query": "m_id=31&p_id=1&token=9BFB39D366519CA6855A3150A9136E42&type=0",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "买单支付成功",
+					"pathName": "pages/payMentSuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 34,
+					"name": "门店店铺首页",
+					"pathName": "pages/e/page/index/index",
+					"query": "token=9BFB39D366519CA6855A3150A9136E42&id=315&p_id=1",
+					"scene": null
+				},
+				{
+					"id": 35,
+					"name": "餐饮店铺首页",
+					"pathName": "pages/f/page/index/index",
+					"query": "id=8&shopType=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商户预充值",
+					"pathName": "pages/merchatPrecharge",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "餐饮、外卖下单",
+					"pathName": "pages/f/page/d/myMenu",
+					"query": "id=1&m_id=327&Bury_Money=5&totalPack=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "积分商城",
+					"pathName": "pages/integralMall",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "获取积分",
+					"pathName": "pages/integralExplain",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商户中心",
+					"pathName": "pages/merchantCentre",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

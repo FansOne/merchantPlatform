@@ -1,0 +1,137 @@
+.search_wrap_update {
+  width: 100%;
+  height: 163rpx;
+}
+.search_wrap_update .update_tab {
+  width: 500rpx;
+  margin: auto;
+  display: flex;
+  position: relative;
+  top: 120rpx;
+}
+.search_wrap_update .update_tab .update_tab_item {
+  flex: 1;
+  text-align: center;
+  font-size: 30rpx;
+  position: relative;
+}
+.search_wrap_update .update_tab .update_tab_item_style::after {
+  content: '';
+  width: 60rpx;
+  height: 4rpx;
+  background-color: black;
+  position: absolute;
+  bottom: -10rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.search-wrap {
+  width: 560rpx;
+  height: 70rpx;
+  background-color: #f0f0f0;
+  border-radius: 35rpx;
+  color: #969696;
+  font-size: 26rpx;
+  padding-left: 75rpx;
+  box-sizing: border-box;
+  line-height: 70rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 100;
+}
+.search-wrap image {
+  display: block;
+  width: 26rpx;
+  height: 26rpx;
+  position: absolute;
+  left: 37rpx;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.userMesseContant {
+  width: 710rpx;
+  margin: 20rpx auto 0;
+  transform: translateY(35rpx);
+  background-image: url('http://www.qumatou.com.cn/zheng/xcximage/cardbg.png');
+  height: 250rpx;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 20rpx;
+  display: flex;
+}
+.userMesseContant .userMesseContant_left,
+.userMesseContant .userMesseContant_right {
+  position: absolute;
+  left: 0;
+  height: 250rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+}
+.userMesseContant .userMesseContant_left {
+  display: flex;
+}
+.userMesseContant .userMesseContant_left view {
+  color: #fff;
+  font-size: 32rpx;
+  padding-left: 20rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  margin-top: 50rpx;
+}
+.userMesseContant .userMesseContant_left image {
+  margin-left: 30rpx;
+  margin-top: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+.userMesseContant .userMesseContant_right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  right: 0;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightMoney {
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color: #fff;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightMoney text {
+  display: inline-block;
+  margin-left: 17rpx;
+  font-size: 48rpx;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightRecharge {
+  margin-top: 58rpx;
+  color: #ffd270;
+  font-size: 30rpx;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_leftRecharge {
+  position: absolute;
+  left: 50rpx;
+  bottom: 20rpx;
+  color: #ffd270;
+  font-size: 30rpx;
+}
+.is_card {
+  font-size: 30rpx;
+  color: #333;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 300rpx;
+  margin: auto;
+}

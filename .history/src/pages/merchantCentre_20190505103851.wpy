@@ -1,0 +1,54 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+
+export default class merchantCentre extends wepy.page {
+    config = {
+        navigationBarTitleText: '商户中心',
+    };
+    components = {};
+
+    data = {
+        otherModular:[
+            { icon:'http://www.qumatou.com.cn/zheng/xcximage/mdzzSHRZ.png', title:'商户认证'},
+            { icon:'http://www.qumatou.com.cn/zheng/xcximage/mdzzSHCZ.png', title:'商户充值'},
+            { icon:'http://www.qumatou.com.cn/zheng/xcximage/mdzzSYS.png', title:'扫-扫'}
+        ]
+    };
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <view class='container'>
+        <view class="topUserMessBox">
+            <view class='userAvatarUrlBox'><open-data type='userAvatarUrl' class='userAvatarUrl'/></view>
+            <open-data type='userNickName' class='userNickName'/>
+            <view class='noticeBox' style="text-align:center">欢迎您的到来</view>
+        </view>
+        <view class='lineBg'></view>
+        <view class='otherModularBox'>
+            <view class='otherModularItem' wx:for='{{otherModular}}' wx:key='' @tap='otherModularItem({{index}})'>
+                <moreFormId><image src='{{item.icon}}'/></moreFormId>
+                <view>{{item.title}}</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+    view{
+        box-sizing: border-box;
+        font-size: 26rpx;
+        color: #000;
+    }
+    .lineBg{
+        background-color: #efeff4;
+        width: 100%;
+        height: 18rpx;
+    }
+</style>

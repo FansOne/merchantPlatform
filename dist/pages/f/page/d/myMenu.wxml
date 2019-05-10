@@ -1,0 +1,168 @@
+
+  <view id="my-menu">
+    <!--头部-->
+    <view style="width:100%"  wx:if="{{takeOutStatus}}">
+      <view class="deliver-head-wrap" style="border-radius: 10rpx;">
+        <!-- 选择地址 -->
+        <view class="sold-list-head addressTopBox" bindtap="goAddress" style="height:100rpx;">
+          <view class="addressIcon" style="margin-top:0rpx;"><image src="http://www.qumatou.com.cn/zheng/xcximage/addressQyy.png"/></view>
+          <view wx:if="{{!address}}">选择收货地址 ></view>
+          <view wx:else>{{address}}</view>
+        </view>
+      </view>
+    </view>
+    <!--订单列表-->
+    <view class="order-list-wrap">
+      <view style="width:100%;height:auto;background-color:#fff;pdding-bottom:30rpx;border-radius:6rpx;box-sizing:border-box;">
+        <!--一个人的订单-->
+        <view class="order-wrap">
+          <!--title-->
+          <view class="sold-list-head">
+            <view class="image"/>
+            <view style="font-weight:bold;">订单商品</view>
+          </view>
+          <!--订单商品列表-->
+          <view style="width:656rpx;height:auto;padding-left:40rpx;box-sizing:border-box;">
+            <view class="user-info-wrap">
+              <!--点的餐食列表-->
+              <view class="foods-list"  wx:for="{{deliverData.orderGoods}}" wx:key="{{index}}" wx:for-item="item">
+                <image class="foods-pic" src="{{item.logopath}}"/>
+                <view class="foods-pic-desc">
+                  <view class="foods-name">
+                    <view class="foods-name_pname">{{item.pname}}</view>
+                  </view>
+                  <view class="price_num">
+                    <view class="price_">￥{{item.price}}</view>
+                    <view class="num">× {{item.totalNum}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view style="display:{{discountShowOrFalse}}">
+          <!--分割线-->
+          <!-- <view style="width:670rpx;height:2rpx;margin:0 auto;background-color:#f3f3f3;margin-top:40rpx;"> </view> -->
+          <!--优惠信息-->
+          <!--title-->
+          <!-- <view class="sold-list-head">
+            <view class="image"></view>
+            <view style="font-weight:bold;">选择优惠</view>
+          </view> -->
+        </view>
+        <!--分割线-->
+        <view style="width:670rpx;height:2rpx;margin:0 auto;background-color:#f3f3f3;margin-top:25rpx;"> </view>
+        <!-- 包装费 -->
+        <view wx:if="{{takeOutStatus}}" class="sold-list-head">
+          <view class="image"/>
+          <view style="font-weight:bold;">包装费</view>
+          <view style="display:inline-block;float:right;color:#333;">{{totalPack}}元</view>
+        </view>
+        <!-- 配送费 -->
+        <view wx:if="{{distributionMoney}}" class="sold-list-head">
+          <view class="image"/>
+          <view style="font-weight:bold;">配送费</view>
+          <view style="display:inline-block;float:right;color:#333;">{{distributionMoney}}元</view>
+        </view>
+        <!--备注-->
+        <view class="sold-list-head">
+          <view class="image"/>
+          <view style="font-weight:bold;">备注</view>
+          <view style="display:inline-block;float:right;color:#333;">{{tips != '' ? tips : '无'}}</view>
+        </view>
+        <!--分割线-->
+        <view style="width:670rpx;height:2rpx;margin:0 auto;background-color:#f3f3f3;"> </view>
+      </view>
+      <!--支付方式-->
+      <view class="pay-way-wrap" style="background-color:#fff;margin-top:20rpx;">
+        <!--title-->
+        <view class="sold-list-head">
+          <view class="image"/>
+          <view style="font-weight:bold;">支付方式</view>
+        </view>
+        <!--微信支付-->
+        <view class="paymentMethod" bindtap="selectPayMent" data-wpyselectpayment-a="0">
+          <image src="http://www.qumatou.com.cn/zheng/xcximage/wechatPay.png"/>
+          <view class="paymentMethod_right">
+            <view class="paymentMethod_title" style="flex:.4">微信支付</view>
+            <view class="paymentMethod_select" style="flex:.6">
+              <icon type="success" size="17" color="{{selectPayMent[0]?'#c33a28':'#969696'}}" style="transform: translateX(6rpx)"/>
+            </view>
+          </view>
+        </view>
+        <!--会员卡-->
+        <view class="paymentMethod" bindtap="selectPayMent" hidden="{{takeOutStatus}}" data-wpyselectpayment-a="1">     <!--外卖隐藏会员卡支付-->
+          <image src="http://www.qumatou.com.cn/zheng/xcximage/memberPay.png"/>
+          <view class="paymentMethod_right">
+            <view class="paymentMethod_title" style="flex:.4">会员卡支付</view>
+            <view class="paymentMethod_select" style="flex:.6">
+              <view style="margin-right:28rpx">余额：￥{{amount}}<text wx:if="{{amount == 0}}" style="color:#ff915e;padding-left:15rpx;" catchtap="cardRecharge">(点击充值优惠)</text></view>
+              <icon type="success" size="17" color="{{selectPayMent[1]?'#c33a28':'#969696'}}" style="transform: translateX(6rpx)"/>
+            </view>
+          </view>
+        </view>
+        <!--开票信息-->
+        <view class="{{billing ? 'billing':'billing-active'}}">
+          <view class="sold-list-head">
+            <view class="image"/>
+            <view style="font-weight:bold;">开票信息</view>
+            <view style="display:inline-block;float:right;">
+              <switch wx:if="{{isvoice == '1'}}" color="#ffd265" bindchange="switch1Change"/>
+              <view wx:else>该商户不支持开发票</view>
+            </view>
+          </view>
+          <!--开票信息-->
+          <view class="sold-list-head" style="padding-left:48rpx;display:{{long == 0 ? 'block' : 'none'}}">
+            <view style="font-size:28rpx;">您还未选择发票信息</view>
+            <view style="display:inline-block;float:right;color:#969696;font-size:28rpx;" catchtap="billList">
+              点击选择
+              <image src="http://www.qumatou.com.cn/zheng/xcximage/arrow-right.png" style="display:inline-block;width:14rpx;height:24rpx;"/>
+            </view>
+          </view>
+          <!--公司发票-->
+          <view style="width:100%;position:relative;display:{{long == 1 && billData.type == 0 ? 'block' : 'none'}}">
+            <view class="sold-list-head" style="padding-left:48rpx;">
+              <view style="margin-right:10rpx;font-size:28rpx;">公司名称 :</view>
+              <view style="display:inline-block;font-size:28rpx;">
+                <text>{{billData.title}}</text>
+              </view>
+            </view>
+            <view class="sold-list-head" style="padding-left:48rpx;">
+              <view style="margin-right:10rpx;font-size:28rpx;">税号 : </view>
+              <view style="display:inline-block;font-size:28rpx;">
+                <text>{{billData.taxNumber}}</text>
+              </view>
+            </view>
+            <view style="position:absolute;color:#969696;font-size:30rpx;right:15rpx;top:15rpx;font-size:28rpx;" catchtap="billList">
+              重新选择
+              <image src="http://www.qumatou.com.cn/zheng/xcximage/arrow-right.png" style="display:inline-block;width:14rpx;height:24rpx;"/>
+            </view>
+          </view>
+
+          <!--个人发票展示-->
+          <view style="width:100%;position:relative;display:{{long != 0 && billData.type == 1 ? 'block' : 'none'}}">
+            <view class="sold-list-head" style="padding-left:48rpx;">
+              <view style="margin-right:10rpx;font-size:28rpx;">名称 :</view>
+              <view style="display:inline-block;font-size:28rpx;">
+                <text>{{billData.title}}</text>
+              </view>
+            </view>
+            <view style="position:absolute;color:#969696;font-size:30rpx;right:15rpx;top:15rpx;" catchtap="billList">
+              重新选择
+              <image src="http://www.qumatou.com.cn/zheng/xcximage/arrow-right.png" style="display:inline-block;width:14rpx;height:24rpx;"/>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--底部固定栏-->
+    <view class="tab-wrap">
+      <view class="price_">
+        <text>总计：</text>
+        <text style="color:#ff2323">￥{{Bury_Money}}</text>
+      </view>
+      <view class="mall-car">
+        <view class="add-foods" catchtap="payMoney">立即结算</view>
+      </view>
+    </view>
+  </view>

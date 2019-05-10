@@ -1,0 +1,90 @@
+@import "./../../../components/commentStar.wxss";
+page {
+  background-color: #ffffff;
+}
+.topBox {
+  display: flex;
+  flex-direction: column;
+}
+.goods-img {
+  display: flex;
+  justify-content: center;
+  padding: 70rpx 0 30rpx 0;
+  height: 140rpx;
+  overflow: hidden;
+}
+.goods-img image {
+  width: 140rpx;
+  height: 140rpx;
+}
+.goods-name {
+  font-size: 33rpx;
+  padding-bottom: 20rpx;
+  color: #333333;
+  text-align: center;
+}
+.startBox {
+  position: relative;
+  margin: 0 166rpx 0 166rpx;
+  height: 50rpx;
+  padding-bottom: 30rpx;
+}
+.prompt {
+  border-bottom: 1px solid #efeff4;
+  padding-bottom: 10rpx;
+  margin: 0 40rpx;
+  text-align: center;
+  color: #d3d3d3;
+  font-size: 23rpx;
+}
+.section {
+  margin: 0 40rpx;
+  padding-top: 40rpx;
+}
+textarea {
+  width: 100%;
+  color: #333333;
+  height: 304rpx;
+}
+.maxInput {
+  margin: 0 40rpx;
+  text-align: right;
+  font-size: 28rpx;
+  color: #969696;
+}
+.uploadImg {
+  display: flex;
+  flex-direction: column;
+  margin: 30rpx 40rpx;
+}
+.camera {
+  display: flex;
+  flex-direction: column;
+  border: 2rpx dashed #b1b1b1;
+  width: 160rpx;
+  height: 160rpx;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 130rpx;
+}
+.camera image {
+  width: 65rpx;
+  height: 50rpx;
+  margin-bottom: 15rpx;
+}
+.camera text {
+  color: #969696;
+  font-size: 24rpx;
+  letter-spacing: 3rpx;
+}
+.userUpload-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.userUpload-box image {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 10rpx;
+  margin-bottom: 30rpx;
+}

@@ -1,0 +1,119 @@
+<style lang="less">
+    page{
+        width:100%;
+        height:100%;
+    }
+    .wechat-login-wrap{
+        width:100%;
+        height:335rpx;
+        background-color: #2aa146;
+        border-top:2rpx solid #2aa146;
+        .login{
+            display:block;
+            width:128rpx;
+            height:106rpx;
+            margin:68rpx auto 0;
+        }
+        view{
+            font-size: 40rpx;
+            color:#fff;
+            margin-top:30rpx;
+            text-align:center;
+        }
+    }
+    .words1{
+        font-size: 32rpx;
+        padding-left:40rpx;
+        box-sizing:border-box;
+        margin-top:30rpx;
+    }
+    .words2{
+        font-size: 28rpx;
+        color:#999;
+        padding-left:40rpx;
+        box-sizing:border-box;
+        margin-top:30rpx;
+    }
+    .login-btn{
+        width: 671rpx;
+        height: 90rpx;
+        background-color: #2aa146;
+        border-radius: 6rpx;
+        color: #ffffff;
+        font-size:34rpx;
+        line-height:90rpx;
+        text-align:center;
+        margin:100rpx auto 0;
+    }
+</style>
+<template>
+    <view id="login">
+        <view class="wechat-login-wrap">
+            <image src="../images/icon.png" class="login"/>
+            <view>微信授权登录</view>
+        </view>
+        <view class="words1">登录后该应用将获得以下权限:</view>
+        <view class="words2">· 将获得你的公开信息(昵称、头像等）</view>
+        <!-- 登录按钮 -->
+        <button class="login-btn" open-type='getUserInfo' @getuserinfo='getuserinfo'>确认登录</button>
+    </view>
+</template>
+<script>
+    import wepy from 'wepy'
+    import api from '../api/api'
+    import app from '../utils/app'
+    export default class Index extends wepy.page {
+        config = {
+            navigationBarTitleText: '登录',
+            navigationBarBackgroundColor: '#2aa146',
+            navigationBarTextStyle: 'white'
+        }
+        data = {
+        
+        }
+        computed = {
+        }
+        methods = {
+            //获取用户信息
+            getuserinfo(e){
+                console.log(e)
+                if(e.detail.errMsg == 'getUserInfo:fail auth deny'){
+                    // return
+                    // wx.showToast({
+                    //     title: '登录成功',
+                    //     icon: 'success',
+                    //     duration: 1500,
+                    //     mask: false,
+                    //     success:res=>{
+                    //         app.is_login();
+                    //         setTimeout(() => {
+                    //             wx.navigateBack({
+                    //                 delta:1
+                    //             });
+                    //         }, 1500);
+                    //     }
+                    // });
+                    wx.showToast({
+                        title: '登录失败',
+                        icon: 'none',
+                        duration: 1500,
+                        mask: false,
+                    });
+                }else{
+                    wx.setStorage({
+                        key:'userInfoLogin',
+                        data:e.detail,
+                        success:res=>{
+                            app.is_login();
+                            setTimeout(() => {
+                                wx.navigateBack({
+                                    delta:1
+                                });
+                            }, 1500);
+                        },
+                    })
+                }
+            },
+        }
+    }
+</script>

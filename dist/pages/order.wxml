@@ -1,0 +1,180 @@
+
+    <!-- tabMenu -->
+    <view class="orderTabs">
+        <scroll-view scroll-x style="width: 100%" class="loopBox" scroll-with-animation="scroll-with-animation" scroll-into-view="{{toview}}" scroll-left="100rpx">
+            <!--循环-->
+            <view  wx:for="{{navbar}}" wx:key="" class="item {{currentTab==index ? 'active' : ''}}" bindtap="navbarTap" id="data{{index}}" data-wpynavbartap-a="{{index}}">
+                {{item}}
+            </view>
+        </scroll-view>
+    </view>
+    <!-- 订单列表 -->
+    <scroll-view  wx:if="{{currentTab == 0}}" scroll-y style="height:{{scrollHeight}}px" bindscrolltolower="paging">
+        
+    <view class="orderListsBox"  wx:if="{{!$orderGoods$noOrderList}}">
+        <!-- 遍历店铺 -->
+        <view class="shoppingsBox" wx:for="{{$orderGoods$orderList}}" wx:if="{{$orderGoods$orderList.length}}" wx:key="" wx:for-index="index" wx:for-item="item" bindtap="$orderGoods$orderDetails" data-wpyorderdetails-a="{{item.outTraceNo}}" data-wpyorderdetails-b="{{item.tradetype}}">
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{item.m_logo}}"/>
+                    <view>{{item.m_name}}</view>
+                </view>
+                <view class="shopTitleRight">{{item.statusStr}}</view>
+            </view>
+            <view class="goodsItem" wx:for="{{item.product}}" wx:key="" wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}"/>
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view wx:if="{{itemName.num}}">× {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="orderTime">下单时间：{{item.orderTime}}</view>
+            <view class="btnBox" wx:if="{{item.tradetype != 0}}">
+                <view>{{item.statusStr=='未支付'?'去付款':'再来一单'}}</view>
+            </view>
+        </view>
+    </view>
+    <view  wx:else class="noOrderList">
+        <image src="http://www.qumatou.com.cn/zheng/xcximage/noOrderList.png"/>
+    </view>
+
+    </scroll-view>
+    
+    <scroll-view  wx:if="{{currentTab == 1}}" scroll-y style="height:{{scrollHeight}}px" bindscrolltolower="paging">
+        
+    <view class="orderListsBox"  wx:if="{{!$orderGoods$noOrderList}}">
+        <!-- 遍历店铺 -->
+        <view class="shoppingsBox" wx:for="{{$orderGoods$orderList}}" wx:if="{{$orderGoods$orderList.length}}" wx:key="" wx:for-index="index" wx:for-item="item" bindtap="$orderGoods$orderDetails" data-wpyorderdetails-a="{{item.outTraceNo}}" data-wpyorderdetails-b="{{item.tradetype}}">
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{item.m_logo}}"/>
+                    <view>{{item.m_name}}</view>
+                </view>
+                <view class="shopTitleRight">{{item.statusStr}}</view>
+            </view>
+            <view class="goodsItem" wx:for="{{item.product}}" wx:key="" wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}"/>
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view wx:if="{{itemName.num}}">× {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="orderTime">下单时间：{{item.orderTime}}</view>
+            <view class="btnBox" wx:if="{{item.tradetype != 0}}">
+                <view>{{item.statusStr=='未支付'?'去付款':'再来一单'}}</view>
+            </view>
+        </view>
+    </view>
+    <view  wx:else class="noOrderList">
+        <image src="http://www.qumatou.com.cn/zheng/xcximage/noOrderList.png"/>
+    </view>
+
+    </scroll-view>
+    
+    <scroll-view  wx:if="{{currentTab == 2}}" scroll-y style="height:{{scrollHeight}}px" bindscrolltolower="paging">
+        
+    <view class="orderListsBox"  wx:if="{{!$orderGoods$noOrderList}}">
+        <!-- 遍历店铺 -->
+        <view class="shoppingsBox" wx:for="{{$orderGoods$orderList}}" wx:if="{{$orderGoods$orderList.length}}" wx:key="" wx:for-index="index" wx:for-item="item" bindtap="$orderGoods$orderDetails" data-wpyorderdetails-a="{{item.outTraceNo}}" data-wpyorderdetails-b="{{item.tradetype}}">
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{item.m_logo}}"/>
+                    <view>{{item.m_name}}</view>
+                </view>
+                <view class="shopTitleRight">{{item.statusStr}}</view>
+            </view>
+            <view class="goodsItem" wx:for="{{item.product}}" wx:key="" wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}"/>
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view wx:if="{{itemName.num}}">× {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="orderTime">下单时间：{{item.orderTime}}</view>
+            <view class="btnBox" wx:if="{{item.tradetype != 0}}">
+                <view>{{item.statusStr=='未支付'?'去付款':'再来一单'}}</view>
+            </view>
+        </view>
+    </view>
+    <view  wx:else class="noOrderList">
+        <image src="http://www.qumatou.com.cn/zheng/xcximage/noOrderList.png"/>
+    </view>
+
+    </scroll-view>
+    
+    <scroll-view  wx:if="{{currentTab == 3}}" scroll-y style="height:{{scrollHeight}}px" bindscrolltolower="paging">
+        
+    <view class="orderListsBox"  wx:if="{{!$orderGoods$noOrderList}}">
+        <!-- 遍历店铺 -->
+        <view class="shoppingsBox" wx:for="{{$orderGoods$orderList}}" wx:if="{{$orderGoods$orderList.length}}" wx:key="" wx:for-index="index" wx:for-item="item" bindtap="$orderGoods$orderDetails" data-wpyorderdetails-a="{{item.outTraceNo}}" data-wpyorderdetails-b="{{item.tradetype}}">
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{item.m_logo}}"/>
+                    <view>{{item.m_name}}</view>
+                </view>
+                <view class="shopTitleRight">{{item.statusStr}}</view>
+            </view>
+            <view class="goodsItem" wx:for="{{item.product}}" wx:key="" wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}"/>
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view wx:if="{{itemName.num}}">× {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="orderTime">下单时间：{{item.orderTime}}</view>
+            <view class="btnBox" wx:if="{{item.tradetype != 0}}">
+                <view>{{item.statusStr=='未支付'?'去付款':'再来一单'}}</view>
+            </view>
+        </view>
+    </view>
+    <view  wx:else class="noOrderList">
+        <image src="http://www.qumatou.com.cn/zheng/xcximage/noOrderList.png"/>
+    </view>
+
+    </scroll-view>
+    
+    <scroll-view hidden="{{currentTab !== 4}}" scroll-y style="height:{{scrollHeight}}px" bindscrolltolower="paging">
+        
+    <view class="orderListsBox"  wx:if="{{!$orderGoods$noOrderList}}">
+        <!-- 遍历店铺 -->
+        <view class="shoppingsBox" wx:for="{{$orderGoods$orderList}}" wx:if="{{$orderGoods$orderList.length}}" wx:key="" wx:for-index="index" wx:for-item="item" bindtap="$orderGoods$orderDetails" data-wpyorderdetails-a="{{item.outTraceNo}}" data-wpyorderdetails-b="{{item.tradetype}}">
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{item.m_logo}}"/>
+                    <view>{{item.m_name}}</view>
+                </view>
+                <view class="shopTitleRight">{{item.statusStr}}</view>
+            </view>
+            <view class="goodsItem" wx:for="{{item.product}}" wx:key="" wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}"/>
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view wx:if="{{itemName.num}}">× {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="orderTime">下单时间：{{item.orderTime}}</view>
+            <view class="btnBox" wx:if="{{item.tradetype != 0}}">
+                <view>{{item.statusStr=='未支付'?'去付款':'再来一单'}}</view>
+            </view>
+        </view>
+    </view>
+    <view  wx:else class="noOrderList">
+        <image src="http://www.qumatou.com.cn/zheng/xcximage/noOrderList.png"/>
+    </view>
+
+    </scroll-view>

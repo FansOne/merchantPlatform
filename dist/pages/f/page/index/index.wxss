@@ -1,0 +1,304 @@
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+  border: 2rpx solid #f3f3f3;
+  box-sizing: border-box;
+  position: relative;
+}
+.first {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 70rpx;
+  background-color: #ffd265;
+  margin: 50rpx auto;
+  font-size: 28rpx;
+  color: #333;
+}
+.telephone,
+.address {
+  width: 685rpx;
+  height: 35rpx;
+  position: absolute;
+  bottom: 70rpx;
+  left: 0;
+  right: 0;
+  line-height: 35rpx;
+  margin: auto;
+}
+.telephone .tele-icon,
+.address .tele-icon {
+  display: block;
+  width: 30rpx;
+  height: 30rpx;
+  float: left;
+  margin-right: 25rpx;
+  margin-top: 2rpx;
+}
+.telephone .address-icon,
+.address .address-icon {
+  display: block;
+  width: 23rpx;
+  height: 35rpx;
+  float: left;
+  margin-right: 25rpx;
+}
+.telephone text,
+.address text {
+  display: block;
+  float: left;
+  font-size: 26rpx;
+  color: #333;
+}
+.telephone .arrow,
+.address .arrow {
+  display: block;
+  width: 15rpx;
+  height: 22rpx;
+  float: right;
+  margin-top: 6rpx;
+}
+.address {
+  bottom: 20rpx;
+}
+.content-wrap {
+  width: 720rpx;
+  height: auto;
+  border-radius: 6rpx;
+  margin: 0rpx auto;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
+}
+.content-wrap .shop-wrap-title {
+  font-size: 32rpx;
+  color: #000;
+  text-align: center;
+  padding: 15rpx 0 10rpx 0;
+}
+.content-wrap .shop-wrap {
+  width: 100%;
+  height: auto;
+  margin: 10rpx auto 0;
+}
+.content-wrap .shop-wrap .sold-list-head {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.content-wrap .shop-wrap .sold-list-head .image {
+  display: inline-block;
+  width: 6rpx;
+  height: 40rpx;
+  background-color: #ffd265;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+}
+.content-wrap .shop-wrap .sold-list-head view {
+  display: inline-block;
+  height: 100%;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  color: #333;
+  vertical-align: top;
+}
+.content-wrap .shop-wrap .content {
+  width: 100%;
+  height: auto;
+  margin: 10rpx auto;
+  font-size: 28rpx;
+  color: #333;
+  text-align: center;
+}
+.content-wrap .shop-wrap .image {
+  display: block;
+  width: 616rpx;
+  height: 280rpx;
+  margin: 10rpx auto;
+}
+.comment-wrap {
+  width: 685rpx;
+  height: auto;
+  margin: 20rpx auto;
+  color: #333;
+  overflow: hidden;
+}
+.comment-wrap .profile {
+  width: 100%;
+  height: 60rpx;
+}
+.comment-wrap .profile image {
+  display: block;
+  vertical-align: top;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  float: left;
+  margin-right: 20rpx;
+  margin-top: 0;
+}
+.comment-wrap .profile .name {
+  height: 100%;
+  float: left;
+  font-size: 28rpx;
+  line-height: 60rpx;
+}
+.comment-wrap .profile .time {
+  height: 100%;
+  float: right;
+  color: #969696;
+  font-size: 22rpx;
+  line-height: 60rpx;
+}
+.comment-wrap .comment-show {
+  width: 605rpx;
+  height: auto;
+  float: right;
+}
+.comment-wrap .comment-show .star {
+  width: 150rpx;
+  height: 21rpx;
+  position: relative;
+}
+.comment-wrap .comment-show .content {
+  width: 100%;
+  height: auto;
+  font-size: 26rpx;
+  color: #333;
+}
+.center {
+  display: block;
+  width: 113rpx;
+  height: 92rpx;
+  position: absolute;
+  bottom: 45rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.star-image {
+  position: absolute;
+  top: 0rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
+.item {
+  position: absolute;
+  top: 0rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
+.shoppingLogoBox {
+  height: 100rpx;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 15rpx 15rpx 0 0;
+}
+.shoppingLogoBox image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-left: 25rpx;
+}
+.shoppingLogoBox .shoppingLogoR {
+  max-width: 100%;
+  padding-right: 25rpx;
+  position: relative;
+}
+.shoppingLogoBox .shoppingLogoR .shoppingTitleBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shoppingLogoBox .shoppingLogoR .shoppingTitleBox .shoppingLine {
+  position: absolute;
+  font-size: 16rpx;
+  width: 150rpx;
+  top: 20rpx;
+  left: -160rpx;
+  text-align: right;
+}
+.shoppingLogoBox .shoppingLogoR .shoppingTitleBox view {
+  color: #fff;
+}
+.shoppingLogoBox .shoppingLogoR .shoppingTitleBox view:first-of-type {
+  font-size: 28rpx;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.shoppingLogoBox .shoppingLogoR .shoppingTitleBox .shoppingTime {
+  font-size: 20rpx;
+}
+.bgBannerBox {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+}
+.bgBannerBox .addressMsgBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bgBannerBox .addressMsgBox .saLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.bgBannerBox .addressMsgBox .saLeft .userPhoneNum,
+.bgBannerBox .addressMsgBox .saLeft .userAddress_ {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+}
+.bgBannerBox .addressMsgBox .saLeft .userPhoneNum view:first-of-type,
+.bgBannerBox .addressMsgBox .saLeft .userAddress_ view:first-of-type {
+  color: #888;
+  font-size: 26rpx;
+}
+.bgBannerBox .addressMsgBox .saLeft .userPhoneNum view:last-of-type,
+.bgBannerBox .addressMsgBox .saLeft .userAddress_ view:last-of-type {
+  flex: 1;
+  font-size: 26rpx;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.bgBannerBox .addressMsgBox .saLeft .userPhoneNum image,
+.bgBannerBox .addressMsgBox .saLeft .userAddress_ image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.bgBannerBox .addressMsgBox .saLeft .userPhoneNum {
+  border-bottom: 1rpx dashed #e0e0e0;
+}
+.bgBannerBox .addressMsgBox .saRight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 35rpx;
+}
+.bgBannerBox .addressMsgBox .saRight view {
+  font-size: 24rpx;
+  background-color: #ecb1a5;
+  padding: 0 10rpx;
+  border-radius: 10rpx;
+}
+.bgBannerBox .addressMsgBox .saRight image {
+  width: 60rpx;
+  height: 60rpx;
+  margin-top: 26rpx;
+}

@@ -1,0 +1,33 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+
+export default class merchantCentre extends wepy.page {
+    config = {
+        navigationBarTitleText: '商户中心',
+    };
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+    // Other properties
+}
+</script>
+
+<template lang="wxml">
+    <view class='container'>
+        <view class="topUserMessBox">
+            <view class='userAvatarUrlBox'><open-data type='userAvatarUrl' class='userAvatarUrl'/></view>
+            <open-data type='userNickName' class='userNickName'/>
+            <view class='noticeBox'>欢迎您的到来</view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

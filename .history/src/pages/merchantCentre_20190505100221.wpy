@@ -1,0 +1,38 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+import moreFormId from '../components/moreFormId'
+
+export default class merchantCentre extends wepy.page {
+    config = {
+        navigationBarTitleText: '商户中心',
+    };
+    components = {
+        moreFormId
+    };
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+    // Other properties
+}
+</script>
+
+<template lang="wxml">
+    <view class='container'>
+        <moreFormId>
+        <view class="topUserMessBox">
+            <view class='userAvatarUrlBox'><open-data type='userAvatarUrl' class='userAvatarUrl'/></view>
+            <open-data type='userNickName' class='userNickName'/>
+            <view class='noticeBox'>欢迎您的到来</view>
+        </view>
+        </moreFormId>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

@@ -1,0 +1,414 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../../api/requestUrl'
+import { requestData } from '../../api/requestData'
+
+export default class cardRecharge extends wepy.page {
+    config = {
+        navigationBarTitleText: '会员卡充值'
+    };
+    components = {};
+
+    data = {
+        selectPay:[],
+        selectElement:{},
+        inputStatus:false,
+        userValue:null,
+        cardItem:null,
+        userInput:null,
+        balance:''
+    };
+    methods = {
+        selectPay(item){
+            this.selectPay.forEach(element => {
+                if(item.id == element.id){
+                    element.borderColor = '#cd525b'
+                    element.sanJiaoColor = '#cd525b'
+                    element.moneyColor = '#cd525b'
+                    element.beanColor = '#666'
+                }else{
+                    element.borderColor = '#ccc'
+                    element.sanJiaoColor = '#ccc'
+                    element.moneyColor = '#666'
+                    element.beanColor = '#ccc'
+                }
+            });
+            this.selectElement = item
+            if(item.id == '其他金额'){
+                this.inputStatus = true
+                this.selectElement.elasticBigDec = this.userValue
+
+            }else{
+                this.inputStatus = false
+            }
+            this.$apply()
+        },
+        bindinput(event){
+            this.userValue = event.detail.value
+            this.selectElement.elasticBigDec = event.detail.value
+            if(this.selectElement.elasticBigDec){
+                let data = {
+                    p_id : wepy.$instance.globalData.p_id,
+                    m_id : this.cardItem.m_id,
+                    TranType : 0,
+                    Bury_Type : 1,
+                    Bury_Money : this.selectElement.elasticBigDec
+                }
+                requestData(requestUrl.getRechargeRule,"POST",data).then(res=>{
+                    console.log('--------用户输入金额获取赠送比例---'+JSON.stringify(res.data.data[0]))
+                    this.userInput = res.data.data[0]
+                    this.selectElement.elasticBigDec = res.data.data[0].elasticBigDec1
+                    this.$apply()
+                })
+            }
+        },
+        bindconfirm(){
+            // console.log(this.userValue)
+            this.selectElement.elasticBigDec = this.userValue
+            this.$apply()
+        },
+        immediatelyRecharge(){
+            wx.showLoading({title: '发起支付...'});
+            if(this.selectElement.elasticBigDec){
+                let url = requestUrl.MemCard_Recharge;
+                let data = {
+                    p_id: wepy.$instance.globalData.p_id,
+                    m_id: this.cardItem.m_id,
+                    elasticMoney: this.selectElement.elasticBigDec,
+                    givenMoney: this.selectElement.givenMoenyBigDec,
+                    token: wx.getStorageSync('token'),
+                };
+                requestData(url,'POST',data).then(res=>{
+                    wx.hideLoading();
+                    let jssdk = res.data.data[0]
+                    wx.requestPayment({
+                        'appId': jssdk.appId,
+                        'timeStamp': jssdk.timeStamp.toString(),
+                        'nonceStr': jssdk.nonceStr,
+                        'package': jssdk.package,
+                        'signType': jssdk.signType,
+                        'paySign': jssdk.sign,
+                        success:(res)=>{
+                            wx.showToast({
+                                title: '充值成功',
+                                icon: 'success',
+                                success:()=>{
+                                    setTimeout(() => {
+                                        wx.navigateTo({
+                                            url: `./membershipMessage?m_id=${this.cardItem.m_id}`
+                                        });
+                                    }, 1000);
+                                }
+                            });
+                        },
+                    })
+                })
+            }else{
+                wx.showToast({
+                    title: '请输入金额',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: false,
+                });
+            }
+        },
+        closePopup(){
+            this.inputStatus = false
+            this.selectPay[0].borderColor = '#cd525b'
+            this.selectPay[0].sanJiaoColor = '#cd525b'
+            this.selectPay[0].moneyColor = '#cd525b'
+            this.selectPay[0].beanColor = '#666'
+            this.selectPay[3].borderColor = '#ccc'
+            this.selectPay[3].sanJiaoColor = '#ccc'
+            this.selectPay[3].moneyColor = '#666'
+            this.selectPay[3].beanColor = '#ccc'
+            this.selectElement  = this.selectPay[0]
+        }
+    };
+    events = {};
+    onLoad(options) {
+        let cardItem_ = JSON.parse(options.item);
+        this.cardItem = cardItem_
+        let data = {
+            p_id : wepy.$instance.globalData.p_id,
+            m_id : cardItem_.m_id,
+            TranType : 0,
+            Bury_Type : 1,
+            Bury_Money : 0
+        }
+        requestData(requestUrl.getRechargeRule,"POST",data).then((res)=>{
+            if(res.data.data==null){
+                wx.showToast({
+                    title: '该店铺暂时无法充值',
+                    icon: 'none',
+                    duration: 1200,
+                    mask: false,
+                    success:()=>{
+                        setTimeout(() => {
+                            wx.navigateBack({
+                                delta: 1
+                            });
+                        }, 1200);
+                    }
+                });
+            }else{
+                res.data.data.forEach(element => {
+                    if(element.id == res.data.data[0].id){
+                        element.borderColor = '#cd525b'
+                        element.sanJiaoColor = '#cd525b'
+                        element.moneyColor  = '#cd525b'
+                        element.beanColor = '#666'
+                    }else{
+                        element.borderColor = '#ccc'
+                        element.sanJiaoColor = '#ccc'
+                        element.moneyColor  = '#666'
+                        element.beanColor = '#ccc'
+                    }
+                });
+                res.data.data.push({id:'其他金额',borderColor:'#ccc',sanJiaoColor:'#ccc',moneyColor:'#666',beanColor:'#ccc'})
+                this.selectElement = res.data.data[0]
+                this.selectPay = res.data.data
+                this.$apply()
+            }
+        })
+        // 获取会员卡余额
+        this.cardMessage()
+    };
+    // 获取会员卡余额
+    cardMessage(){
+        let data = {
+            p_id: wepy.$instance.globalData.p_id,
+            m_id: this.cardItem.m_id,
+            type:"0",
+            token: wepy.getStorageSync('token'),
+        };
+        requestData(requestUrl.cardMessage,'POST',data).then((res)=>{
+            this.balance = res.data.data[0].MemInfo.balance
+            this.$apply()
+        })
+    }
+}
+</script>
+
+<template lang="wxml">
+    <!-- 用户自定义输入充值金额弹窗 -->
+    <view class="inputBox {{inputStatus?'inputBoxShow':''}}">
+        <view class='popupItem'>
+            <view class="popup_top">
+                <view @tap='closePopup'>×</view>
+                <view>请输入充值金额</view>
+            </view>
+            <veiw class="inputItemBox">
+                <view class='userInput_'>
+                    <view>￥</view>
+                    <input placeholder='输入要充值的金额' type='number' @confirm ='bindconfirm' focus='{{inputStatus}}' maxlength='7' @input='bindinput' value='{{userValue}}'/>
+                </view>
+                <view class="priceRules">
+                    <view>实付：￥{{userValue?userInput.elasticBigDec1:'0.00'}}</view>
+                    <view>赠送：￥{{userValue?userInput.givenMoenyBigDec1:'0.00'}}</view>
+                </view>
+            </veiw>
+            <button class="rechargeBtn" @tap="immediatelyRecharge">立即充值</button>
+        </view>
+    </view>
+    <view class="cardBalance">
+        卡内余额：<text>{{cardItem.balance || balance}}</text>元
+    </view>
+    <view class="bannerBox"><image src='../../images/cardRechargeBanner.png'/></view>
+    <view class='rechargeTitle'>选择充值金额</view>
+    <view class='selectBox'>
+        <view wx:for='{{selectPay}}' wx:key='' class='selectBox_item' @tap="selectPay({{item}})">
+            <view class='selectBox_item_' style="border:1px solid {{item.borderColor}}">
+                <block wx:if="{{item.id != '其他金额'}}">
+                    <view style="color:{{item.moneyColor}}">{{item.elasticBigDec}}元</view>
+                    <view style="color:{{item.beanColor}}">赠送￥{{item.givenMoenyBigDec}}</view>
+                </block>
+                <block wx:else>
+                    <view style="color:{{item.moneyColor}}">{{item.id}}</view>
+                    <view style="color:{{item.beanColor}}"></view>
+                </block>
+                <view class='sanjiao' style="border-color: transparent transparent {{item.sanJiaoColor}} transparent;"></view>
+            </view>
+        </view>
+    </view>
+    <view class="bottomPriceBox">
+        <view>实际付款：<text>{{selectElement.elasticBigDec}}元</text></view>
+        <button @tap="immediatelyRecharge">立即充值</button>
+    </view>
+    <!-- 遮罩 -->
+    <view class="mask" wx:if='{{inputStatus}}' @tap='closePopup'></view>
+</template>
+
+<style lang="less">
+    page{
+        background-color: #f4f5f7;
+    }
+    view{
+        box-sizing: border-box;
+    }
+    .cardBalance{
+        width: 100%;
+        background-color: #fff;
+        padding: 50rpx 40rpx;
+        text{
+            color: #cd525b;
+        }
+    }
+    .bannerBox{
+        width: 100%;
+        padding: 30rpx;
+        image{
+            width: 100%;
+            height: 180rpx;
+        }
+    }
+    .rechargeTitle{
+        padding: 0 30rpx;
+    }
+    .selectBox{
+        box-sizing: border-box;
+        padding: 20rpx 30rpx 0 30rpx;
+        display: flex;
+        flex-wrap: wrap;
+        .selectBox_item{
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            .selectBox_item_{
+                background-color: #fafafa;
+                display: flex;
+                justify-content: center;
+                width: 300rpx;
+                height: 120rpx;
+                line-height: 120rpx;
+                margin-bottom: 40rpx;
+                overflow: hidden;
+                position: relative;
+                view:nth-child(1){
+                    font-size: 33rpx;
+                    margin-right: 15rpx;
+                }
+                view:nth-child(2){
+                    font-size: 26rpx;
+                }
+                .sanjiao{
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    border-style: solid;
+                    border-width: 0 0 40rpx 40rpx;
+                    width: 0px;
+                    height: 0px;
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+    }
+    .inputBox{
+        transform: translateY(-110%);
+        transition: transform .4s;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 11;
+        padding: 0 50rpx;
+        .popupItem{
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 10rpx;
+            .popup_top{
+                display: flex;
+                align-items: center;
+                border-bottom: 1rpx solid #f0eeee;
+                padding: 25rpx 0;
+                view:nth-child(1){
+                    font-size: 39rpx;
+                    width: 70rpx;
+                    height: 100%;
+                    text-align: center;
+                    color: rgb(112, 112, 112);
+                }
+                view:nth-child(2){
+                    flex: 1;
+                    text-align: center;
+                    font-size: 36rpx;
+                    color: #000;
+                    padding-right: 20rpx;
+                }
+            }
+            .inputItemBox{
+                .userInput_{
+                    display: flex;
+                    align-items: center;
+                    padding: 40rpx 75rpx 30rpx 75rpx;
+                    view{
+                       font-size: 34rpx;
+                       color: #000; 
+                    }
+                    input{
+                        margin-left: 15rpx;
+                        box-sizing: border-box;
+                        height: 77rpx;
+                        width: 100%;
+                        line-height: 77rpx;
+                        background-color: #f6f6f6;
+                        padding: 0 30rpx;
+                        color: #000;
+                    }
+                }
+                .priceRules{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 15rpx;
+                    view:nth-child(1){
+                        font-size: 35rpx;
+                        color: #000;
+                    }
+                    view:nth-child(2){
+                        font-size: 26rpx;
+                        margin-top: 10rpx;
+                        color: #13a433;
+                        margin-bottom: 50rpx;
+                    }
+                }
+            }
+            .rechargeBtn{
+                width: 100%;
+                background-color: #cd525b;
+                color: #fff;
+                border-radius: 0;
+            }
+        }
+    }
+    .inputBoxShow{
+        transform: translateY(100rpx);
+    }
+    .bottomPriceBox{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 100rpx;
+        display: flex;
+        align-items: center;
+        padding-left: 40rpx;
+        background-color: #fff;
+        view{
+            flex: 1;
+            text{
+                color: #cd525b;
+            }
+        }
+        button{
+            margin: 0;
+            padding: 0;
+            background-color: #cd525b;
+            border-radius: 0;
+            font-size: 30rpx;
+            line-height: 100rpx;
+            color: #fff;
+            width: 195rpx;
+        }
+    }
+</style>

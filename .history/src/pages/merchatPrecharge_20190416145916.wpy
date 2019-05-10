@@ -1,0 +1,90 @@
+<script>
+import wepy from 'wepy';
+
+export default class merchatPrecharge extends wepy.page {
+    config = {
+        navigationBarTitleText: '商户预充值',
+    };
+    components = {};
+
+    data = {
+        amount:[
+            {
+                contant:100,
+                id:0
+            },
+            {
+                contant:200,
+                id:1
+            },
+            {
+                contant:300,
+                id:2
+            },
+            {
+                contant:400,
+                id:3
+            },
+            {
+                contant:500,
+                id:4
+            },
+            {
+                contant:600,
+                id:5
+            },
+        ]
+    };
+    methods = {};
+
+    events = {};
+    onLoad() {};
+    // Other properties
+}
+</script>
+
+<template lang="wxml">
+    <view class="userBalanceBox">
+        <view>当前余额</view>
+        <view class="priceBox">
+            <view class="priceItem">
+                <view>￥</view>
+                <view>520.13</view>
+            </view>
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/walletIcon.png" />
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+    view{
+        color: #000;
+    }
+    .userBalanceBox{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 40rpx 30rpx;
+        box-shadow: 0 10rpx 10rpx rgb(224, 224, 224);
+        .priceBox{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20rpx;
+            .priceItem{
+                display: flex;
+                align-items: flex-end;
+                view:first-of-type{
+                    font-size: 32rpx;
+                    height: 66rpx;
+                }
+                view:last-of-type{
+                    font-size: 90rpx;
+                }
+            }
+        }
+        image{
+            width: 77rpx;
+            height: 88rpx;
+        }
+    }
+</style>

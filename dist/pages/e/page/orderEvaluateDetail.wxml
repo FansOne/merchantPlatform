@@ -1,0 +1,61 @@
+
+  <view class="container">
+  	<view class="confirmOrder-top">
+    <view class="messages">
+      <view class="nameTel">
+        <view>{{userAddress.truename}}</view>
+        <view>{{userAddress.mobile}}</view>
+      </view>
+      <view class="userAddress" style="color:#969696;letter-spacing: 3rpx;">{{userAddress.province+userAddress.address}}</view>
+    </view>
+    <view style="padding-right:20rpx;">
+      <!-- <image src = '../images/箭头.png'/> -->
+      <view/>
+    </view>
+  </view>
+  <!-- 订单总评 -->
+  <!-- <view class='orderGeneralCommentBox'>
+    <view class='orderGeneralCommentTitle'>订单评价</view>
+    <view class='orderGeneralComment'>
+      <commentStar/>
+      <button bindtap='orderGeneralComment'>发布</button>
+    </view>
+  </view> -->
+  <view class="orderContent">
+    <!-- 下单商品 -->
+    <view  wx:for="{{selectGoods}}" wx:key="idx" class="packageBox">
+      <view class="packageIdx">包裹 {{index+1}}</view>
+      <view class="packageSpec">
+        <view class="storeSpec">
+          <view class="packageBanner"><image src="{{item.cover}}"/></view>
+          <view class="speces">
+            <view>{{item.title}}</view>
+            <view>{{item.spec}}</view>
+            <view class="package-price">
+              <view>¥{{item.price/100}}</view>
+              <view>×{{item.nums}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="smallPrice">
+        <view>共{{item.nums}}件</view>
+        <view class="fahuo-btn-box"><button class="fahuo-btn" bindtap="remind" data-index="{{index}}">评价</button></view>
+      </view>
+    </view>
+  </view>
+  <!-- 订单信息 -->
+  <view class="numberAndTime">
+    <view class="copyNumber">
+      <view>订单号</view>
+      <view class="copyContentBox">
+        <text selectable="true">{{userAddress.serial}}</text>
+        <view class="tblin_items_btn" bindtap="copyTBL">一键复制</view>
+      </view>
+    </view>
+    <view class="orderTime_box">
+      <view>下单时间</view>
+      <view class="order_time">{{userAddress.dateline}}</view>
+    </view>
+  </view>
+  </view>

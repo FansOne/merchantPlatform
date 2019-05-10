@@ -1,0 +1,54 @@
+
+    <view class="orderDetailsTop">
+        <view class="topBox">
+            <view>支付成功</view>
+            <image src="http://sttfv1jm7n.cdhttp.cn/zheng/xcximage/orderCart.png"/>
+        </view>
+        <view class="addressBox">
+            <image  wx:if="{{allData.address.cityName}}" src="http://www.qumatou.com.cn/zheng/xcximage/address.png"/>
+            <view class="userAddress_" style="{{allData.address.cityName?'':'padding-left:0rpx'}}">
+                <view class="userAddressName">
+                    <view>{{allData.address.userName}}</view>
+                    <view>{{allData.address.telNumber}}</view>
+                </view>
+                <view class="userAddressWhere"  wx:if="{{allData.address.cityName}}">{{allData.address.cityName}} {{allData.address.countyName}} {{allData.address.detailInfo}}</view>
+                <view class="userAddressWhere" wx:else>{{allData.tradetypeStr}} -- 堂食/自提</view>
+            </view>
+        </view>
+    </view>
+    <!-- 商品 -->
+    <view class="orderListsBox">
+        <view class="shoppingsBox">
+            <view class="shopTitleBox">
+                <view class="shopTitleLeft">
+                    <image src="{{allData.m_logo}}"/>
+                    <view>{{allData.m_name}}</view>
+                </view>
+                <view class="shopTitleRight"/>
+            </view>
+            <view class="goodsItem"  wx:for="{{allData.product}}" wx:key="" wx:for-index="idx" wx:for-item="itemName">
+                <image src="{{itemName.productLogo}}"/>
+                <view class="goodsItemRight">
+                    <view class="goodsItemProductName">{{itemName.productName}}</view>
+                    <view class="goodsItemPrice">
+                        <view>￥{{itemName.price}}</view>
+                        <view>* {{itemName.num}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="btnBox">
+                <view>实付款：<text>￥{{goodsTotal}}</text></view>
+            </view>
+        </view>
+    </view>
+    <!-- 订单详情 -->
+    <view class="orderDetailTitle"><view/><view>订单详情</view></view>
+    <view class="orderDetailItem">产品类型：{{allData.tradetypeStr}}</view>
+    <view class="orderDetailItem">订单编号：{{allData.outTraceNo}}</view>
+    <view class="orderDetailItem">下单时间：{{allData.orderTime}}</view>
+    <view class="orderDetailItem">支付时间：{{allData.paytime}}</view>
+    <view class="orderDetailItem" style="padding-bottom:100rpx;">店铺地址：{{allData.maddress}}</view>
+    <!-- 底部按钮 -->
+    <view class="orderDetailBottom" bindtap="goShop" data-wpygoshop-a="{{allData.shop_type}}" data-wpygoshop-b="{{allData.m_id}}">
+        <view>再来一单</view>
+    </view>

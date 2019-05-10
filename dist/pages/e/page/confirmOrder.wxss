@@ -1,0 +1,232 @@
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+}
+.container {
+  padding-bottom: 130rpx;
+  box-sizing: border-box;
+}
+.container .order-list-wrap {
+  width: 100%;
+  height: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.deliver-head-wrap {
+  width: 710rpx;
+  height: 100rpx;
+  background-color: #fff;
+  margin: 20rpx auto 0;
+}
+.sold-list-head {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.sold-list-head view {
+  display: inline-block;
+  height: 100%;
+  font-size: 30rpx;
+  color: #333;
+  vertical-align: top;
+}
+.addressTopBox {
+  display: flex;
+  align-items: center;
+}
+.addressTopBox .addressIcon {
+  height: 100%;
+  width: 55rpx;
+  margin-right: 20rpx;
+  display: flex;
+  align-items: center;
+  padding-bottom: 4rpx;
+}
+.addressTopBox .addressIcon image {
+  width: 100%;
+  height: 55rpx;
+}
+.addressTopBox .deliver-head-wrapTow {
+  flex: .9;
+  line-height: 100rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.addressTopBox .deliver-head_select {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+/*底部固定栏*/
+.tab-wrap {
+  width: 100%;
+  height: 120rpx;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.tab-wrap .price_ {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: inline-block;
+  padding-left: 40rpx;
+  box-sizing: border-box;
+}
+.tab-wrap .price_ text {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  line-height: 120rpx;
+  color: #333;
+  font-size: 34rpx;
+  font-weight: bold;
+}
+.tab-wrap .mall-car {
+  position: absolute;
+  bottom: 18rpx;
+  right: 40rpx;
+  width: 315rpx;
+  height: 77rpx;
+  background-color: #ffd265;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+.tab-wrap .mall-car view {
+  display: inline-block;
+  width: 200rpx;
+  height: 100%;
+  border-radius: 40rpx 0 0 40rpx;
+  vertical-align: top;
+  text-align: center;
+  line-height: 77rpx;
+  font-size: 32rpx;
+}
+.tab-wrap .mall-car .budget {
+  background-color: #333;
+  color: #fff;
+}
+.tab-wrap .mall-car .add-foods {
+  width: 100% !important;
+  background-color: #c33a28;
+  color: #fff;
+  border-radius: 40rpx;
+  line-height: 77rpx;
+  text-align: center !important;
+}
+.order-wrap {
+  width: 100%;
+  height: auto;
+  /*订单列表*/
+}
+.order-wrap .user-info-wrap {
+  width: 656rpx;
+  height: auto;
+}
+.order-wrap .user-info-wrap .user-info {
+  width: 100%;
+  height: 80rpx;
+  background-color: #f3f3f3;
+  font-size: 32rpx;
+  color: #333;
+  padding: 0 7rpx;
+  box-sizing: border-box;
+}
+.order-wrap .user-info-wrap .user-info .user-profile {
+  display: inline-block;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  margin-top: 5rpx;
+  margin-right: 30rpx;
+}
+.order-wrap .user-info-wrap .user-info .user-name {
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+  line-height: 80rpx;
+}
+.order-wrap .user-info-wrap .user-info .food-num {
+  display: inline-block;
+  float: right;
+  vertical-align: top;
+  height: 100%;
+  line-height: 80rpx;
+}
+.order-wrap .user-info-wrap .foods-list {
+  width: 100%;
+  height: 140rpx;
+  margin-top: 10rpx;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic {
+  display: inline-block;
+  width: 140rpx;
+  height: 140rpx;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc {
+  position: relative;
+  float: right;
+  width: 475rpx;
+  height: 100%;
+  padding-right: 7rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc .foods-name .foods-name_pname {
+  font-size: 32rpx;
+  color: #333;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc .price_num {
+  position: absolute;
+  bottom: 0rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc .price_num .num {
+  font-size: 30rpx;
+  color: #969696;
+}
+.order-wrap .user-info-wrap .foods-list .foods-pic-desc .price_num .price_ {
+  font-size: 32rpx;
+  color: #ff2323;
+}
+.paymentMethod {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+.paymentMethod image {
+  height: 40rpx;
+  width: 45rpx;
+}
+.paymentMethod .paymentMethod_right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.paymentMethod .paymentMethod_right .paymentMethod_title {
+  flex: .5;
+  font-size: 27rpx;
+  padding-left: 20rpx;
+}
+.paymentMethod .paymentMethod_right .paymentMethod_select {
+  flex: .5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.paymentMethod .paymentMethod_right .paymentMethod_select view:nth-child(1) {
+  font-size: 25rpx;
+  color: #969696;
+  margin-right: 40rpx;
+}

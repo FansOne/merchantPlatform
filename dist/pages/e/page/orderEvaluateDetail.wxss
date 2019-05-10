@@ -1,0 +1,94 @@
+@import "./../../../components/commentStar.wxss";
+page {
+  background-color: #fff;
+  padding-bottom: 55rpx;
+}
+.numberAndTime {
+  padding: 0 40rpx;
+  display: flex;
+  border-bottom: 1px solid #efeff4;
+  flex-direction: column;
+}
+.numberAndTime .copyNumber {
+  margin-top: 25rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.numberAndTime .copyNumber .copyContentBox {
+  display: flex;
+  flex-direction: row;
+  color: #969696;
+}
+.tblin_items_btn {
+  border: 1px solid #969696;
+  font-size: 23rpx;
+  display: flex;
+  color: #969696;
+  align-items: center;
+  justify-content: center;
+  width: 95rpx;
+  margin-right: 0rpx;
+  margin-left: 20rpx;
+}
+.orderTime_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 25rpx 0;
+}
+.orderTime_box .order_time {
+  color: #969696;
+  font-size: 33rpx;
+  letter-spacing: 2rpx;
+}
+.fahuo-btn {
+  display: block;
+  width: 160rpx;
+  height: 70rpx;
+  text-align: center;
+  background-color: #ef6e4b;
+  color: #ffffff;
+  font-size: 28rpx;
+  line-height: 70rpx;
+  letter-spacing: 4rpx;
+}
+.smallPrice {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+}
+/*订单总评*/
+.orderGeneralCommentBox {
+  height: 140rpx;
+  background-color: #FDF5E6;
+  padding-top: 15rpx;
+  padding-bottom: 10rpx;
+}
+.orderGeneralCommentTitle {
+  /*border: 1px solid red;*/
+  height: 50rpx;
+  line-height: 50rpx;
+  letter-spacing: 3rpx;
+  color: #333;
+  text-indent: 45rpx;
+}
+.orderGeneralComment {
+  position: relative;
+  height: 60rpx;
+  margin: 5rpx 40rpx;
+  margin-top: 10rpx;
+}
+.orderGeneralComment button {
+  background-color: #ef6e4b;
+  position: absolute;
+  right: 0;
+  top: 5rpx;
+  width: 150rpx;
+  height: 60rpx;
+  border-radius: 0;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  color: #fff;
+  letter-spacing: 5rpx;
+}

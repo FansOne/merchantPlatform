@@ -1,0 +1,175 @@
+<script>
+import wepy from 'wepy';
+import api from '../api/api'
+import app from '../utils/app'
+import couponSharePage from '../components/couponSharePage'
+
+export default class shareCpn extends wepy.page {
+    config = {
+        navigationBarTitleText: '',
+        // navigationBarBackgroundColor: '#fbb12a',
+        disableScroll: true
+    };
+    components = {
+        couponSharePage:couponSharePage
+    };
+
+    data = {
+        allData:[],
+        shareId : '',
+        couponShareNum:''
+    };
+    methods = {
+        receiveBtn(){
+            wx.getStorage({
+                key: 'access_token',
+                success: res => {
+                    wepy.request({
+                        url: api.apiMall + 'api/share_coupons/' + this.shareId,
+                        method: 'GET',
+                        header:{
+                            'Accept':'application/vnd.lingmo.v1+json',
+                            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+                            'Authorization':'Bearer ' + res.data.access_token
+                        },
+                    }).then((result)=>{
+                        if(result.data.status == 200){
+                            wx.showToast({
+                                title: '领取成功',
+                                icon:'success',
+                                success:res=>{
+                                    wx.switchTab({
+                                        url: './index'
+                                    });
+                                }
+                            });
+                        // if(!result.data.goodType){
+                        //     wx.switchTab({
+                        //         url:'./index/index'
+                        //     })
+                        // }else{
+                        //     wx.navigateTo({
+                        //         url: './details?id='+result.data.goodTypeId,
+                        //     });
+                        // }
+                        }else if(result.data.status == 400){
+                            wx.showToast({
+                                title:result.data.message ,
+                                icon:'none',
+                            });
+                        }
+                    }); 
+                },
+                fail:res=>{
+                    console.log("失败")
+                    //去登录
+                    let url = './login';
+					app.is_skip(url);
+                }
+            });
+        },
+        backIndex(){
+            wx.switchTab({
+                url:'./index'
+            })
+        }
+    };
+
+    events = {};
+    onLoad(options) {
+        try{
+			this.couponShareNum = decodeURTComponent(options.couponShareNum);
+		}catch(err){
+			this.couponShareNum = options.couponShareNum;
+		}
+        // this.couponShareNum = options.couponShareNum;
+        wepy.request({
+            // url: api.apiMall + 'api/get_coupon_share_data/' +  '837281540369701891',
+            url: api.apiMall + 'api/get_coupon_share_data/' +  options.couponShareNum,
+            method: 'GET',
+            header:{
+                'Accept':'application/vnd.lingmo.v1+json',
+            },
+        }).then((res)=>{
+            let data = []
+            data.push(res.data.message)
+            this.allData = data;
+            this.shareId = res.data.message.uuid;
+            this.$apply()
+        });
+    };
+}
+</script>
+
+<template lang="wxml">
+    <view class ='container'>
+        <view class='coupon_'>
+            <couponSharePage :syncTitle.sync="allData"/>
+        </view>
+        <button @tap='receiveBtn' class='receiveBtn'>立即领取</button>
+        <view class='backindex_box' style='width:80rpx;height:80rpx;padding-top:16rpx;box-sizing:border-box;' @tap="backIndex">
+            <image style='height:34rpx;width:30rpx;' src="http://www.qumatou.com.cn/zheng/xcximage/backindex.png"/>
+            <view style='font-size:14rpx'>首页</view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+    page{
+        position: relative;
+        height: 100%;
+        background-image: url('http://www.qumatou.com.cn/zheng/xcximage/lingquan.png');
+        background-size: 100%;
+    }
+    .container{
+        height:100%;
+    }
+    .coupon_{
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: 725rpx;
+        width: 675rpx;
+        height: 215rpx;
+    }
+    .receiveBtn{
+        width: 415rpx;
+        height: 100rpx;
+        line-height: 100rpx;
+        background-color: #fff;
+        color: #de4a38;
+        font-size: 56rpx;
+        border-radius: 50rpx;
+        box-shadow: 0 0 20rpx #bd6f2a;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: 980rpx;
+    }
+    .backindex_box{
+        z-index: 9;
+        height: 75rpx;
+        width: 76rpx;
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: auto;
+        bottom: 20rpx;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color:rgba(0,0,0,.4);
+        border-radius: 50rpx;
+        padding-top: 2rpx;
+        image{
+            height: 41rpx;
+            width: 45rpx;
+        }
+        view{
+            font-size: 21rpx;
+            color: white;
+        }
+    }
+</style>

@@ -1,0 +1,82 @@
+@import "./../../../components/commentContent.wxss";
+page {
+  background-color: #ffffff;
+}
+.top-box {
+  height: 276rpx;
+  /*border: 1px solid red;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.top-box .haoPing {
+  display: flex;
+  justify-content: center;
+  padding-left: 25  rpx;
+  width: 100%;
+  margin-top: 60rpx;
+  height: 60rpx;
+  line-height: 80rpx;
+  color: #333333;
+  font-weight: bold;
+  font-size: 30rpx;
+  letter-spacing: 5rpx;
+}
+.top-box .haoPing text {
+  line-height: 60rpx;
+  font-size: 60rpx;
+  color: #333333;
+  letter-spacing: 5rpx;
+}
+.top-box .start-box {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50rpx;
+  padding-top: 50rpx;
+}
+.top-box .start-box view.img_box {
+  width: 100%;
+  height: 70rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 160rpx;
+}
+.top-box .start {
+  display: inline-block;
+  margin-left: 30rpx;
+  height: 40rpx;
+  width: 40rpx;
+}
+.top-box .start image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.grayLine {
+  height: 20rpx;
+  width: 100%;
+  background-color: #f2f2f2;
+}
+.star-images {
+  width: 60rpx;
+  height: 60rpx;
+}
+.top-box.top-boxs {
+  margin-top: 150rpx;
+}
+.star-images.dialogBox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 230rpx;
+  height: 200rpx;
+}
+.haoPing.noComments {
+  position: absolute;
+  bottom: -55rpx;
+  color: gray;
+  font-size: 26rpx;
+}
+.bgWhite {
+  background-color: #fff;
+}

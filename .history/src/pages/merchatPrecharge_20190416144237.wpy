@@ -1,0 +1,32 @@
+<script>
+import wepy from 'wepy';
+
+export default class merchatPrecharge extends wepy.page {
+    config = {
+        navigationBarTitleText: '商户预充值',
+    };
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+    // Other properties
+}
+</script>
+
+<template lang="wxml">
+    <view class="userBalanceBox">
+        <view>当前余额</view>
+        <view class="priceBox">
+            <view>￥</view>
+            <view>520.13</view>
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/walletIcon.png" />
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

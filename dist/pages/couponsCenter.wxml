@@ -1,0 +1,117 @@
+
+    <view class="container">
+        <!-- 回到首页 -->
+		<!-- <view class='backindex_box' style='width:80rpx;height:80rpx;padding-top:16rpx;box-sizing:border-box;' catchtap="backFirst">
+            <image style='height:34rpx;width:30rpx;' src="http://applet.qumatou.com.cn/static/shop/backindex.png"/>
+            <view style='font-size:14rpx'>首页</view>
+        </view>
+        <view class='paymentTop'>
+            <view><image src='../../../../images/paymentSuccess.png'/></view>
+            <text style='font-size:32rpx;color:#000;margin-top:20rpx;'>您已支付成功</text>
+            <view style="font-size:46rpx;color: #fd2323;;margin-top:20rpx;text-align:center;">￥{{money}}</view>
+        </view> -->
+
+        <view  wx:if="{{is_limite}}" class="rgba_background"/>
+        <scroll-view scroll-x style="height:110rpx;background-color:white;white-space:nowrap;overflow:hidden;">
+            <view class="coupons_tab {{couponTab == index ? 'coupons_selected coupons_tabss' : ''}}" catchtap="changeCouponTab" style="color:{{couponTab == index ? 'red' : ''}}"  wx:for="{{couponTabs}}" wx:key="index" data-wpychangecoupontab-a="{{index}}" data-wpychangecoupontab-b="{{item.id}}">{{item.title}}</view>
+        </scroll-view>
+        <view style="flex:1;" id="top">
+            <scroll-view scroll-y wx:if="{{userCoupon.length != 0}}" style="height:{{scrollHeight}}rpx;">
+                
+    <view class="item_box"  wx:for="{{$couponItem$syncTitle}}" wx:key="" catchtap="$couponItem$receiveCoupon" data-wpyreceivecoupon-a="{{item.id}}" data-wpyreceivecoupon-b="{{index}}">
+        <view wx:if="{{item.type == 1}}" class="item_box_wrap {{$couponItem$specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view wx:if="{{item.type == 1}}" class="couponItem" style="background-image: url('http://www.qumatou.com.cn/zheng/xcximage/youhuiquan.png');">
+                <view class="couponItem_left">
+                    <view class="logo">
+                        <view>{{item.title}}</view>
+                        <image src="{{item.cover_url}}"/>
+                    </view>
+                    <view class="pricess">
+                        <view class="pricess_">
+                            <text>￥</text>
+                            <text class="bags">{{item.amount/100}}</text>
+                        </view>
+                        <view class="prompt_">满{{item.min_money/100}}元使用</view>
+                    </view>
+                </view>
+                <view class="couponItem_right">
+                    <progress wx:if="{{!item.checked}}" class="process" percent="{{item.percent}}" font-size="8" stroke-width="10" active/>
+                    
+                    <view wx:if="{{!item.checked}}" style="margin-top:6rpx;font-size:24rpx;color:#fff;text-align:right;">已领取{{item.percent}}%</view>
+                    <view class="get_coupons" catchtap="$couponItem$getCoupon" data-wpygetcoupon-a="{{item}}" data-wpygetcoupon-b="{{index}}">{{!item.checked ? '立即领取':'去使用'}}</view>
+
+                    <image class="already_get" wx:if="{{item.checked}}" src="../images/already_get.png"/>
+                </view>
+            </view>
+            <view class="time">
+                <image class="long_btn {{$couponItem$specialId == item.id ? 'long_btn_transform':''}}" src="../images/arrow_btn.png" catchtap="$couponItem$showInfo" data-wpyshowinfo-a="{{item.id}}"/>
+                <view class="term" wx:if="{{item.begin_time == 0 && item.end_time == 0}}">使用期限：永久有效</view>
+                <view class="term" wx:if="{{item.begin_time != 0}}">使用期限：{{item.begin_time}}- {{item.end_time ? item.end_time : '无限期'}}</view>                
+                <view style="margin-top:24rpx;" class="term">说明:{{item.content}}</view>
+            </view>
+        </view>
+        <view wx:if="{{item.type == 2}}" class="item_box_wrap {{$couponItem$specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view class="couponItem" style="background-image: url('http://www.qumatou.com.cn/zheng/xcximage/zhekouquan.png');">
+                <view class="couponItem_left">
+                    <view class="logo">
+                        <view>{{item.title}}</view>
+                        <image src="{{item.cover_url}}"/>
+                    </view>
+                    <view class="pricess">
+                        <view class="pricess_" style="padding-top:25rpx;">
+                            <text class="bags">{{item.amount}}</text>
+                            <text>折</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="couponItem_right">
+                    <progress wx:if="{{!item.checked}}" class="process" percent="{{item.percent}}" font-size="8" stroke-width="10" active/>
+                    
+                    <view wx:if="{{!item.checked}}" style="margin-top:6rpx;font-size:24rpx;color:#fff;text-align:right;">已领取{{item.percent}}%</view>
+                    <view class="get_coupons" catchtap="$couponItem$getCoupon" data-wpygetcoupon-a="{{item}}" data-wpygetcoupon-b="{{index}}">{{!item.checked ? '立即领取':'去使用'}}</view>
+
+                    <image class="already_get" wx:if="{{item.checked}}" src="../images/already_get.png"/>
+                </view>
+            </view>
+            <view class="time">
+                <image class="long_btn {{$couponItem$specialId == item.id ? 'long_btn_transform':''}}" src="../images/arrow_btn.png" catchtap="$couponItem$showInfo" data-wpyshowinfo-a="{{item.id}}"/>
+                <view class="term" wx:if="{{item.begin_time == 0 && item.end_time == 0}}">使用期限：永久有效</view>
+                <view class="term" wx:if="{{item.begin_time != 0}}">使用期限：{{item.begin_time}}- {{item.end_time ? item.end_time : '无限期'}}</view>                
+                <view style="margin-top:24rpx;" class="term">说明:{{item.content}}</view>
+            </view>
+        </view>
+        <view wx:if="{{item.type == 3}}" class="item_box_wrap {{$couponItem$specialId == item.id ? 'item_box_wrap_checked' : ''}}">
+            <view class="couponItem" style="background-image: url('http://www.qumatou.com.cn/zheng/xcximage/daijinquan.png');">
+                <view class="couponItem_left">
+                    <view class="logo">
+                        <view>{{item.title}}</view>
+                        <image src="{{item.cover_url}}"/>
+                    </view>
+                    <view class="pricess">
+                        <view class="pricess_" style="padding-top:30rpx;">
+                            <text>￥</text>
+                            <text class="bags">{{item.amount/100}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="couponItem_right">
+                    <progress wx:if="{{!item.checked}}" class="process" percent="{{item.percent}}" font-size="8" stroke-width="10" active/>   
+                    <view wx:if="{{!item.checked}}" style="margin-top:6rpx;font-size:24rpx;color:#fff;text-align:right;">已领取{{item.percent}}%</view>
+                    <view class="get_coupons" catchtap="$couponItem$getCoupon" data-wpygetcoupon-a="{{item}}" data-wpygetcoupon-b="{{index}}">{{!item.checked ? '立即领取':'去使用'}}</view>
+                    <image class="already_get" wx:if="{{item.checked}}" src="../images/already_get.png"/>
+                </view>
+            </view>
+            <view class="time">
+                <image class="long_btn {{$couponItem$specialId == item.id ? 'long_btn_transform':''}}" src="../images/arrow_btn.png" catchtap="$couponItem$showInfo" data-wpyshowinfo-a="{{item.id}}"/>
+                <view class="term" wx:if="{{item.begin_time == 0 && item.end_time == 0}}">使用期限：永久有效</view>
+                <view class="term" wx:if="{{item.begin_time != 0}}">使用期限：{{item.begin_time}}- {{item.end_time ? item.end_time : '无限期'}}</view>                
+                <view style="margin-top:24rpx;" class="term">说明:{{item.content}}</view>
+            </view>
+        </view>
+    </view>
+
+
+            </scroll-view>
+            <view style="text-align:center;margin-top:30rpx;"  wx:if="{{userCoupon.length == 0}}">暂无卡券</view>
+        </view>
+    </view>

@@ -1,0 +1,9 @@
+
+    <view class="container">
+        <view class="checkMarkBox">
+            <image src="../images/checkMark.png"/>
+        </view>
+        <view class="money">￥{{money}}</view>
+        <view class="balance"  wx:if="{{memberMess.isMem == 0 || memberMess.isMem == 2}}">卡内余额<text class="balanceColor">{{memberMess.MemInfo.balance}}元</text></view>
+        <view class="btnBox"><button open-type="{{getPhoneNumber}}" bindgetphonenumber="bindgetphonenumber" bindtap="backRoute">确定</button></view>
+    </view>

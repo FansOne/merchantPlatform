@@ -1,0 +1,34 @@
+
+    <view class="topIconPriceBox">
+        <image src="{{allData.m_logo}}"/>
+        <view>{{allData.m_name}}</view>
+        <view>- {{allData.product[0].total}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>支付方式</view>
+        <view>{{allData.paytypeStr}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>支付状态</view>
+        <view>{{allData.statusStr}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>支付类型</view>
+        <view>{{allData.tradetypeStr}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>商户</view>
+        <view>{{allData.m_name}} ({{allData.maddress}})</view>
+    </view>
+    <view class="paymentExplain">
+        <view>下单时间</view>
+        <view>{{allData.orderTime}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>支付时间</view>
+        <view>{{allData.paytime}}</view>
+    </view>
+    <view class="paymentExplain">
+        <view>交易单号</view>
+        <view>{{allData.outTraceNo}}</view>
+    </view>

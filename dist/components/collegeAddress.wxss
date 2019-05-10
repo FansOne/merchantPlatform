@@ -1,0 +1,37 @@
+.goodsAddress_box {
+  transform: translateY(30rpx);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 30rpx;
+}
+.goodsAddress_box .goodsAddress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 15rpx 25rpx;
+  box-shadow: 0 5rpx 10rpx #f1f1f1;
+}
+.goodsAddress_box .goodsAddress .goodsAddress_ {
+  flex: 1;
+}
+.goodsAddress_box .goodsAddress_title {
+  color: #000;
+  font-size: 34rpx;
+  padding-bottom: 6rpx;
+}
+.goodsAddress_box .goodsAddress_address {
+  font-size: 30rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+.goodsAddress_box .goodsAddress_time {
+  padding-top: 15rpx;
+  font-size: 30rpx;
+}
+.goodsAddress_box .goodsAddress_arrow {
+  width: 20rpx;
+}

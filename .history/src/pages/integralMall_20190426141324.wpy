@@ -1,0 +1,35 @@
+<script>
+import wepy from 'wepy';
+
+export default class integralMall extends wepy.page {
+    config = {
+        navigationBarTitleText: '积分商城',
+    };
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <!-- 轮播图 -->
+    <view class="page-swiper-wrap">
+        <swiper autoplay interval="4000" circular>
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item>
+                    <moreFormId>
+                        <image src="{{item.imagePath}}" class="slide-image" mode='widthFix'/>
+                    </moreFormId>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

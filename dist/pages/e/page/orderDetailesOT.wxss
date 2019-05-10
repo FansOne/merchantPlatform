@@ -1,0 +1,108 @@
+.orderDetailsTop {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 35rpx 25rpx;
+  box-shadow: 0 10rpx 10rpx #f1f1f1;
+}
+.orderDetailsTop .topBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #f1f1f1;
+  padding: 15rpx 15rpx 50rpx 15rpx;
+}
+.orderDetailsTop .topBox view:first-of-type {
+  font-size: 44rpx;
+  color: #000;
+}
+.orderDetailsTop .topBox image {
+  height: 67rpx;
+  width: 188rpx;
+}
+.orderDetailsTop .addressBox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 35rpx 15rpx 0 15rpx;
+}
+.orderDetailsTop .addressBox image {
+  width: 26rpx;
+  height: 38rpx;
+}
+.orderDetailsTop .addressBox .userAddress_ {
+  flex: 1;
+  padding-left: 25rpx;
+}
+.orderDetailsTop .addressBox .userAddress_ .userAddressName {
+  display: flex;
+  margin-bottom: 10rpx;
+}
+.orderDetailsTop .addressBox .userAddress_ .userAddressName view {
+  font-size: 28rpx;
+  color: #000;
+}
+.orderDetailsTop .addressBox .userAddress_ .userAddressName view:last-of-type {
+  color: #999;
+  padding-left: 20rpx;
+}
+.orderDetailsTop .addressBox .userAddress_ .userAddressWhere {
+  font-size: 28rpx;
+  color: #000;
+}
+.btnBox view {
+  background-color: #fff !important;
+  font-size: 34rpx;
+  color: #000;
+}
+.btnBox view text {
+  font-size: 38rpx;
+  color: red;
+}
+.orderDetailTitle {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 30rpx 20rpx 30rpx;
+  display: flex;
+  align-items: center;
+}
+.orderDetailTitle view:first-of-type {
+  background-color: #ffd270;
+  width: 6rpx;
+  height: 45rpx;
+  margin-right: 20rpx;
+}
+.orderDetailTitle view:last-of-type {
+  color: #000;
+}
+.orderDetailItem {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0rpx 55rpx 20rpx 55rpx;
+  color: #999;
+  font-size: 26rpx;
+}
+.orderDetailBottom {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100rpx;
+  position: fixed;
+  bottom: 0;
+  border-top: 1rpx solid #f1f1f1;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 25rpx;
+}
+.orderDetailBottom view {
+  width: 170rpx;
+  height: 70rpx;
+  background-color: #ffd270;
+  color: #000;
+  border-radius: 7rpx;
+  line-height: 70rpx;
+  text-align: center;
+}

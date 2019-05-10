@@ -1,0 +1,507 @@
+<style lang="less">
+  @import '../styles/index.less';
+  .haiBao{
+    padding-top: 60rpx;
+    padding-bottom: 0rpx;
+    image{
+      margin-bottom:40rpx
+    }
+  }
+</style>
+<template>
+  <view id="first" style="position:relative;background-color:#fff;">
+    <view wx:if='{{notButton}}' style="width:100%;height:auto;margin:auto;padding-bottom:20rpx;box-sizing:border-box;">
+      <!-- 搜索框 -->
+      <view class="search-wrap" @tap.stop="toSearch">
+        <image class="search_btn" mode="scaleToFill" src="../images/search.png" />
+        请输入商家、品类或商圈
+        <image wx:if='{{share!=0}}' class="share_btn" @tap.stop="shareMoments" src="../images/index_share.png"/>
+      </view>
+      <view style="width:710rpx;height:auto;margin:auto;">
+         <!-- 轮播图 -->
+        <view class="banner" style="border-radius: 6rpx;">
+          <swiper indicator-dots="{{indicatorDots}}" circular autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{imgUrls}}" wx:key="index">
+              <swiper-item data-url="{{item.URL}}" @tap.stop="goUrl">
+                <moreFormId><image mode="aspectFill" src="{{item.imagePath}}" class="slide-image" width="355" height="150"/></moreFormId>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+        <!-- 模块 -->
+        
+        <view class="btn-things-wrap">
+          <view class="item" wx:for="{{imagesBtn}}" wx:key="index" data-index="{{index}}" @tap="toModelDetail({{item.c_id}},{{item.c_name}})">
+            <moreFormId><image class="image-btn" src="{{item.c_image}}"></image></moreFormId>
+            <view class="btn-desc">{{item.c_name}}</view>
+          </view>
+        </view>
+      </view>
+      <!-- 最近使用 -->
+      <view style="width:100%;height:332rpx;backgjround-color:#f3f3f3;" wx:if="{{useRenctly.length != 0}}">
+        <view class="used-renctly-wrap" style="margin-bottom:40rpx;">
+          <view class="title">
+            <image class="title-img" src="../images/use-renctly.png" />
+            <text style="float:right;font-size:26rpx;color: #fd5f37;" @tap.stop="moreUseRenctly">更多 ></text>
+          </view>
+          <view class="user-renctly">
+            <scroll-view scroll-x style="height: 100%;display:flex;white-space: nowrap;">
+              <view class="shop-wrap" wx:for="{{useRenctly}}" wx:key="index" data-type="{{item.shop_type}}" data-id="{{item.mId}}" @tap.stop="toShop">
+                <image src="{{item.cover_url}}"/>
+                <view class="name">{{item.title}}</view>
+                <view class></view>
+              </view>
+            </scroll-view>
+          </view>
+        </view>
+      </view>
+      <!-- 周边好店 -->
+      <view style="width:710rpx;height:auto;margin:auto;" wx:if='{{shopInfo}}'>
+        <view class="shop-wrap shop-wrap-update">
+          <image class="title-img" mode="aspectFit" src="../images/shop-title.png" />
+          <text class="title-title" @tap.stop="moreShop">更多 ></text>
+        </view>
+        <!-- 店铺列表 -->
+        <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1" data-id="{{item1.mId}}" data-type="{{item1.shop_type}}" @tap.stop="toShop">
+          <moreFormId><image lazy-load="true" class="shop-img" src="{{item1.mLogo}}"/></moreFormId>
+          <view class="shop-info-wrap">
+            <view class="title-wrap">
+              <view class="title">{{item1.mName}}</view>
+              <view class="position">
+                <image src="../images/location.png" />
+                <text style="margin-left:10rpx;">{{item1.distanceStr}}</text>
+              </view>
+            </view>
+            <view class="star-wrap">
+              <view class="star">
+                <view class = 'startBox'>
+                  <block wx:for="{{stars}}" wx:key='idx'>
+                    <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?selectedSrc : normalSrc}}">
+                      <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                      <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                    </image>
+                  </block>
+                </view>
+              </view>
+              <!-- <view class="average">人均￥{{item1.averagePrice/100}}</view> -->
+            </view>
+            <!-- <view class="price">￥{{item1.sendprice/100}}</view> -->
+          </view>
+        </view>
+      </view>
+      <view style="width:100%;height:30rpx;text-align:center;font-size:26rpx;line-height:30rpx;" wx:if='{{shopInfo.length>2}}'>{{dataMessage}}</view>
+    </view>
+    <button class="button" wx:if="{{button}}" @tap='getSetting'>请授权</button>
+    <!-- 遮罩 -->
+		<view class='mask' hidden='{{maskFlag}}'></view>
+    <!-- 分享朋友圈 -->
+    <view wx:if="{{shareShow}}" class="shareFriends shareShow">
+      <view class='shareFriendsBtn'>
+        <button style='border-right:1rpx solid #f1f1f1' open-type='share'><icon class='iconfont icon-icon-'/><view>分享给好友</view></button>
+        <button @tap = 'sharequan'><icon class='iconfont icon-pengyouquan'/><view>发朋友圈</view></button>
+      </view>
+      <view class='shareFriendsCancel' @tap='shareFriends'>取消</view>
+    </view>
+		<!-- 海报 -->
+		<view class="haiBao {{haobaoShow?'':'haobaoShow'}}" hidden='{{haobaoShow}}'>
+			<image src='{{haiBaoImg}}' @tap='previewImage({{haiBaoImg}})'/>
+			<button @tap='saveImg({{haiBaoImg}})'>保存至相册</button>
+			<view>分享朋友圈时可在相册选取图片</view>
+			<view class='close' @tap='closeHaiBao'>×</view>
+		</view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import api from '../api/api'
+  import util from '../utils/util'
+  import app from '../utils/app'
+
+  import requsetData from '../api/requestUrl'
+  
+  import commentStar from '../components/commentStar'
+  import moreFormId from '../components/moreFormId'
+  export default class Index extends wepy.page {
+    config = {
+      // enablePullDownRefresh:true,
+      // backgroundTextStyle:'dark',
+    }
+    components = {
+      commentStar,
+      moreFormId
+    }
+    data = {
+      token:'',
+      page:0,
+      lng:0,
+      lat:0,
+      notButton:false,
+      button:false,
+      stars: [0, 1, 2, 3, 4],
+      normalSrc: 'http://applet.qumatou.com.cn/static/food/star.png',
+      selectedSrc: 'http://applet.qumatou.com.cn/static/food/starWhole.png',
+      key: 0,
+      imgUrls: [],         
+      indicatorDots: false,
+      autoplay: true,
+      interval: 5000,
+      duration: 1000,
+      imagesBtn:[],
+      shopInfo:[],
+      useRenctly:[],
+      message:[],
+      dataMessage:'上拉加载数据',
+      is_close:true,
+      shareShow:false,
+      haobaoShow:true,
+      //遮罩
+	    maskFlag:true,
+      haiBaoImg:'http://www.qumatou.com.cn/zheng/xcximage/TTHD_indexShare.png',
+      share:''
+    }
+    computed = {
+    }
+    //小程序转发
+    onShareAppMessage() {
+      return {
+        title: '天天好店商户服务平台',
+        path: '/pages/index',
+        imageUrl: 'http://www.qumatou.com.cn/zheng/xcximage/indexShareCard.jpg',
+        success: res => {},
+        fail: () => {
+          wx.showToast({
+            title: '转发失败',
+            image:'../../images/warning.png',
+            duration: 1000
+          })
+        },
+      };
+    }
+    methods = {
+      //跳转搜索
+      toSearch(){
+        wx.navigateTo({
+          url:'./search'
+        })
+      },
+      //跳转附近店铺
+      moreShop(){
+        wx.switchTab({
+          url: './around'
+        });
+      },
+      //跳转拼团列表页
+      toGroups(){
+        wx.navigateTo({
+          url:'./groups-buying'
+        })
+      },
+      // 跳转领券
+      toCoupons(){
+        wx.navigateTo({
+          url:'./coupons'
+        })
+      },
+      // 打开设置页面
+      getSetting(e){
+        wx.getSetting({
+          success: (res) => {
+            if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
+              wx.showModal({
+                title: '是否授权当前位置',
+                content: '需要获取您的地理位置，请确认授权，否则店铺位置功能将无法使用',
+                success: (res)=> {
+                  if (res.cancel) {} else if (res.confirm) {
+                    wx.openSetting({
+                      success:(data)=> {
+                        if (data.authSetting["scope.userLocation"] == true) {
+                          wx.showToast({
+                            title: '授权成功',
+                            icon: 'success',
+                            duration: 600,
+                          })
+                        }else{
+                          wx.showToast({
+                            title: '授权失败',
+                            icon: 'none',
+                            duration: 600
+                          })
+                        }
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          }
+        })
+      },
+      //跳转各个模块
+      toModelDetail(c_id,title){
+        let data = {
+          'longitude':this.lng,
+          'latitude':this.lat,
+          'Indust_id':c_id,
+        }
+        if(title == '更多'){
+          wx.navigateTo({
+            url:`./cateList?info=${JSON.stringify(data)}`
+          })
+        }else{
+          wx.navigateTo({
+            url:`./deliciousFood?info=${JSON.stringify(data)}&title=${title}`
+          })
+        }
+      },
+      //触底事件
+      onReachBottom(){
+        wx.showLoading({
+          title: '加载中...',
+        })
+        this.page = this.page + 1;
+        const url = requsetData.goodLists
+        const data = {
+          longitude:this.lng,
+          latitude:this.lat,
+          page_Num:this.page,
+          p_id:wepy.$instance.globalData.p_id,
+          Indust_id:-1,
+        }
+        wepy.request({
+          url: url,
+          method: 'POST',
+          data: data,
+        }).then(res=>{
+          if(res.data.data.list.length == 0){
+            this.dataMessage = '暂无更多数据'
+          }
+          let data = res.data.data.list;
+          for (var i = 0; i < data.length; i++) {
+            this.shopInfo.push(data[i]);
+          }
+          this.$apply();
+          if(data.length == 0){
+            wx.showToast({
+              title: '已加载全部数据',
+              image: '../images/warning.png',
+              duration: 1000
+            })
+            this.$apply();
+          }
+          wx.hideLoading();
+        })
+      },
+      //跳转店铺
+      toShop(e){
+        let dataset = e.currentTarget.dataset;
+        if(dataset.type == 1 || dataset.type == 2 || dataset.type == 5 || dataset.type == 6 || dataset.type == 7){
+          //电商、门店、大学生、贫困户、农户流程
+          wx.navigateTo({
+            url:'./e/page/index/index?id=' + dataset.id + '&shopType=' + dataset.type
+          })
+        }else if(dataset.type == 3 || dataset.type == 4){
+          //外卖、超市
+          wx.navigateTo({
+            url:'./f/page/index/index?id=' + dataset.id + '&shopType=' + dataset.type
+          })
+        }
+      },
+      //最近使用更多
+      moreUseRenctly(){
+        wx.navigateTo({
+          url:'./moreUseRenctly'
+        })
+      },
+      //首页轮播图跳转
+      goUrl(e){
+        wx.navigateTo({
+          url: e.currentTarget.dataset.url
+        });
+      },
+      //分享
+      shareMoments(){
+        this.shareShow = !this.shareShow
+        this.maskFlag = !this.maskFlag
+      },
+      //取消
+      shareFriends(){
+        this.shareShow = !this.shareShow
+        this.maskFlag = !this.maskFlag
+      },
+      //发朋友圈
+      sharequan(){
+        this.maskFlag = false;
+        this.haobaoShow = false;
+        this.shareShow = !this.shareShow
+        this.$apply()
+      },
+      // 关闭遮罩
+      closeHaiBao(){
+        this.haobaoShow = !this.haobaoShow,
+        this.maskFlag = true;
+      },
+      // 保存图片至相册
+      saveImg(imgUrl){
+        wx.downloadFile({
+          url: imgUrl,
+          success: (res)=>{
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: (data)=>{
+                wx.showToast({
+                  title: '保存成功',
+                  icon: 'success',
+                  duration: 2000
+                });
+              },
+              fail: (err)=>{
+                if (err.errMsg === "saveImageToPhotosAlbum:fail auth denied") {
+                  wx.openSetting({
+                    success(settingdata) {
+                      if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                        // console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+                      } else {
+                        // console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+                      }
+                    }
+                  })
+                }
+              }
+            })
+          }
+        })
+      },
+      previewImage(haiBaoImg){
+        wx.previewImage({
+          urls: [`${haiBaoImg}`] // 需要预览的图片http链接列表
+        })
+      }
+    }
+    //最近使用--------------------
+    async getClassify(){
+      let token = wx.getStorageSync("token");
+      const url = api.apiMall + 'api/home'
+      await wepy.request({
+        url: url,
+        header:{
+          'Accept':'application/vnd.lingmo.v1+json',
+          'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+          'Authorization':'Bearer ' + token.access_token
+        },
+        method: 'GET',
+      }).then(res=>{
+        wx.stopPullDownRefresh();
+        if(res.statusCode == 401){
+          return;
+        }
+        this.useRenctly = res.data.message.store;
+        this.$apply();
+      })
+    }
+    //分类和轮播数据 --------------------
+    async getLunboAndCate(){
+      const url = requsetData.getIndexData
+      const data = {
+        p_id: wepy.$instance.globalData.p_id
+      }
+      await wepy.request({
+        url: url,
+        method: 'POST',
+        data: data,
+      }).then(res=>{
+        if(res.data.data.cla.length >= 9){
+          let data = {c_id:666,c_image:'../images/10.png',c_name:'更多'};
+          this.imagesBtn = res.data.data.cla.slice(0,9)
+          this.imagesBtn.push(data)
+          // let data1 = {id:667,c_image:'../images/10.png',c_name:'领券中心'};
+          // this.imagesBtn.splice(0,0,data1);
+        }else{
+          this.imagesBtn = res.data.data.cla;
+        }
+        this.share = res.data.data.share
+        this.imgUrls = res.data.data.banner;
+        this.$apply();
+        // console.log(this.imagesBtn)
+      })
+    }
+    //请求店铺列表
+    async getAddressList(){
+      const url = requsetData.goodLists
+      const data = {
+        longitude:this.lng,
+        latitude:this.lat,
+        page_Num:0,
+        p_id:wepy.$instance.globalData.p_id,
+        Indust_id:-1,
+      }
+      await wepy.request({
+        url: url,
+        method: 'POST',
+        data: data,
+      }).then(res=>{
+        wx.stopPullDownRefresh();
+        this.shopInfo = res.data.data.list;
+        // 未知操作------------------------
+        wx.setStorage({
+          key:'shopInfo',
+          data:res.data.message
+        })
+        // end ----------------------------
+        this.$apply();
+      })
+    }
+    events = {}
+    onLoad(options) {
+      this.getLunboAndCate()
+      this.$apply();
+    }
+    onHide(){
+      this.is_close = 'false';
+      this.$apply();
+    }
+    onShow(){
+      this.page = 0;
+      wx.setStorageSync('selectSonCard', '');
+      wx.removeStorage({key: 'shopId'});
+      
+      wx.getStorage({
+        key:'userInfoLogin',
+        success:res=>{
+          this.getClassify()
+        }
+      })
+      wx.getSetting({
+        success:(res)=>{
+          if(res.authSetting['scope.userLocation']){
+            this.notButton = true;
+            this.button = false;
+            this.$apply()
+          }
+        }
+      })
+      wx.getLocation({
+        type: 'wgs84',
+        success:(res=>{
+          this.lng = res.longitude;
+          this.lat = res.latitude;
+          if(this.lat && this.lng){
+            this.getAddressList();
+          }
+          let data = {'lng': this.lng,'lat':this.lat};
+          wx.setStorage({
+            key:'latAndLng',
+            data:data
+          })
+          this.button = false;
+          this.notButton = true;
+          this.$apply();
+        }),
+        fail:(res=>{
+          this.notButton = false;
+          this.button = true;
+          this.$apply();
+        })
+      })
+    }
+  }
+</script>

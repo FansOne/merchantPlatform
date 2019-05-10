@@ -1,0 +1,24 @@
+
+    <view id="search-member">
+        <view class="wrap">
+            <!-- 搜索框 -->
+            <input class="search-wrap" auto-focus="true" bindinput="inputName" placeholder="请输入店铺名称，搜索会员卡"/>
+            <image class="image" mode="scaleToFill" src="../../images/search.png"/>
+            <text class="cancle" bindtap="toSearch">搜索</text>
+        </view>
+        <!-- 会员卡 -->
+        <view class="userMesseContant"  wx:for="{{memberData}}" wx:key="index" bindtap="toMemberInfo" data-wpytomemberinfo-a="{{item}}">
+            <view class="userMesseContant_left">
+                <image src="{{item.m_logo}}"/>
+                <view>{{item.m_name}}</view>
+            </view>
+            <view class="userMesseContant_right">
+                <!-- <button class='userMesseContant_rightShare' bindtap='bottomShow'>
+                    <view>分享</view>
+                    <image src='../../images/分享.png'/>
+                </button> -->
+                <view class="userMesseContant_rightMoney">余额<text>{{item.balance}}</text></view>
+                <view class="userMesseContant_rightRecharge" bindtap="cardRecharge">立即充值</view>
+            </view>
+        </view>
+    </view>

@@ -1,0 +1,155 @@
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.wrap {
+  width: 710rpx;
+  height: 70rpx;
+  margin: 0 auto 30rpx;
+  position: relative;
+}
+.wrap .search-wrap {
+  display: inline-block;
+  width: 587rpx;
+  height: 70rpx;
+  background-color: #f0f0f0;
+  border-radius: 35rpx;
+  margin: 0rpx 0 20rpx;
+  color: #969696;
+  font-size: 26rpx;
+  line-height: 70rpx;
+  padding-left: 60rpx;
+  box-sizing: border-box;
+}
+.wrap .image {
+  display: block;
+  width: 26rpx;
+  height: 26rpx;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20rpx;
+}
+.wrap .cancle {
+  float: right;
+  display: inline-block;
+  height: 100%;
+  line-height: 70rpx;
+  color: #fd2323;
+  font-size: 30rpx;
+}
+.search-history-wrap {
+  width: 710rpx;
+  height: auto;
+  margin: 0 auto;
+}
+.search-history-wrap .find {
+  color: #999999;
+  font-size: 26rpx;
+}
+.search-history-wrap .search-history {
+  height: auto;
+  padding: 20rpx 20rpx;
+  box-sizing: border-box;
+}
+.search-history-wrap .search-history .item {
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  display: inline-block;
+  font-size: 24rpx;
+  color: #999999;
+  padding: 8rpx 14rpx;
+  box-sizing: border-box;
+  background-color: #f3f3f3;
+  border-radius: 6rpx;
+}
+.shop-list-wrap {
+  width: 100%;
+  height: 196rpx;
+  margin-top: 20rpx;
+  display: flex;
+}
+.shop-list-wrap .shop-img {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 6rpx;
+  margin-top: 8rpx;
+}
+.shop-list-wrap .shop-info-wrap {
+  flex: 1;
+  height: 100%;
+  padding-left: 16rpx;
+  box-sizing: border-box;
+}
+.shop-list-wrap .shop-info-wrap .title-wrap {
+  width: 100%;
+  height: 72rpx;
+  padding-top: 24rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #333333;
+  display: flex;
+  justify-content: space-between;
+}
+.shop-list-wrap .shop-info-wrap .title-wrap .title {
+  width: auto;
+}
+.shop-list-wrap .shop-info-wrap .title-wrap .position {
+  height: 100%;
+  flex: 1;
+  text-align: right;
+}
+.shop-list-wrap .shop-info-wrap .title-wrap .position image {
+  display: inline-block;
+  width: 20rpx;
+  height: 25rpx;
+}
+.shop-list-wrap .shop-info-wrap .star-wrap {
+  width: 100%;
+  height: 26rpx;
+  margin-top: 55rpx;
+}
+.shop-list-wrap .shop-info-wrap .star-wrap .star {
+  float: left;
+  width: 165rpx;
+  height: 24rpx;
+  position: relative;
+}
+.shop-list-wrap .shop-info-wrap .star-wrap .average {
+  float: left;
+  font-size: 24rpx;
+  color: #c55159;
+  margin-left: 16rpx;
+}
+.shop-list-wrap .shop-info-wrap .price {
+  font-size: 28rpx;
+  color: #fd2323;
+  margin-top: 30rpx;
+  text-align: left;
+}
+.star-image {
+  position: absolute;
+  top: 0rpx;
+  width: 28rpx;
+  height: 28rpx;
+  src: "../images/star.png";
+}
+.item1 {
+  position: absolute;
+  top: 0rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
+.no-history {
+  text-align: center;
+  height: 40rpx;
+  font-size: 28rpx;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}

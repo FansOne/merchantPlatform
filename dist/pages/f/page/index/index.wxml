@@ -1,0 +1,88 @@
+
+  <view id="index">
+    <view class="header-wrap">
+      <!-- 轮播图 -->
+      <view class="page-swiper-wrap">
+        <swiper autoplay interval="4000" circular="circular">
+          <block  wx:for="{{imgUrls}}" wx:key="index">
+            <swiper-item>
+              <image mode="widthFix" src="{{item.imagePath}}" class="slide-image" width="355" height="150"/>
+            </swiper-item>
+          </block>
+        </swiper>
+        <!-- 店铺logo -->
+        <view class="shoppingLogoBox">
+          <image src="{{allData.Merchant_baseInfo.mLogo}}"/>
+            <view class="shoppingLogoR">
+              <view class="shoppingTitleBox">
+                  <view>{{allData.Merchant_baseInfo.mName}}</view>
+                  <view class="shoppingTime">营业时间：{{allData.Merchant_baseInfo.startTime}} - {{allData.Merchant_baseInfo.endTime}}</view>
+                  <view class="shoppingLine">——————○</view>
+              </view>
+            </view>
+        </view>
+      </view>
+      <view class="bgBannerBox">
+          <view class="shopMessage">
+              <view class="addressMsgBox">
+                  <view class="saLeft">
+                      <view class="userPhoneNum" bindtap="storeCall">
+                          <view>联系电话：</view>
+                          <view>{{allData.Merchant_baseInfo.conPhone}}</view>
+                          <image class="phoneIcon" src="http://www.qumatou.com.cn/zheng/xcximage/phoneIcon.png"/>
+                      </view>
+                      <view class="userAddress_" bindtap="goLocal">
+                          <view>地址：</view>
+                          <view>{{allData.Merchant_baseInfo.address}}</view>
+                          <image class="phoneIcon" src="http://www.qumatou.com.cn/zheng/xcximage/addressIcon.png"/>
+                      </view>
+                  </view>
+                  <view class="saRight">
+                      <view  wx:if="{{shoppStatus}}">营业中</view>
+                      <view wx:else>休息中</view>
+                      <image src="../../../../images/icon_07.jpg" bindtap="shareFriends" wx:if="{{shareStatus}}"/>
+                  </view>
+              </view>
+          </view>
+      </view>
+      <!-- 商户开通功能 -->
+      <moreFormId>
+      <view class="threeIcon_boxSBXQ">
+          <scroll-view class="threeIcon_flex" scroll-x>
+              <view class="threeIcon_item" style="width:{{threeIconItemWidth}}%" wx:for="{{merchantFunction}}" wx:key="" bindtap="merchantFunPageJump" data-wpymerchantfunpagejump-a="{{item}}">
+                  <image src="{{item.logo}}"/>
+                  <view>{{item.name}}</view>
+              </view>
+          </scroll-view>
+          <image wx:if="{{merchantFunction.length>4}}" class="arrow__" src="../../../../images/arrow__.png"/>
+      </view>
+      </moreFormId>
+    </view>
+    <!-- 商家简介 -->
+    <view class="content-wrap">
+      <!-- <view class="shop-wrap-title">———— 商家介绍 ————</view> -->
+      <!-- 商家介绍 -->
+      <view class="shop-wrap">
+          <block wx:for="{{longBanner}}" wx:key="">
+              <image src="{{item}}" mode="widthFix" style="width:100%;display:block" lazy-load="lazy-load"/>
+          </block>
+      </view>
+    </view>
+    <!-- 遮罩 -->
+		<view class="mask" hidden="{{maskFlag}}"/>
+    <!-- 分享朋友圈 -->
+		<view class="shareFriends {{shareShow?'shareShow':''}}">
+			<view class="shareFriendsBtn">
+				<button open-type="share"><image style="width:128rpx;" src="http://sttfv1jm7n.cdhttp.cn/zheng/xcximage/shareFriend.png"/></button>
+				<button bindtap="sharequan"><image src="http://sttfv1jm7n.cdhttp.cn/zheng/xcximage/shareCircle.png"/></button>
+			</view>
+			<view class="shareFriendsCancel" bindtap="shareFriends">关闭</view>
+		</view>
+		<!-- 海报 -->
+		<view class="haiBao {{haobaoShow?'':'haobaoShow'}}" hidden="{{haobaoShow}}">
+			<image src="{{haiBaoImg}}" bindtap="previewImage" data-wpypreviewimage-a="{{haiBaoImg}}"/>
+			<button bindtap="saveImg" data-wpysaveimg-a="{{haiBaoImg}}">保存至相册</button>
+			<view>分享朋友圈时可在相册选取图片</view>
+			<view class="close" bindtap="closeHaiBao">×</view>
+		</view>
+  </view>

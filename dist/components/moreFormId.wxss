@@ -1,0 +1,11 @@
+button {
+  margin: 0;
+  display: inline;
+  padding: 0;
+  line-height: normal;
+  background-color: #fff;
+}
+button::after {
+  content: '';
+  display: none;
+}

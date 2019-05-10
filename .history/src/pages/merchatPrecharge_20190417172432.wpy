@@ -1,0 +1,276 @@
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+
+export default class merchatPrecharge extends wepy.page {
+    config = {
+        navigationBarTitleText: '商户预充值',
+    };
+    components = {};
+
+    data = {
+        amount:[
+            {
+                contant:100,
+                id:0,
+                select:true
+            },
+            {
+                contant:200,
+                id:1
+            },
+            {
+                contant:300,
+                id:2
+            },
+            {
+                contant:400,
+                id:3
+            },
+            {
+                contant:500,
+                id:4
+            },
+            {
+                contant:600,
+                id:5
+            },
+        ],
+        priceValue:null,
+        detailedData:[
+            {
+                name:'张三',
+                price:200,
+                time:'2019.04.16',
+                cz:'充值',
+                status:'已到账'
+            },
+            {
+                name:'李四',
+                price:50,
+                time:'2019.04.16',
+                cz:'扣除',
+                status:'已扣除'
+            }
+        ],
+    };
+    methods = {
+        //选择金额
+        choosePrice(item){
+            console.log(item.contant)
+            if(this.priceValue == null){ //清空input
+                this.priceValue = ''
+            }else{
+                this.priceValue = null
+            }
+            this.amount.forEach(element => {
+                if(item.id == element.id){
+                    element.select = true
+                }else{
+                    element.select = false
+                }
+            });
+        },
+        // 输入框聚焦
+        bindfocus(){
+            this.amount.forEach(element => {
+                element.select = false
+            });
+        }
+    };
+
+    events = {};
+    onLoad() {
+        // 获取商户预充值信息
+        this.merchantInfo()
+    };
+    // 获取商户预充值信息
+    merchantInfo(){
+        let url = requestUrl.merchantPreloadInfo;
+        let data = {
+            token : wx.getStorageSync('token'),
+            p_id : wepy.$instance.globalData.p_id
+        };
+        requestData(url,'POST',data).then(res=>{
+            console.log(res.data.data)
+        })
+    }
+}
+</script>
+
+<template lang="wxml">
+    <view class="userBalanceBox">
+        <view>当前余额</view>
+        <view class="priceBox">
+            <view class="priceItem">
+                <view>￥</view>
+                <view>520.13</view>
+            </view>
+            <image src="http://www.qumatou.com.cn/zheng/xcximage/walletIcon.png" />
+        </view>
+    </view>
+    <view class="choosePrechagrgeBox">
+        <view class="prechagrgeTitle">充值金额</view>
+        <view class="prechagrgeItemBox">
+            <view wx:for='{{amount}}' wx:key='' class="prechagrgeItem {{item.select?'selectPrice':''}}" @tap='choosePrice({{item}})'>{{item.contant}}元</view>
+        </view>
+        <view class="inputPrice">
+            <view>输入充值金额：￥</view>
+            <view><input type="number" @focus='bindfocus' value="{{priceValue}}" placeholder="请输入充值金额" placeholder-style="font-size:26rpx"/></view>
+        </view>
+        <view class="prechagrgePrompt">预充值：用来支付外卖和代购代销的手续费。</view>
+        <view class="prechagrgeBtn">
+            <button>充值</button>
+        </view>
+    </view>
+    <!-- 充值明细 -->
+    <view class="detailedBox">
+        <view class="detailedTitle">充值明细</view>
+        <view class="detailedItemBox">
+            <view class="detailedItemTitle">
+                <view>姓名</view>
+                <view>金额</view>
+                <view>日期</view>
+                <view>操作</view>
+                <view>状态</view>
+            </view>
+            <view class="detailedItem" wx:for='{{detailedData}}' wx:key=''>
+                <view>{{item.name}}</view>
+                <view>{{item.price}}</view>
+                <view>{{item.time}}</view>
+                <view>{{item.cz}}</view>
+                <view>{{item.status}}</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+    view{
+        color: #000;
+        box-sizing: border-box;
+    }
+    .userBalanceBox{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 40rpx 30rpx;
+        box-shadow: 0 10rpx 10rpx rgb(231, 231, 231);
+        .priceBox{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20rpx;
+            .priceItem{
+                display: flex;
+                align-items: flex-end;
+                view:first-of-type{
+                    font-size: 32rpx;
+                    height: 66rpx;
+                }
+                view:last-of-type{
+                    font-size: 90rpx;
+                }
+            }
+        }
+        image{
+            width: 77rpx;
+            height: 88rpx;
+        }
+    }
+    .choosePrechagrgeBox{
+        width: 100%;
+        padding: 30rpx 30rpx 0 30rpx;
+        .prechagrgeTitle{
+            font-size: 26rpx;
+        }
+        .prechagrgeItemBox{
+            width: 100%;
+            padding-top: 22rpx;
+            display: flex;
+            justify-content: space-between;
+            flex-flow: wrap;
+            .prechagrgeItem{
+                font-size: 34rpx;
+                width: 30%;
+                background-color: #f7f7f7;
+                height: 95rpx;
+                line-height: 95rpx;
+                text-align: center;
+                margin-bottom: 20rpx;
+            }
+            .selectPrice{
+                background-color:#ffd15f; 
+            }
+        }
+        .inputPrice{
+            display: flex;
+            align-items: center;
+            view:first-of-type{
+                font-size: 26rpx;
+                margin-right: 10rpx;
+            }
+            view:last-of-type{
+                flex: 1;
+                background-color: #f7f7f7;
+                height: 95rpx;
+                line-height: 95rpx;
+                padding: 0 15rpx;
+                input{
+                    height: 95rpx;
+                    line-height: 95rpx;
+                    width: 100%;
+                }
+            }
+        }
+        .prechagrgePrompt{
+            font-size: 26rpx;
+            color: #888;
+            padding: 25rpx 0 40rpx 0;
+        }
+        .prechagrgeBtn{
+            padding-bottom: 45rpx;
+            border-bottom: 1rpx solid rgb(230, 230, 230);
+            button{
+                background-color: #ffd15f;
+                font-size: 33rpx;
+                letter-spacing: 4rpx;
+                color: #000;
+            }
+        }
+    }
+    .detailedBox{
+        width: 100%;
+        padding: 30rpx;
+        .detailedTitle{
+            font-size: 26rpx;
+            padding-bottom: 35rpx;
+        }
+        .detailedItemBox{
+            width: 100%;
+            .detailedItemTitle{
+                width: 100%;
+                height: 66rpx;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                background-color: #f7f7f7;
+                view{
+                    font-size: 26rpx;
+                }
+            }
+            .detailedItem{
+                width: 100%;
+                height: 77rpx;
+                display: flex;
+                align-items: center;
+                border-bottom: 1rpx solid rgb(230, 230, 230);
+                view{
+                    flex: .2;
+                    text-align: center;
+                    font-size: 26rpx;
+                }
+            }
+        }
+    }
+</style>

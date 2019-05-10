@@ -1,0 +1,386 @@
+<script>
+import wepy from 'wepy';
+import api from '../api/api';
+import util from '../utils/util'
+import couponShare from '../components/couponShare';
+export default class userVoucher extends wepy.page {
+    config = {
+        navigationBarTitleText: '我的卡券',
+    };
+    components = {
+        couponShare:couponShare,
+    };
+
+    data = {
+        MaskHeight:'',
+        userCoupon:[],
+        Mask:true,
+        shareBtn:'',
+        index:'',
+        inputValue:'',
+        nodata:true,
+        token:'',
+        haiBaoImg:'',
+        maskFlag_:true,
+        haobaoShow:true,
+        index:'',
+        couponId:'',            //卡券id
+        painting:null,
+        shareImage:''
+    };
+    methods = {
+        bottomShow(){
+            this.Mask = !this.Mask;
+        },
+        userInputNum(e){
+            this.inputValue = e.detail.value;
+        },
+        // 分享到群里
+        shareBefore(){
+        },
+        //分享朋友圈
+        sharequan(){
+            wx.showLoading({
+                title: '海报生成中...',
+                mask: true,
+            });
+            this.maskFlag_ = true;
+            this.haobaoShow = false;
+            this.$apply()
+            wepy.request({
+                url: 'https://api.yscc.qumatou.com.cn/api/get_coupon_share_img',
+                method: 'GET',
+                data: {
+                    path_url : 'pages/shareCpn?couponShareNum='+ this.cardShareNumber
+                },
+                header: {
+                    Accept : 'application/vnd.lingmo.v1+json',
+                    Authorization : 'Bearer '+ this.token
+                }
+            }).then(result=>{
+                wx.hideLoading();
+                this.haiBaoImg = result.data.message;
+                this.$apply()
+            });
+        },
+        closeHaiBao(){
+            this.haobaoShow = true;
+            this.maskFlag= true
+            this.$apply()
+        },
+        // 保存图片至相册
+        saveImg(imgUrl){
+            let imgSrc = imgUrl;
+            wx.downloadFile({
+                url: imgSrc,
+                success: (res)=>{
+                    wx.saveImageToPhotosAlbum({
+                        filePath: res.tempFilePath,
+                        success: (data)=>{
+                            wx.showToast({
+                                title: '保存成功',
+                                icon: 'success',
+                                duration: 2000
+                            });
+                        },
+                        fail: (err)=>{
+                                if (err.errMsg === "saveImageToPhotosAlbum:fail auth denied") {
+                                    wx.openSetting({
+                                        success(settingdata) {
+                                        if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                                            console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+                                        } else {
+                                            console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+                                        }
+                                        }
+                                    })
+                                }
+                        }
+                    });
+                }
+            });
+        }, 
+    }
+    watch = {
+        inputValue(){
+            try{
+                this.shareCoupon();
+            }catch(err){}
+        }
+    }
+    // share
+    onShareAppMessage(res){
+        let shareInfo = this.userCoupon;
+        if (res.from === 'button') {
+            // 来自页面内转发按钮
+            let activityId = this.index;
+            shareInfo.title ='送你一张'+'【'+shareInfo[activityId].title+'】'+(shareInfo[activityId].type == 1?'优惠券':(shareInfo[activityId].type == 2?'折扣券':'代金券'))+'！',
+            shareInfo.path = 'pages/shareCpn?couponShareNum='+ this.cardShareNumber
+            shareInfo.imageUrl = 'http://applet.qumatou.com.cn/static/shop/123yy.png'
+        }
+        return shareInfo
+    };
+    events = {
+        Popup:(index,couponId)=>{
+            this.Mask = false
+            this.index = index;
+            this.couponId = couponId;
+            this.shareCoupon()
+        }
+    }
+    //卡券列表
+    getVoucherList(){
+        wepy.request({
+            url: api.apiMall + 'api/user_coupons',
+            method: 'GET',
+            header:{
+                'Accept':'application/vnd.lingmo.v1+json',
+                'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+                'Authorization':'Bearer ' + this.token
+            },
+        }).then((res)=>{
+            res.data.message.forEach((item,index)=>{
+                if(item.begin_time == 0 || item.end_time==0){
+                    return false
+                }else{
+                    item.begin_time = util.timestampToTime(item.begin_time);
+                    item.end_time = util.timestampToTime(item.end_time);
+                }
+            })
+            this.userCoupon = res.data.message;
+            this.$apply()
+            if(!res.data.message.length){
+                this.nodata = false
+                this.$apply()
+            }else{
+                this.nodata = true
+                this.$apply()
+            }
+        });
+    }
+    //分享卡券
+    shareCoupon(){
+        const data = {
+            coupon_id:this.couponId
+        };
+        wepy.request({
+            url: api.apiMall+'api/share_coupons',
+            method: 'POST',
+            data: data,
+            header:{
+                'Accept':'application/vnd.lingmo.v1+json',
+                'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+                'Authorization':'Bearer ' + this.token
+            },
+        }).then((res)=>{
+            console.log(res)
+            this.cardShareNumber = res.data.message.uuid;
+            this.$apply()
+        });
+    }
+    onLoad() {
+        // this.initCanvas()
+        wx.showToast({
+            title: '加载中...',
+            icon: 'loading',
+            duration: 1500,
+            mask: false,
+        });
+        //获取token
+        let token = wx.getStorageSync("access_token");
+        this.token = token.access_token;
+        this.getVoucherList();
+        this.$apply();
+        wx.getSystemInfo({
+            success: (res)=> {
+                this.MaskHeight = res.windowHeight
+                this.$apply()
+            }
+        })
+    }
+}
+</script>
+
+<template lang="wxml">
+    <view class='container'>
+        <couponShare :syncTitle.sync="userCoupon"/>
+         <!-- 分享弹窗 -->
+        <view class='sharePopupBox' hidden='{{Mask}}' style="background-image: url('http://applet.qumatou.com.cn/static/shop/youhuiquanshare.png');height:514rpx;">
+            <view class='sharePopupBox_bottom'>
+                <!-- <view style='font-size:30rpx;margin-top:385rpx;'>请输入分享次数:</view> -->
+                <!-- <input  placeholder='输入分享张数(当前{{userCoupon[index].num}}张)' class='cardNumber' placeholder-style='font-size:30rpx;text-align:center' type='number' maxlength='3' value='{{inputValue}}' bindblur='userInputNum' style='font-size:30rpx;padding-left:0rpx;top:110rpx;border:none;border-bottom:1rpx solid #ececec;text-align:center'/> -->
+                <button class='btn' @tap.stop='shareBefore' open-type='share' style='width:200rpx;height:70rpx;line-height:70rpx;left:0;font-size:28rpx;'>分享好友</button>
+                <button class='btn' @tap.stop='sharequan' style='width:200rpx;height:70rpx;line-height:70rpx;right:0;font-size:28rpx;'>发朋友圈</button>
+            </view>
+        </view>
+        <view hidden='{{nodata}}' class='nodata'>暂无卡券</view>
+        <!-- 遮罩 -->
+        <view class='Mask' @tap='bottomShow' hidden='{{Mask}}' style="height:100%;"></view>
+        <!-- 海报 -->
+        <view class="haiBao {{haobaoShow?'':'haobaoShow'}}" hidden='{{haobaoShow}}'>
+            <image src='{{haiBaoImg}}'/>
+            <button @tap='saveImg({{haiBaoImg}})'>保存至相册</button>
+            <view>分享朋友圈时可在相册选取图片</view>
+            <view class='close' @tap='closeHaiBao'>×</view>
+        </view>
+    </view>
+</template>
+
+<style lang="less">
+.share-image {
+        display: block;
+        width: 600rpx;
+        height: 888rpx;
+        margin: 40rpx auto;
+        border: 1px solid black;
+    }
+
+    button {
+        margin-top: 20rpx;
+    }
+    page{
+        width:100%;
+        height:100%;
+        background-color: #fff;
+    }
+    .Mask{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9;
+        background-color: rgba(0, 0, 0, .6);
+        width: 100%;
+        height:100%;
+    }
+    .container{
+        width:100%;
+        height:100%;
+        overflow-y:auto;
+    }
+    .nodata{
+        text-align: center;
+        margin-top: 550rpx;
+    }
+    .sharePopupBox{
+        box-sizing: border-box;
+        padding: 0 30rpx;
+        position: absolute;
+        background-image: url('http://applet.qumatou.com.cn/static/shop/shareBg_.png');
+        background-size: 100%;
+        z-index: 10;
+        width: 524rpx;
+        height: 860rpx;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: 295rpx;
+        .sharePopupBox_top{
+            margin-top: 265rpx;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            view:nth-child(1){
+                font-size: 30rpx;
+                color: #000;
+                font-weight: bold;
+            }
+            view:nth-child(2){
+                font-size: 74rpx;
+                color: #000;
+                text{
+                    font-size: 50rpx;
+                }
+            }
+        }
+        .sharePopupBox_bottom{
+            margin-top: 50rpx;
+            position: relative;
+            view:nth-child(1){
+                font-size: 27rpx;
+                color: #000;
+            }
+            .sharePopupBox_bottomSelectBtn{
+                padding-top: 25rpx;
+                display: flex;
+                padding-bottom: 25rpx;
+                .sharePopupBox_bottomSelectBtnItem{
+                    flex: .5;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    icon{
+                        margin: 15rpx;
+                    }
+                    view{
+                        font-size: 28rpx;
+                    }
+                }
+            }
+            .cardNumber{
+                box-sizing: border-box;
+                padding-left: 25rpx;
+                height: 60rpx;
+                line-height: 60rpx;
+                font-size: 27rpx;
+                width: 380rpx;
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: auto;
+                border: 1rpx solid #f1f1f1;
+            }
+            button{
+                width: 350rpx;
+                height: 90rpx;
+                line-height: 90rpx;
+                background-color: #ffd270;
+                position: absolute;
+                top: 334rpx;
+            }
+        }
+    }
+    //海报
+    .haiBao{
+        background-color: #fff;
+        box-sizing: border-box;
+        width: 100%;
+        height: 1000rpx;
+        padding: 20rpx 118rpx 60rpx;
+        position: fixed;
+        bottom: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translateY(1000rpx);
+        transition: all .7s;
+        image{
+            height: 800rpx;
+            width: 100%;
+            margin-bottom: 10rpx;
+        }
+        button{
+            height: 90rpx;
+            width: 100%;
+            border-radius: 50rpx;
+            background-color: #ffd270;
+            font-size: 34rpx;
+            line-height: 90rpx;
+        }
+        view{
+            padding-top: 20rpx;
+            font-size: 24rpx;
+            color: #666;
+        }
+        .close{
+            position: absolute;
+            right: 35rpx;
+            top: 0rpx;
+            font-size: 40rpx;
+            color: #666;
+        }  
+    }
+    .haobaoShow{
+        transform: translateY(0) !important;
+    } 
+</style>

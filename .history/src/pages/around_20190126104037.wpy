@@ -1,0 +1,360 @@
+<style lang="less">
+    #around{
+        width:100%;
+        height:100%;
+        display:flex;
+        flex-direction:column;
+    }
+    // 轮播
+    .banner{
+        width:100%;
+        height:350rpx;
+        margin:0 auto;
+        padding-bottom:50rpx;
+        box-sizing:border-box;
+        swiper{
+            width:100%;
+            height:100%;
+            image{
+                display:block;
+                width:100%;
+                height:100%;
+                border-radius: 6rpx;
+            }
+        }
+    }
+    // scroll-view
+    .weui-navbar{
+        width: 100%;
+        white-space: nowrap; 
+        background: white;
+        padding:0 20rpx;
+        box-sizing:border-box;
+    }
+    .weui-navbar .default-item{
+        display: inline-block;
+        text-align: center;
+        font-size: 32rpx;
+        box-sizing: border-box;
+        padding: 0rpx 20rpx 20rpx;
+        color:#999;
+    }
+    swiper{
+        margin:0;
+        padding:0;
+    }
+    .weui-navbar .item_on{
+        color: #333;
+    }
+    .swiper-box .swiper-item{
+        text-align: center;
+        height: 100%;
+        will-change:no-transform;
+    }
+    .swiper-wrap{
+        width:100%;
+        flex:1;
+    }
+    .slide-view{
+        width:710rpx;
+        height:100%;
+        margin:0 auto;
+        border-top:2rpx solid #f3f3f3;
+        padding-bottom:20rpx;
+        box-sizing:border-box;
+    }
+    // 列表
+    .shop-list-wrap{
+        width:100%;
+        height:196rpx;
+        margin-top:20rpx;
+        display:flex;
+        .shop-img{
+            width:180rpx;
+            height:180rpx;
+            border-radius:6rpx;
+            margin-top:8rpx;
+        }
+        .shop-info-wrap{
+            flex:1;
+            height:100%;
+            padding-left:16rpx;
+            box-sizing:border-box;
+            .title-wrap{
+                width:100%;
+                height:72rpx;
+                padding-top:24rpx;
+                box-sizing:border-box;
+                font-size:28rpx;
+                color: #333333;
+                display:flex;
+                justify-content: space-between;
+                .title{
+                    width:auto;
+                }
+                .position{
+                    height:100%;
+                    flex:1;
+                    text-align:right;
+                    image{
+                        display:inline-block;
+                        width:20rpx;
+                        height:25rpx;
+                    }
+                }
+            }
+            .star-wrap{
+                width:100%;
+                height:26rpx;
+                .star{
+                    float:left;
+                    width:165rpx;
+                    height:24rpx;
+                    position:relative;
+                }
+                .average{
+                    float:left;
+                    font-size:24rpx;
+                    color: #c55159;
+                    margin-left:16rpx;
+                }
+            }
+            .price{
+                font-size: 28rpx;
+                color: #fd2323;
+                margin-top:30rpx;
+                text-align:left;
+            }
+        }
+    }
+    //星星
+    .star-image{
+        position: absolute;
+        top: 0rpx;
+        width: 28rpx;
+        height: 28rpx;
+        src: "../images/star.png";
+    }
+    .item1{
+        position: absolute;
+        top: 0rpx;
+        width: 28rpx;
+        height: 28rpx;
+    }
+    .line{
+        width:26rpx;
+        height:6rpx;
+        color: #333;
+        border-bottom:6rpx solid #333;
+        border-radius:4rpx;
+        margin:0 auto;
+    }
+    .cover-mask{
+        width:100%;
+        height:100%;
+        background-color:#fff;
+        position:absolute;
+        top:0;
+        bottom:0;
+    }
+</style>
+<template>
+    <view id="around" style="display:flex;">
+        <!-- 轮播图 -->
+        <view class="banner" style="border-radius: 6rpx;">
+            <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+                <block wx:for="{{imgUrls}}" wx:key="index">
+                    <swiper-item>
+                        <image src="{{item.cover}}"  mode="aspectFill" class="slide-image" width="355" height="150"/>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+        <!-- swiper -->
+        <view style="width:100%;height:104rpx;">
+            <scroll-view scroll-x="true" class="weui-navbar" >
+                <block wx:for-items="{{tabs}}" wx:key="index">
+                    <view style="display:inline-block;width:auto;height:auto;" id="navbar">
+                        <view id="{{index}}" data-idx="{{item.id}}" class="default-item" bindtap="tabClick" style="display:inline-block;">
+                            <text style="height:100%;" class="{{activeIndex == index ?'item_on':''}}">{{item.title}}</text>
+                            <view class="{{activeIndex == index ?'line':''}}"></view>
+                        </view>
+                    </view>
+                </block>
+            </scroll-view>
+        </view>
+        <!-- 商户列表 -->
+        <view class="swiper-wrap" id="swiper-wrap" style="width:710rpx;height:100%;margin:auto;">
+            <view class="shop-list-wrap" wx:for="{{shopInfo}}" wx:key="index" wx:for-item="item1" data-id="{{item1.id}}" data-type="{{item1.shop_type}}" @tap.stop="toShop">
+                <image class="shop-img" src="{{item1.cover_url}}"/>
+                <view class="shop-info-wrap">
+                <view class="title-wrap">
+                    <view class="title">{{item1.title}}</view>
+                    <view class="position">
+                    <image src="../images/location.png" />
+                    <text style="margin-left:10rpx;">{{item1.distance}}</text>
+                    </view>
+                </view>
+                <view class="star-wrap">
+                    <view class="star">
+                    <view class = 'startBox'>
+                        <block wx:for="{{stars}}" wx:key='idx'>
+                        <image class="star-image" style="left: {{item*30}}rpx;" src="{{item1.score > item ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+                            <view class="item" style="left:0rpx" data-key="{{item+0.5}}"></view>
+                            <view class="item" style="left:25rpx" data-key="{{item+1}}"></view>
+                        </image>
+                        </block>
+                    </view>
+                    </view>
+                </view>
+                </view>    
+            </view>
+        </view>
+    </view>
+</template>
+<script>
+    import wepy from 'wepy'
+    import api from '../api/api'
+    import app from '../utils/app'
+    import commentStar from '../components/commentStar'
+    export default class Around extends wepy.page{
+        config = {
+            navigationBarTitleText: '附近',
+            enablePullDownRefresh:true,
+            backgroundTextStyle:'dark',
+        }
+        data = {
+            lng:'',
+            lat:'',
+            shopInfo:[],
+            stars: [0, 1, 2, 3, 4],
+            normalSrc: 'http://applet.qumatou.com.cn/static/food/star.png',
+            selectedSrc: 'http://applet.qumatou.com.cn/static/food/starWhole.png',
+            halfSrc:'http://applet.qumatou.com.cn/static/food/starHalf.png',
+            key: 0,
+            imgUrls: [],
+            indicatorDots: false,
+            autoplay: true,
+            interval: 5000,
+            duration: 1000,
+            tabs:[],
+            activeIndex:0,
+            slideOffset:0,
+            shopInfo:[],
+            page:1,
+            cateId:this.tabs? this.tabs[0].id : 1,
+            winHeight:''
+        }
+        methods = {
+            scollTop (e) {
+                wx.pageScrollTo({
+                    scrollTop: this.winHeight,
+                    duration: 300
+                })
+            },
+            //跳转店铺
+            toShop(e){
+                let dataset = e.currentTarget.dataset;
+                if(dataset.type == 1 || dataset.type == 2){
+                    //电商和门店流程
+                    wx.navigateTo({
+                        url:'./e/page/index/index?id=' + dataset.id + '&shopType=' + dataset.type
+                    })
+                }else{
+                    //外卖和超市
+                    wx.navigateTo({
+                        url:'./f/page/index/index?id=' + dataset.id + '&shopType=' + dataset.type
+                    })
+                }
+            },  
+        }
+        tabClick(e){
+            var idIndex = e.currentTarget.id;
+            this.activeIndex = idIndex;
+            this.$apply();
+            this.getShopList(e.currentTarget.dataset.idx);
+        }
+        bindChange(e){
+            var current = e.detail.current;
+            if((current+1)%4 == 0){}
+            var current = e.detail.current;
+            if((current+1)%4 == 0){}
+            var offsetW = current * this.mtabW;    //2种方法获取距离文档左边有多少距离
+            this.activeIndex = current;
+            this.slideOffset = offsetW;
+        }
+        //最近使用、分类
+        async getClassify(){
+            const url = api.apiMall + 'api/home';
+            await wepy.request({
+                url: url,
+                header:{
+                    'Accept':'application/vnd.lingmo.v1+json',
+                    'Content-Type':'application/x-www-form-urlencoded;charset=utf-8',
+                    'Authorization':'Bearer ' + this.token
+                },
+                method: 'GET',
+            }).then(res=>{
+                this.imgUrls = res.data.message.ad;
+                this.tabs = res.data.message.cate;
+                if(this.lat && this.lng && this.tabs){
+                    try{
+                        this.getShopList();
+                    }catch(err){}   
+                }
+                this.$apply();
+            })
+        }
+        //请求分类数据
+        async getShopList(cateId){
+            const url = api.apiMall + 'api/merchant'
+            const data = {
+                lng:this.lng,
+                lat:this.lat,
+                page:this.page,
+                industry_id:cateId ? cateId : this.tabs[0].id
+            }
+            await wepy.request({
+                url: url,
+                header:{
+                    'Accept':'application/vnd.lingmo.v1+json',
+                    'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'
+                },
+                method: 'GET',
+                data: data,
+            }).then(res=>{
+                this.shopInfo = res.data.message;
+                wx.stopPullDownRefresh();
+                wx.hideLoading();
+                this.$apply();
+            })
+        }
+        onShow(){
+            //获取token
+            let token = wx.getStorageSync("access_token");
+            this.token = token.access_token;
+            this.activeIndex = 0;
+            wx.getLocation({
+                type: 'wgs84',
+                success:(res=>{
+                    this.notButton = 'block';
+                    this.button = 'none';
+                    this.lng = res.longitude;
+                    this.lat = res.latitude;
+                    if(this.token){
+                        this.getClassify();
+                    }else{
+                        let url = './login';
+                        app.is_skip(url);
+                    }
+                    this.$apply();
+                }),
+                fail:(res=>{
+                    this.notButton = 'none';
+                    this.button = 'block';
+                    this.$apply();
+                })
+            })
+        }
+    }
+</script>

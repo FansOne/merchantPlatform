@@ -1,0 +1,16 @@
+
+  <view class="container">
+    <view class="inputBox">
+      <view class="title">{{title}}</view>
+      <view class="inputItemBox">
+        <view class="prompt">消费金额</view>
+        <view class="inputItem">
+          <view>￥</view>
+          <input placeholder="0.00" type="digit" focus="{{inputFocus}}" maxlength="8" value="{{inputValue}}" bindinput="changeInput"/>
+        </view>
+      </view>
+      <view class="payBtn">
+        <button type="primary" disabled="{{btnDisabled}}" bindtap="goRecharge">确认支付</button>
+      </view>
+    </view>
+  </view>

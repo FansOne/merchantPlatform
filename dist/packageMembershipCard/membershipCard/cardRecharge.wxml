@@ -1,0 +1,47 @@
+
+    <!-- 用户自定义输入充值金额弹窗 -->
+    <view class="inputBox {{inputStatus?'inputBoxShow':''}}">
+        <view class="popupItem">
+            <view class="popup_top">
+                <view bindtap="closePopup">×</view>
+                <view>请输入充值金额</view>
+            </view>
+            <veiw class="inputItemBox">
+                <view class="userInput_">
+                    <view>￥</view>
+                    <input placeholder="输入要充值的金额" type="number" bindconfirm="bindconfirm" focus="{{inputStatus}}" maxlength="7" bindinput="bindinput" value="{{userValue}}"/>
+                </view>
+                <view class="priceRules">
+                    <view>实付：￥{{userValue?userInput.elasticBigDec1:'0.00'}}</view>
+                    <view>赠送：￥{{userValue?userInput.givenMoenyBigDec1:'0.00'}}</view>
+                </view>
+            </veiw>
+            <button class="rechargeBtn" bindtap="immediatelyRecharge">立即充值</button>
+        </view>
+    </view>
+    <view class="cardBalance">
+        卡内余额：<text>{{cardItem.balance || balance}}</text>元
+    </view>
+    <view class="bannerBox"><image src="../../images/cardRechargeBanner.png"/></view>
+    <view class="rechargeTitle">选择充值金额</view>
+    <view class="selectBox">
+        <view  wx:for="{{selectPay}}" wx:key="" class="selectBox_item" bindtap="selectPay" data-wpyselectpay-a="{{item}}">
+            <view class="selectBox_item_" style="border:1px solid {{item.borderColor}}">
+                <block wx:if="{{item.id != '其他金额'}}">
+                    <view style="color:{{item.moneyColor}}">{{item.elasticBigDec}}元</view>
+                    <view style="color:{{item.beanColor}}">赠送￥{{item.givenMoenyBigDec}}</view>
+                </block>
+                <block wx:else>
+                    <view style="color:{{item.moneyColor}}">{{item.id}}</view>
+                    <view style="color:{{item.beanColor}}"/>
+                </block>
+                <view class="sanjiao" style="border-color: transparent transparent {{item.sanJiaoColor}} transparent;"/>
+            </view>
+        </view>
+    </view>
+    <view class="bottomPriceBox">
+        <view>实际付款：<text>{{selectElement.elasticBigDec}}元</text></view>
+        <button bindtap="immediatelyRecharge">立即充值</button>
+    </view>
+    <!-- 遮罩 -->
+    <view class="mask"  wx:if="{{inputStatus}}" bindtap="closePopup"/>

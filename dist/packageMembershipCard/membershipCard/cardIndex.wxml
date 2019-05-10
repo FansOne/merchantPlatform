@@ -1,0 +1,108 @@
+
+    <view class="container">
+        <view class="userMesseBox">
+            <view class="userMesseContant">
+                <view class="userMesseContant_left">
+                    <image src="{{info.m_logo}}"/>
+                    <view>{{info.m_name}}</view>
+                </view>
+                <view class="userMesseContant_right">
+                    <!-- <button class='userMesseContant_rightShare' bindtap='bottomShow'>
+                        <view>分享</view>
+                        <image src='../../images/分享.png'/>
+                    </button> -->
+                    <view class="userMesseContant_rightMoney">余额<text>{{amount}}</text></view>
+                    <view class="userMesseContant_rightRecharge" bindtap="cardRecharge">立即充值</view>
+                </view>
+            </view>
+        </view>
+        <!-- tab -->
+        <view class="tabBox">
+            <!-- tab标题 -->
+            <view class="navbar" style=" z-index:9">
+                <!--循环-->
+                <view  wx:for="{{navbar}}" wx:key="unique" class="item {{currentTab==index ? 'active' : ''}}" bindtap="navbarTap" data-wpynavbartap-a="{{index}}">
+                    {{item}}
+                </view>
+            </view>
+            <!-- tabContant -->
+            <!-- 充值记录 -->
+            <view hidden="{{currentTab !== 0}}" class="navbar_contantBox">
+                <scroll-view scroll-y style="height:745rpx;"  wx:if="{{noRechargeRecord}}">
+                    <view wx:for="{{rechargeRecord}}" wx:key="" class="rechargeRecord">
+                        <view>+ ￥{{item.elasticmoney}}<view><block wx:if="{{item.givenmoney}}"><block>(</block>充值赠送￥{{item.givenmoney}}<block>)</block></block></view></view>
+                        <view>{{item.chargetime}}</view>
+                    </view>
+                </scroll-view>
+                <view wx:else class="noStatus">暂无相关充值记录!</view>
+            </view>
+            <!-- 消费记录 -->
+            <view hidden="{{currentTab !== 1}}" class="navbar_contantBox">
+                <scroll-view scroll-y style="height:745rpx;" wx:if="{{noRechargeRecord}}">
+                    <view wx:for="{{rechargeRecord}}" wx:key="" class="rechargeRecord">
+                        <view style="color:#333;">- ￥{{item.elasticmoney}}</view>
+                        <view>{{item.chargetime}}</view>
+                    </view>
+                </scroll-view>
+                <view wx:else class="noStatus">暂无相关消费记录!</view>
+            </view>
+            <!-- 我的子卡 -->
+            <!-- <view hidden="{{currentTab !== 2}}" class='navbar_contantBox'>
+                <scroll-view scroll-y style='height:745rpx;' wx:if='{{noSubcard}}'>
+                    <view wx:for='{{Subcard}}' wx:key='' class="Subcard noOverdue">
+                        <view class="Subcard_left">
+                            <view>来自{{item.share_nickname}}的分享卡</view>
+                            <view wx:if="{{item.num != 0}}">待使用次数：{{item.num}}次</view>
+                            <view wx:if="{{item.num == 0}}">待使用次数：无限使用!</view>
+                        </view>
+                        <view class="Subcard_right"> -->
+                            <!-- <image wx:if='{{!item.type}}' src='http://applet.qumatou.com.cn/static/shop/cardChapter.png' class='cardChapter'/> -->
+                            <!-- <view>金额</view>
+                            <view>￥{{item.amount}}</view>
+                        </view>
+                    </view>
+                </scroll-view>
+                <view wx:else class='noStatus'>当前无可使用的会员卡</view>
+            </view> -->
+            <!-- 我的分享 -->
+            <!-- <view hidden="{{currentTab !== 3}}" class='navbar_contantBox'>
+                <scroll-view scroll-y style='height:745rpx;' wx:if='{{noShareCard}}'>
+                    <view wx:for='{{shareCard}}' wx:key='' class="shareCardBox">
+                        <view class="shareCardBox_top">
+                            <image src='{{item.share_avatar}}'/>
+                            <view class="shareCardBox_topRight">
+                                <view>{{item.nickname}}</view>
+                                <view>{{item.updated_at}}</view>
+                            </view>
+                        </view>
+                        <view class="shareCardBox_bottom">
+                            <view wx:if="{{item.last_num != -1}}" style='font-size:24rpx;text-align: left;'>待使用次数：{{item.last_num}}次</view>
+                            <view wx:else style='font-size:24rpx;text-align: left;'>待使用次数：无限使用!</view>
+                            <view bindtap="revokeShare({{item.id}})">撤销分享</view>
+                        </view>
+                    </view>
+                </scroll-view>
+                <view wx:else class='noStatus'>暂无分享卡!</view>
+            </view> -->
+        </view>
+        <!-- 分享弹窗 -->
+        <view class="sharePopupBox" hidden="{{Mask}}">
+            <view class="sharePopupBox_top">
+                <view>会员卡金额</view>
+                <view><text>￥</text>{{info.money}}</view>
+            </view>
+            <view class="sharePopupBox_bottom">
+                <view>请选择分享后好友使用次数:</view>
+                <view class="sharePopupBox_bottomSelectBtn">
+                    <view class="sharePopupBox_bottomSelectBtnItem" wx:for="{{SelectIcon}}" wx:key="" bindtap="selectIcon" data-wpyselecticon-a="{{index}}">
+                        <icon type="success" size="20" color="{{item.color}}"/>
+                        <view>{{item.title}}</view>
+                    </view>
+                </view>
+                <input hidden="{{inputHidden}}" placeholder="输入该卡使用次数" class="cardNumber" placeholder-style="font-size:27rpx" type="number" maxlength="3" bindblur="userInputNum"/>
+                <button bindtap="shareBefore" open-type="{{shareBtn}}">分享好友</button>
+            </view>
+        </view>
+        <!-- 遮罩 -->
+        <view class="Mask" bindtap="bottomShow" hidden="{{Mask}}" style="height:{{MaskHeight}}px"/>
+    </view>

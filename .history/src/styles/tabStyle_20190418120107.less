@@ -1,0 +1,146 @@
+.tab-h{
+	// padding-left: 20rpx;
+    width: 100%; 
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #ffffff; 
+    font-size: 16px; 
+    white-space: nowrap;
+    z-index: 99;
+	padding-bottom: 15rpx;
+	margin-top: 30rpx;
+	background-color: #e5e5e5;
+}
+.tab-item{
+	// border: 1px solid red;
+	color: #333333;
+	font-size: 30rpx;
+	margin:0 60rpx;
+	display: inline-block;
+}
+.tab-item.active{
+	font-size: 40rpx;
+	color: #333333;
+	font-weight: bold;
+	position: relative;
+}
+.tab-item.active:after{ 
+	content: "";
+	display: block;
+	height: 8rpx;
+	width: 50%;
+	background: #f3825d;
+	position: absolute; 
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	border-radius: 16rpx;
+}
+
+.tab-content{
+	height:100%;
+}
+.scoll-h{
+	height: 100%;
+	.scoll-flex{
+		box-sizing: border-box;
+		height: 100%;
+		display: flex;
+		flex-flow: wrap;
+		background-color: #e5e5e5;
+		justify-content: space-between;
+		padding: 0 10rpx;
+		navigator{
+			width: 49%;
+			background-color: #ffffff;
+			border-radius: 15rpx;
+			margin-bottom: 25rpx;
+			.item-ans{ 
+				width: 100%;
+				padding: 20rpx;
+				box-sizing: border-box; 
+			}
+			.avatar{
+				width: 100%;
+				height: 340rpx;
+				position: relative;
+				.img{
+					width: 100%;
+					height: 100%;
+				}
+				.doyen{
+					width: 40rpx;
+					height: 40rpx;
+					position: absolute;
+					bottom: -2px;
+					right: 20rpx;
+				}
+			}
+			.expertInfo{
+				box-sizing: border-box;
+				width: 100%;
+				padding: 10rpx 0;
+				.name{
+					width: 100%;
+					color: #333333;
+					font-size: 30rpx;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
+					overflow: hidden;
+				}
+				.tag{
+					width: 100%;
+					font-size: 22rpx;
+					color: #b1b1b1;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
+					overflow: hidden;
+				
+				}
+				.price{
+					width: 100%;
+					display: flex;
+					align-items: center;
+					.quan{
+						color: #fd2323;
+						font-size: 22rpx;	
+						border: 2px solid #fd2323;
+						height: 36rpx;
+						width: 60rpx;
+						text-align: center;
+						line-height: 36rpx;
+					}
+					.moneys{
+						padding-left: 20rpx;
+						color: #fd2323;
+						font-size: 32rpx;
+						height: 40rpx;
+						line-height: 40rpx;
+					}
+				}
+			}
+		}
+	}
+}
+//推荐商品
+.guessLike{
+		display: flex;
+		flex-direction: column;
+		padding: 40rpx 30rpx 120rpx 30rpx;
+		.guessLike-title{
+			display:inline-block;
+			padding-bottom: 35rpx;
+			text-align: center;
+			color: #969696;
+		}
+	}
+.guessLike-bottomTitle{
+	padding-bottom: 0rpx !important;
+	padding-top: 20rpx !important;
+	height: 100%;
+	font-size: 24rpx;
+}	

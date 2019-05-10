@@ -1,0 +1,25 @@
+<script>
+import wepy from 'wepy';
+
+export default class integralExplain extends wepy.page {
+    config = {
+        navigationBarTitleText: '赚取积分',
+    };
+    components = {};
+
+    data = {};
+    methods = {};
+
+    events = {};
+    onLoad() {};
+}
+</script>
+
+<template lang="wxml">
+    <view>
+    </view>
+</template>
+
+<style lang="less">
+/** less **/
+</style>

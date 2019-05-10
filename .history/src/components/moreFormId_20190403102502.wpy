@@ -1,0 +1,51 @@
+<template lang="wxml">
+    <form report-submit='true' bindsubmit='getFormId'>
+        <button form-type='submit'>
+            <slot></slot>
+        </button>
+    </form>
+</template>
+
+<script>
+import wepy from 'wepy';
+import requestUrl from '../api/requestUrl'
+import { requestData } from '../api/requestData'
+export default class moreFormId extends wepy.component {
+    components = {};
+
+    data = {};
+    methods = {
+        getFormId(e) {
+            let url = requestUrl.updateFormid;
+            let data = {
+                p_id: wepy.$instance.globalData.p_id,
+                m_id: 33,
+                type: 0,
+                token: wx.getStorageSync('token'),
+                formid: e.detail.formId
+            }
+            if(e.detail.formId == 'the formId is a mock one'){
+                return
+            }else{
+                requestData(url,'POST',data)
+            }
+        }
+    };
+
+    events = {};
+    // Other properties
+}
+</script>
+
+<style lang="less">
+    button {
+        margin: 0;
+        display: inline;
+        padding: 0;
+    }
+
+    button::after {
+        content: '';
+        display: none;
+    }
+</style>

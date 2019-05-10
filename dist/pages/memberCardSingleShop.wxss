@@ -1,0 +1,128 @@
+.card-words-wrap {
+  width: 710rpx;
+  height: auto;
+  font-size: 30rpx;
+  display: flex;
+  position: absolute;
+  bottom: 200rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+#member-list {
+  width: 100%;
+  height: 1080rpx;
+  background-image: url('http://www.qumatou.com.cn/zheng/xcximage/u-mem-b.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.userMesseContant {
+  width: 710rpx;
+  margin: 20rpx auto 0;
+  transform: translateY(35rpx);
+  background-image: url('http://www.qumatou.com.cn/zheng/xcximage/cardbg.png');
+  height: 250rpx;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 20rpx;
+  display: flex;
+  position: absolute;
+  bottom: 430rpx;
+  left: 20rpx;
+}
+.userMesseContant .userMesseContant_left,
+.userMesseContant .userMesseContant_right {
+  position: absolute;
+  left: 0;
+  height: 250rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+}
+.userMesseContant .userMesseContant_left {
+  display: flex;
+}
+.userMesseContant .userMesseContant_left view {
+  color: #fff;
+  font-size: 32rpx;
+  padding-left: 20rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  margin-top: 50rpx;
+}
+.userMesseContant .userMesseContant_left image {
+  margin-left: 30rpx;
+  margin-top: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+.userMesseContant .userMesseContant_right {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightShare {
+  color: #fff;
+  width: 125rpx;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightShare view {
+  font-size: 25rpx;
+  margin-right: 10rpx;
+  color: #fff;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightShare image {
+  width: 35rpx;
+  height: 37rpx;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightMoney {
+  margin-top: 150rpx;
+  font-size: 30rpx;
+  color: #fff;
+  position: relative;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightMoney text {
+  display: inline-block;
+  margin-left: 17rpx;
+  font-size: 48rpx;
+}
+.userMesseContant .userMesseContant_right .userMesseContant_rightRecharge {
+  margin-top: 55rpx;
+  color: #ffd270;
+  font-size: 30rpx;
+}
+.userMesseContant .userMesseContant_right .image {
+  display: block;
+  width: 240rpx;
+  height: 169rpx;
+  position: absolute;
+  top: 0;
+  right: 10rpx;
+}
+.member-btn {
+  width: 650rpx;
+  height: 70rpx;
+  background-color: #ffd265;
+  position: absolute;
+  bottom: 76rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 28rpx;
+  line-height: 70rpx;
+  text-align: center;
+  border-radius: 50rpx;
+}
